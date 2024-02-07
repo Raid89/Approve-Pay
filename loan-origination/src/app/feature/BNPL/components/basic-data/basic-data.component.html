@@ -1,0 +1,97 @@
+
+
+<div class="container">
+    <div class="contenedor-datos-basicos">
+        <p class="title-approbe">¡Haz tu compra ahora con Approbe! ¡Paga después!</p>
+        <p class="title-datos-basicos">Ingresa tus datos</p>
+        <app-form [controls]="controls$ | async" (sendInfo)="getInfoForm($event)"></app-form>
+    </div>
+</div>
+<!-- <div class="containerPrincipal">
+    <div class="container1">
+        <div id="stepper1" class="bs-stepper" [ngClass]="{'vertical': verticalclass}">
+
+            <div class="bs-stepper-header">
+                <p>Datos Básicos</p>
+            </div>
+
+            <div class="bs-stepper-content">
+                <div class="form">
+                    <div class="content" [ngClass]="{'contentVertical': pantalla>small}">
+                        <form class="form-group" [formGroup]="basicData">
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label>Tipo Identificación</mat-label>
+                                <mat-select formControlName="idType">
+                                    <mat-option *ngFor="let doc of generalParameters['identification']" [value]="doc">
+                                        {{doc.description}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="basicData.controls['idType'].invalid">
+                                    {{getErrorMessage(basicData.controls['idType'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label># Identificación</mat-label>
+                                <input autocomplete="off" type="number" matInput formControlName="idPerson">
+                                <mat-error *ngIf="basicData.controls['idPerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['idPerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label>Fecha de Expedición</mat-label>
+                                <input autocomplete="off" matInput [matDatepicker]="picker"
+                                    formControlName="idExpeditionDatePerson" [min]="minDate" [max]="maxDate">
+                                <mat-hint>DD/MM/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="basicData.controls['idExpeditionDatePerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['idExpeditionDatePerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label>Nombre</mat-label>
+                                <input autocomplete="off" type="text" matInput formControlName="namePerson">
+                                <mat-error *ngIf="basicData.controls['namePerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['namePerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label>Apellido</mat-label>
+                                <input autocomplete="off" type="text" matInput formControlName="lastNamePerson">
+                                <mat-error *ngIf="basicData.controls['lastNamePerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['lastNamePerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label># Celular</mat-label>
+                                <input autocomplete="off" type="number" matInput formControlName="phonePerson"
+                                    maxlength="15">
+                                <mat-error *ngIf="basicData.controls['phonePerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['phonePerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-padding" appearance="outline">
+                                <mat-label>Correo eléctronico</mat-label>
+                                <input autocomplete="off" type="text" matInput formControlName="emailPerson">
+                                <mat-error *ngIf="basicData.controls['emailPerson'].invalid">
+                                    {{getErrorMessage(basicData.controls['emailPerson'])}}</mat-error>
+                            </mat-form-field>
+
+                            <section class="example-section mt-4 containerHabeas">
+                                <mat-checkbox formControlName="habeasdata"></mat-checkbox>
+                                <button> He leído y acepto la política de
+                                    habeas data, tratamiento de datos personales, terminos y condiciones</button>
+                            </section>
+
+                            <div class="botonera">
+                                <button id="cotinue" (click)="validationId()"
+                                    class="btn btn-outline btn-blue">Continuar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

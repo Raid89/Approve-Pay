@@ -1,0 +1,12 @@
+<div>
+  <form class="row" (ngSubmit)="onSubmit()" [formGroup]="form">
+    
+    <div [ngClass]="control.layout" *ngFor="let control of controls">
+      <div class="col-md-12">
+        <p class="title">{{control.title}}</p>
+      </div>
+      <app-form-control [control]="control" [form]="form"></app-form-control>
+    </div>
+    <button class="btn btn-azul btn-redondo" type="submit" [disabled]="!form.valid">Continuar</button>
+  </form>
+</div>

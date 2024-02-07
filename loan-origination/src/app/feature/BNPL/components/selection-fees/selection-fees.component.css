@@ -1,0 +1,26 @@
+
+.contenedor-valor-compra {
+  width: 100%;
+  background-color: #3886FF;
+  border-radius: 10px;
+  padding: 20px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.contenedor-texto {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contenedor-valor-compra .title-valor-compra {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+}
+
+.contenedor-valor-compra .valor-compra {
+  font-size: 24px;
+  font-weight: 700;
+}

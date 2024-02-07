@@ -1,0 +1,30 @@
+.btn-azul {
+  padding: 16px 32px;
+  text-align: center;
+  background: #191f38;
+  color: #7dffb2;
+  width: auto;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn-redondo {
+  width: 220px;
+  border-radius: 100px;
+}
+
+.title {
+  width: 100%;
+  color: #49454F;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+@media screen and (max-width: 956px) {
+  .btn-redondo {
+    width: 100%;
+  }
+}

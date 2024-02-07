@@ -1,0 +1,152 @@
+<div class="container">
+  <div *ngIf="payment.cuotaBenefits === 0; else elseBlock" class="contenedor-payment">
+    <div class="contenedor-header-payment">
+      <div class="contenedor-title">
+        <h3>Pago realizado</h3>
+        <p>Valor:</p>
+        <h3>
+          {{ payment.amountFinance | currency : "USD" : "symbol" : "1.0-0" }}
+        </h3>
+      </div>
+      <div class="contenedor-imagen">
+        <img
+          src="../../../../../assets/img/pago-img.svg"
+          alt="imagen de exitoso"
+        />
+      </div>
+    </div>
+    <div class="contenedor-subheader-payment">
+      <div class="contenedor-texto">
+        <p>No Crédito</p>
+        <p>{{ payment.numCredit }}</p>
+      </div>
+    </div>
+    <div class="contenedor-body-payment">
+      <div class="contenedor-texto">
+        <p class="title">Pago mínimo mensual</p>
+        <p class="title">
+          {{ payment.minPaid | currency : "USD" : "symbol" : "1.0-0" }}
+        </p>
+      </div>
+      <div class="contenedor-texto">
+        <p>Fecha límite de pago</p>
+        <p>{{ datePaid }}</p>
+      </div>
+      <div class="contenedor-texto">
+        <p>Número de cuotas</p>
+        <p>{{ payment.fees }}</p>
+      </div>
+      <div class="contenedor-texto">
+        <p>Interés anual</p>
+        <p>{{ payment.rateApprobeAnnual }}% E.A.</p>
+      </div>
+    </div>
+   
+    <div class="contenedor-footer-payment">
+      <mat-accordion class="w-100">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            </mat-panel-title>
+            <mat-panel-description>
+              <fa-icon class="icon"  [icon]="faAngle"></fa-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="contenedor-texto">
+            <p>Fianza FGA</p>
+            <p>{{ payment.fGA | currency : "USD" : "symbol" : "1.0-0"}}</p>
+          </div>
+          <div class="contenedor-texto">
+            <p class="title">Uso plataforma</p>
+            <p class="title">{{ payment.platform | currency : "USD" : "symbol" : "1.0-0" }}</p>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+     
+      <button class="btn btn-azul btn-redondo" (click)="finish()">
+        Finalizar
+      </button>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="contenedor-payment">
+      <div class="contenedor-header-payment">
+        <div class="contenedor-title">
+          <h3>Pago realizado</h3>
+          <p>Valor:</p>
+          <h3>
+            {{ payment.amountFinance | currency : "USD" : "symbol" : "1.0-0" }}
+          </h3>
+        </div>
+        <div class="contenedor-imagen">
+          <img
+            src="../../../../../assets/img/pago-img.svg"
+            alt="imagen de exitoso"
+          />
+        </div>
+      </div>
+      <div class="contenedor-subheader-payment">
+        <div class="contenedor-texto">
+          <p>No Crédito</p>
+          <p>{{ payment.numCredit }}</p>
+        </div>
+        <div class="contenedor-texto">
+          <p>Interés anual</p>
+          <p>{{ payment.rateApprobeAnnual }}% E.A.</p>
+        </div>
+        <div class="contenedor-texto">
+          <p>
+            Fianza FGA
+            <button class="btn " matTooltipPosition="above" matTooltip="FGA Fondo de Garantías es una compañía que actúa como fiador para respaldar los créditos de las personas facilitando su aprobación. Este valor, corresponde la fianza que respalda el préstamo aprobado, es un % de comisión, sobre el monto del crédito y será divido para pago en el número de cuotas del crédito.
+            " triggers="click">
+            <mat-icon>info</mat-icon>
+          </button>
+          </p>
+          <p>{{ payment.fGA | currency : "USD" : "symbol" : "1.0-0"}}</p>
+        </div>
+        <div class="contenedor-texto">
+          <p class="title">
+            Uso plataforma 10%
+            <button class="btn " matTooltipPosition="above" matTooltip=" Es una comisión calculada sobre el monto total aprobado. El valor es divido en el número de cuotas del crédito." triggers="click">
+              <mat-icon>info</mat-icon>
+            </button>
+          </p>
+          <p class="title">{{ payment.platform | currency : "USD" : "symbol" : "1.0-0" }}</p>
+        </div>
+      </div>
+      <div class="contenedor-body-payment">
+        <div class="contenedor-texto">
+          <p>Fecha límite de pago</p>
+          <p>{{ datePaid }}</p>
+        </div>
+        <div class="contenedor-texto">
+          <p class="title">Número de cuotas</p>
+          <p class="title">{{ payment.fees }}</p>
+        </div>
+
+        <div class="contenedor-texto borde-azul">
+          <p *ngIf="payment.fees > payment.feesBenefits">Descuento especial en las <b>{{payment.feesBenefits}}</b> primeras cuotas gracias a <b>{{this.clientInformation.partnerName}}</b></p>
+          <p *ngIf="payment.fees <= payment.feesBenefits">Descuento especial en tus cuotas gracias a <b>{{this.clientInformation.partnerName}}</b></p>
+        </div>
+      </div>
+  
+      <div class="contenedor-footer-payment">
+        <div class="contenedor-beneficios">
+          <div class="contenedor-texto">
+            <p>1ra cuota <b>con</b> beneficio</p>
+            <p>{{payment.cuotaBenefits | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+          </div>
+          <div *ngIf="payment.paid !== '0.0'" class="contenedor-texto">
+            <p>*Cuotas <b>sin</b> beneficio</p>
+            <p>{{payment.paid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+            <p class="w-100 fuente-pequena">*Valor de la cuota que debes pagar a partir de la cuota <b>#{{payment.feesBenefits + 1}}</b>.</p>
+          </div>
+        </div>
+        <button class="btn btn-azul btn-redondo" (click)="finish()">
+          Finalizar
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  
+</div>

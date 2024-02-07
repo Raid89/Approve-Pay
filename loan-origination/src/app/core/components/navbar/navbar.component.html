@@ -1,0 +1,11 @@
+<div #navbar class="navbar-approbe">
+  <div *ngIf="showBack" (click)="goBack()" routerLinkActive="router-link-active"  class="contenedor-atras">
+    <fa-icon  [icon]="faAngle"></fa-icon>
+  </div>
+  <div *ngIf="!mostrarApprobe2" class="contenedor-img-approbe">
+    <img src="../../../../assets/img/imagen-approbe.svg" alt="" />
+  </div>
+  <div *ngIf="mostrarApprobe2" class="contenedor-img-approbe">
+    <img src="../../../../assets/img/imagen-approbe2.svg" alt="" />
+  </div>
+</div>

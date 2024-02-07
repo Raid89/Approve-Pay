@@ -1,0 +1,148 @@
+.contenedor-summary {
+  width: 50%;
+  height: 50%;
+  padding: 30px;
+  margin: 0 auto;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+.contenedor-header-summary {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.contenedor-header-summary .contenedor-title {
+  width: 80%;
+}
+
+.contenedor-header-summary .contenedor-title h3 {
+  font-size: 24px;
+  color: #231F20;
+  font-weight: 700;
+}
+
+.contenedor-header-summary .contenedor-title p {
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 20px;
+}
+
+.contenedor-summary .contenedor-body-summary {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #191F38;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.contenedor-summary .contenedor-body-summary .title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191F38;
+}
+
+.contenedor-summary .contenedor-body-summary .contenedor-texto,
+.contenedor-summary .contenedor-footer-summary .contenedor-texto {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.fuente-pequena {
+  font-size: 0.8rem;
+}
+
+.contenedor-summary .contenedor-footer-summary {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #191F38;
+  font-size: 14px;
+}
+
+.icon{
+  font-size: 25px;
+  margin-left: 25%;
+  color: #231F20;
+}
+
+.borde-azul {
+  border: 1px solid #3886FF;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.borde-azul p {
+  margin-bottom: 0;
+}
+
+.contenedor-beneficios {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #191F38;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #C1C1C1;
+  padding: 10px;
+}
+
+
+
+
+.btn-azul {
+  padding: 16px 32px;
+  text-align: center;
+  background: #191f38;
+  color: #7dffb2;
+  width: auto;
+  font-weight: 700;
+  font-size: 16px;
+  align-self: flex-start;
+}
+
+.btn-redondo {
+  width: 220px;
+  border-radius: 100px;
+}
+
+
+
+@media screen and (max-width: 992px){
+  .contenedor-summary {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .contenedor-header-summary {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contenedor-header-summary .contenedor-title {
+    text-align: center;
+    order: 2;
+    margin-top: 10px;
+  }
+
+  .btn-redondo {
+    width: 100%;
+  }
+}

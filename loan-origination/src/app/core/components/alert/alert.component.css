@@ -1,0 +1,36 @@
+.contenedor-alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.contenedor-alert .contenedor-img {
+  vertical-align: top;
+}
+
+.contenedor-alert .text-alert {
+  font-size: 16px;
+  text-align: center;
+}
+
+.contenedor-alert .title-error {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn-azul {
+  padding: 16px 32px;
+  text-align: center;
+  background: #191f38;
+  color: #7dffb2;
+  width: auto;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn-redondo {
+  width: 300px;
+  border-radius: 100px;
+}

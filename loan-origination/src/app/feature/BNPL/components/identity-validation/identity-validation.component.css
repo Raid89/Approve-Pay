@@ -1,0 +1,312 @@
+.containerPrincipal {
+    width: 100%;
+}
+
+.container1 {
+    width: 100%;
+    margin: 0;
+}
+.containerHabeas {
+    width: 100%;
+    text-align: center;
+}
+
+.checkbox{
+    color:  #F5D347;
+}
+
+.contentVertical {
+    margin: 30px 0;
+    width: 80%;
+    position: absolute;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 0 10px gray
+}
+
+.bs-stepper-header {
+    /* height: 1200px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F5D347;
+    font-weight: bold;
+}
+
+.bs-stepper-header p {
+    text-align: center;
+    font-size: 20px;
+    color: #191F38;
+    width: 70%;
+    width: 80%;
+    line-height: 30px;
+    margin: 20px auto;
+}
+
+.bs-stepper-content {
+    width: 100%;
+    position: relative;
+    height: auto;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    margin: 20px auto;
+    min-height: 130vh;
+    overflow: scroll;
+    height: auto;
+}
+
+.mat-form-field {
+    width: 45%;
+    margin-right: 2%;
+    border-color: #F5D347;
+}
+
+
+.form-group {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mat-form-field-padding {
+    padding: 1%;
+    width: 15em;
+}
+
+.mat-form-field-input {
+    border-color: #F5D347;
+}
+
+.label {
+    margin: 20px 0;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.errores .mat-icon {
+    width: 13px !important;
+    height: 13px !important;
+    font-size: 13px !important;
+}
+
+.example-section button {
+    background: none;
+    border: none;
+    text-decoration: underline !important;
+}
+
+.btn-blue {
+    background-color: #F5D347;
+    color: #000;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.contenedor-title {
+    margin: 20px 0;
+    border-bottom: 1px solid  rgba(0,0,0, 0.1);
+}
+
+.contenedor-title .title {
+    color: #231F20;
+    font-size: 24px;
+    font-weight: 700;
+    
+}
+
+.contenedor-title .preguntas {
+    font-weight: 500;
+    font-size: 14px;
+    color: #191F38;
+}
+
+.contenedor-preguntas .texto-pregunta {
+    font-weight: 600;
+    font-size: 16px;
+    color: #231F20;
+}
+
+.btn-azul {
+    padding: 16px 32px;
+    text-align: center;
+    background: #191f38;
+    color: #7dffb2;
+    width: auto;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  
+  .btn-redondo {
+    width: 220px;
+    border-radius: 100px;
+  }
+
+
+/* diseño responsive */
+@media(max-width:1200px) {
+    .bs-stepper-content {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+        min-height: 170vh;
+
+    }
+
+    .content {
+        width: 98%;
+        overflow: hidden;
+    }
+
+    .form-group {
+        width: 95%;
+
+    }
+}
+
+@media (max-width:1000px) {
+    .form {
+        min-height: 170vh;
+    }
+
+}
+
+
+
+@media(max-width:900px) {
+    .bs-stepper-header {
+        width: 30%;
+    }
+
+    .bs-stepper-content {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+    }
+
+    .content {
+        width: 98%;
+        overflow: hidden;
+    }
+
+    .form-group {
+        width: 95%;
+
+    }
+
+    .radioB {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+}
+
+@media(max-width:700px) {
+    .form {
+        min-height: 200vh;
+    }
+
+    .bs-stepper,
+    .step-trigger {
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0px !important;
+    }
+}
+
+@media(max-width:600px) {
+    .bs-stepper-header {
+        position: relative;
+        width: 100%;
+        flex-direction: row;
+        height: 90px
+    }
+
+    .step {
+        width: 20%;
+        z-index: 2;
+    }
+
+    /* .bs-stepper .line{
+        margin: 10px  !important;
+        flex: 0 !important;
+    } */
+    .imgVertical {
+        position: absolute;
+        height: 100%;
+    }
+
+    .imgVertical img {
+        position: relative;
+        height: 100%;
+        z-index: 1;
+        left: 0;
+    }
+
+    .bs-stepper-content {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .mat-form-field {
+        width: 100%;
+
+    }
+
+    mat-radio-group {
+        width: 100%;
+    }
+
+    .radioB {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .example-section {
+        width: 100%;
+    }
+
+    .example-section button {
+        width: 90%;
+    }
+
+    .example-section p {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .div-1 {
+        width: 100%;
+    }
+
+    .radio-button {
+        width: 90%;
+    }
+
+    .slider {
+        width: 100%;
+    }
+
+    .content p {
+        font-size: 0.7rem;
+    }
+
+    mat-panel-description {
+        font-size: 0.7rem;
+    }
+
+}

@@ -1,0 +1,125 @@
+<div class="container">
+  <div *ngIf="summaryCredit.cuotaBenefits === 0; else elseBlock" class="contenedor-summary">
+    <div class="contenedor-header-summary">
+      <div class="contenedor-title">
+        <h3>Detalle de la aprobación </h3>
+        <p>{{this.personalInformation.secondStep.primerNombre}}, el crédito ha sido aprobado</p>
+      </div>
+      <div class="contenedor-img">
+        <img src="../../../../../assets/img/success.svg" alt="imagen-exitoso">
+      </div>
+    </div>
+    <div class="contenedor-body-summary">
+      <div class="contenedor-texto">
+        <p class="title">Monto a financiar</p>
+        <p class="title">{{summaryCredit.amountFinance | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+      </div>
+      <div class="contenedor-texto">
+        <p>Número de cuotas</p>
+        <p>{{summaryCredit.fees}} meses</p>
+      </div>
+      <div class="contenedor-texto">
+        <p>Interés anual</p>
+        <p>{{summaryCredit.rateApprobeAnnual}}% E.A.</p>
+      </div>
+      <div class="contenedor-texto">
+        <p class="title">Cuota aproximada mensual</p>
+        <p class="title">{{summaryCredit.paid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+      </div>
+    </div>
+
+    <div class="contenedor-footer-summary">
+      <mat-accordion class="w-100">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>              
+            </mat-panel-title>
+            <mat-panel-description>
+              <fa-icon class="icon"  [icon]="faAngle"></fa-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p class="title">Otros Costos</p>
+          <div class="contenedor-texto">
+            
+            <p>Fianza FGA</p>
+            <p>{{summaryCredit.fGA | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+          </div>
+          <div class="contenedor-texto">
+            <p>Uso plataforma</p>
+            <p>{{summaryCredit.platform | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+     
+
+      <button class="btn btn-azul btn-redondo" (click)="navigateSignDocuments()">Acepto Crédito</button>
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+    <div class="contenedor-summary">
+      <div class="contenedor-header-summary">
+        <div class="contenedor-title">
+          <h3>Detalle de la aprobación </h3>
+          <p>{{this.personalInformation.secondStep.primerNombre}}, el crédito ha sido aprobado</p>
+        </div>
+        <div class="contenedor-img">
+          <img src="../../../../../assets/img/success.svg" alt="imagen-exitoso">
+        </div>
+      </div>
+      <div class="contenedor-body-summary">
+        <div class="contenedor-texto">
+          <p class="title">Monto a financiar</p>
+          <p class="title">{{summaryCredit.amountFinance | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+        </div>
+        <div class="contenedor-texto">
+          <p>Interés anual</p>
+          <p>{{summaryCredit.rateApprobeAnnual}}% E.A.</p>
+        </div>
+        <div class="contenedor-texto">
+          <p>Fianza FGA <button class="btn " matTooltipPosition="above" matTooltip="FGA Fondo de Garantías es una compañía que actúa como fiador para respaldar los créditos de las personas facilitando su aprobación. Este valor, corresponde la fianza que respalda el préstamo aprobado, es un % de comisión, sobre el monto del crédito y será divido para pago en el número de cuotas del crédito.
+            " triggers="click">
+            <mat-icon>info</mat-icon>
+          </button></p>
+          <p>{{summaryCredit.fGA | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+        </div>
+        <div class="contenedor-texto">
+          <p>
+            Uso plataforma
+            <button class="btn " matTooltipPosition="above" matTooltip=" Es una comisión calculada sobre el monto total aprobado. El valor es divido en el número de cuotas del crédito." triggers="click">
+            <mat-icon>info</mat-icon>
+          </button>
+          </p>
+          <p>{{summaryCredit.platform | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+  
+      <div class="contenedor-footer-summary">
+        <div class="contenedor-texto">
+          <p class="title">Cuotas mensuales</p>
+          <p class="title">{{summaryCredit.fees}}</p>
+        </div>
+
+        <div class="contenedor-texto borde-azul">
+          <p *ngIf="summaryCredit.fees > summaryCredit.feesBenefits">Descuento especial en las <b> {{summaryCredit.feesBenefits}}</b> primeras cuotas gracias a <b>{{this.clientInformation.partnerName}}</b></p>
+          <p *ngIf="summaryCredit.fees <= summaryCredit.feesBenefits || summaryCredit.fees == summaryCredit.feesBenefits">Descuento especial en tus cuotas gracias a <b>{{this.clientInformation.partnerName}}</b></p>
+        </div>
+
+        <div class="contenedor-beneficios">
+          <div class="contenedor-texto">
+            <p>1ra cuota <b>con</b> beneficio</p>
+            <p>{{summaryCredit.cuotaBenefits | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+          </div>
+          <div *ngIf="summaryCredit.paid !== '0.0'" class="contenedor-texto">
+            <p>*Cuotas <b>sin</b> beneficio</p>
+            <p>{{summaryCredit.paid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
+            <p class="w-100 fuente-pequena">*Valor de la cuota que debes pagar a partir de la cuota <b>#{{summaryCredit.feesBenefits + 1}}</b>.</p>
+          </div>
+        </div>
+  
+        <button class="btn btn-azul btn-redondo" (click)="navigateSignDocuments()">Acepto Crédito</button>
+      </div>
+    </div>
+  </ng-template>
+  
+</div>

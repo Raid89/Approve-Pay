@@ -1,0 +1,22 @@
+.navbar-approbe{
+  background-color: #7DFFB2;
+  height: 64px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.navbar-approbe .contenedor-atras {
+  width: 100%;
+  text-align: center;
+  color: #191F38;
+  font-size: 32px;
+  padding: 16px;
+  border-bottom: 4px solid #191F38;
+}
+
+.navbar-approbe .contenedor-img-approbe {
+  align-self: center;
+}

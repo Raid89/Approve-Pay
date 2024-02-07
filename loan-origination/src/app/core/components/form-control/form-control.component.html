@@ -1,0 +1,108 @@
+<div [formGroup]="form">
+  <div [ngSwitch]="control.controlType">
+    <div *ngSwitchCase="'textbox'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <input
+          matInput
+          [formControlName]="control.key"
+          [id]="control.key"
+          [type]="control.type"
+        />
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'numberInput'">
+      <mat-form-field appearance="outline"  [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <input
+          matInput
+          [min]="control.min"
+          [max]="control.max"
+          [formControlName]="control.key"
+          [id]="control.key"
+          [type]="control.type"
+        />
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'dropdown'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <mat-select [formControlName]="control.key" [(value)]="control.value" [id]="control.key" required>
+          <mat-option *ngFor="let opt of control.options" [value]="opt.key">
+            {{ opt.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'dropdownFees'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <mat-select [formControlName]="control.key" [(ngModel)]="control.value" [id]="control.key" required>
+          <mat-option *ngFor="let opt of control.options" [value]="opt.key">
+            {{ opt.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'dropdownIdentification'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <mat-select  [compareWith]="compareFunction" [formControlName]="control.key" [id]="control.key" required>
+      
+          <mat-option *ngFor="let opt of control.optionsObject | async" [value]="opt">
+             {{opt?.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'dropdownClients'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <mat-select [formControlName]="control.key" [id]="control.key" required>
+
+          <mat-option *ngFor="let opt of control.optionsObject | async" [value]="opt.id">
+             {{opt?.partnerName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'currency'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">{{ control.label }}</mat-label>
+        <input
+        matInput
+        [options]="{ prefix: '$ ', thousands: '.', decimal: ',' ,precision: '0'}"
+        [formControlName]="control.key"
+        [id]="control.key"
+        [type]="control.type"
+        currencyMask
+        />
+        <mat-error *ngIf="!isValid">{{ control.label }} no es valido</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'code'">
+      <mat-form-field appearance="outline" [ngClass]="control.layout">
+        <mat-label [attr.for]="control.key">Código otp</mat-label>
+        
+        <input
+          class="code"
+          matInput
+          placeholder="- - - - - -"
+          [formControlName]="control.key"
+          [id]="control.key"
+          [type]="control.type"
+        />
+        <mat-error *ngIf="!isValid">{{ control.label }} no es válido</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- <p>{{form | json}}</p> -->
+  
+</div>

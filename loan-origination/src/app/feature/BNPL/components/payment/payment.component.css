@@ -1,0 +1,147 @@
+.contenedor-payment {
+  width: 50%;
+  height: 50%;
+  padding: 30px;
+  margin: 0 auto;
+  background-color: #fafafa;
+  border-radius: 10px 10px 0 0;
+}
+
+.contenedor-header-payment {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.2);
+}
+.contenedor-header-payment .contenedor-title {
+  width: 80%;
+}
+
+.contenedor-header-payment .contenedor-title h3 {
+  font-size: 24px;
+  color: #231F20;
+  font-weight: 700;
+}
+
+.contenedor-header-payment .contenedor-title p {
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 20px;
+}
+
+.contenedor-payment .contenedor-subheader-payment {
+  padding: 20px 0;
+  font-size: 14px;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.2);
+}
+
+.contenedor-payment .contenedor-body-payment {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #191F38;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.contenedor-payment .contenedor-body-payment .title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.contenedor-payment .contenedor-body-payment .contenedor-texto,
+.contenedor-payment .contenedor-footer-payment .contenedor-texto,
+.contenedor-payment .contenedor-subheader-payment .contenedor-texto {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.contenedor-payment .contenedor-footer-payment {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #191F38;
+  font-size: 14px;
+}
+
+.btn-azul {
+  padding: 16px 32px;
+  text-align: center;
+  background: #7dffb2;
+  color: #191f38;
+  width: auto;
+  font-weight: 700;
+  font-size: 16px;
+  align-self: flex-start;
+}
+
+.btn-redondo {
+  width: 220px;
+  border-radius: 100px;
+}
+
+.icon{
+  font-size: 25px;
+  margin-left: 25%;
+  color: #231F20;
+}
+
+.borde-azul {
+  border: 1px solid #3886FF;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.borde-azul p {
+  margin-bottom: 0;
+}
+
+.fuente-pequena {
+  font-size: 0.8rem;
+}
+
+.contenedor-beneficios {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #191F38;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #C1C1C1;
+  padding: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .contenedor-payment {
+    width: 100%;
+  }
+
+  .contenedor-header-payment {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contenedor-header-payment .contenedor-title {
+    text-align: center;
+    order: 2;
+    margin: 20px;
+  }
+
+  .btn-redondo {
+    width: 100%;
+  }
+}
+
+

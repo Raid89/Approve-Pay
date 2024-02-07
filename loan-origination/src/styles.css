@@ -1,0 +1,81 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+@font-face {
+  font-family: poppins;
+  src: url(./assets/fonts/Poppins-Regular.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: poppins-bold;
+  src: url(./assets/fonts/Poppins-Bold.ttf) format("opentype");
+}
+
+::ng-deep .mat-radio-outer-circle{
+  border-color: #3886FF !important;
+}
+
+.mat-body p, .mat-body-2 p, .mat-typography .mat-body p, .mat-typography .mat-body-2 p, .mat-typography p {
+  margin: 0 0 0;
+}
+
+.mat-tooltip {
+  background-color: #191F38;
+  color: #FAFAFA;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: poppins !important;
+  color: #231f20;
+}
+
+.contenedor-datos-basicos {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10% 0;
+}
+
+.contenedor-datos-basicos .title-approbe {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 35px;
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.contenedor-datos-basicos .title-datos-basicos {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.modal-content {
+  border-radius: 24px; 
+ }
+
+/* Tema angular material */
+
+
+
+@media screen and (max-width: 959px) {
+  .contenedor-datos-basicos {
+    width: 100%;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    width: 170% !important;
+  }
+
+  .contenedor-datos-basicos .title-approbe {
+    width: 100%;
+    line-height: 25px;
+  }
+}
+
+

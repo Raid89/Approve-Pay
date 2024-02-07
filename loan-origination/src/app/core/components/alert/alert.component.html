@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="contenedor-datos-basicos" [ngSwitch]="mostrarAlerta">
+    <div *ngSwitchCase="'espera'" class="contenedor-alert">
+      <div class="contenedor-img">
+        <img src="../../../../assets/img/AppLoader.gif">
+      </div>
+      <p class="text-alert">Espera un momento,
+        estamos validando tu información</p>
+    </div>
+    <div *ngSwitchCase="'fallo'" class="contenedor-alert">
+      <div class="contenedor-img">
+        <img src="../../../../assets/img/error-alert.svg">
+      </div>
+      <p class="title-error">Algo no salió bien</p>
+      <p class="text-alert">No fue posible validar tu identidad</p>
+      <button class="btn btn-azul btn-redondo" (click)="navigateToClient()">Volver al comercio</button>
+    </div>
+    <div *ngSwitchCase="'rechazado'" class="contenedor-alert">
+      <div class="contenedor-img">
+        <img src="../../../../assets/img/error-alert.svg">
+      </div>
+      <p class="title-error">Crédito rechazado</p>
+      <p class="text-alert">Esta vez no lo logramos, te esperamos en una próxima oportunidad.</p>
+      <button class="btn btn-azul btn-redondo" (click)="navigateToClient()">Volver al comercio</button>
+    </div>
+  </div>
+</div>

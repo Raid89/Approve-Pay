@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="contenedor-datos-basicos">
+    <p class="title-approbe">
+      Validación y firma de documentos
+    </p>
+    <div class="contenedor-documentos">
+      <p *ngFor="let document of documents ; let i = index" (click)="abrirDocumento(modalDocumento, document)">{{i+1}}{{document.name === '_Pagare' ? document.name.split('_').join(' ').replace('e', 'é') : document.name }}</p>
+    </div>
+    <div class="form-check form-check">
+      <input [(ngModel)]="showFormOtp" class="form-check-input checkbox-tyc" type="checkbox">
+      <label class="form-check-label" for="flexCheckDefault">
+        He leído y acepto los documentos
+      </label>
+    </div>
+    <div *ngIf="showFormOtp">
+      <p  class="title-approbe mt-3">
+        Firma los documentos con el código que enviamos a tu celular 
+      </p>
+      <app-form *ngIf="showFormOtp" [controls]="controls$ | async" (sendInfo)="getConfirmOtp($event)"></app-form>
+      <p class="otp mt-3" (click)="enviarNuevoOtp()">Recibir otro código</p>
+    </div>
+
+    <div *ngIf="mostrarError" class="contenedor-alerta-codigo-erroneo">
+      <div class="contenedor-textos">
+        <fa-icon [icon]="timesCircle"></fa-icon>
+        <p>El código ingresado es incorrecto, verifica e intenta de nuevo</p>
+      </div>
+      <a (click)="enviarNuevoOtp()" class="enviar-codigo">Enviar otro codigo</a>
+    </div>
+
+    <div *ngIf="mostrarNuevoCodigo" class="contenedor-alerta-nuevo-codigo">
+      <fa-icon [icon]="checkCircle"></fa-icon>
+      <p>Un nuevo código ha sido enviado por mensaje de texto a tu celular</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalDocumento>
+  <app-pdf-content></app-pdf-content>
+</ng-template>
