@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlBase } from '../../shared/models/control-base';
 import { FormGroup } from '@angular/forms';
 import { ControlService } from '../../shared/services/control.service';
-import { Client } from 'src/app/feature/BNPL/shared/models/client.model';
+
 
 
 @Component({

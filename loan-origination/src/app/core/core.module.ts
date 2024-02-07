@@ -17,7 +17,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormControlComponent } from './components/form-control/form-control.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
-import { AlertComponent } from './components/alert/alert.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
@@ -27,8 +26,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     NavbarComponent,
     FormControlComponent,
     FormComponent,
-    AlertComponent,
-    
   ],
   imports: [
     CommonModule,
@@ -50,7 +47,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   ],
   exports: [
     NavbarComponent,
-    AlertComponent,
     FormComponent,
     FormControlComponent,
     MatFormFieldModule,

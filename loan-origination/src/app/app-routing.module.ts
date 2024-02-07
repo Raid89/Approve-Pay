@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'bnpl',
-    loadChildren: () => import('./feature/BNPL/bnpl.module').then(m => m.BNPLModule)
+    path: '',
+    loadChildren: () => import('./feature/payment/payment.module').then(m => m.PaymentModule)
   }
 ];
 
