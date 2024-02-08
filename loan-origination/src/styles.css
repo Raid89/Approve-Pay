@@ -25,6 +25,10 @@
   color: #FAFAFA;
 }
 
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #FFFFFF !important;
+}
+
 html,
 body {
   height: 100%;
@@ -33,6 +37,21 @@ body {
   margin: 0;
   font-family: poppins !important;
   color: #231f20;
+}
+
+.btn-azul {
+  padding: 16px 32px;
+  text-align: center;
+  background: #191f38;
+  color: #7dffb2;
+  width: auto;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn-redondo {
+  width: 220px;
+  border-radius: 100px;
 }
 
 /* Tema angular material */
