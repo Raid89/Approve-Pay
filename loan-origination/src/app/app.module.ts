@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaymentModule } from './feature/payment/payment.module';
 import { CoreModule } from './core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 
 
 
@@ -20,7 +20,6 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     BrowserModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    NgxExtendedPdfViewerModule,
     AppRoutingModule,
     CoreModule,
     PaymentModule,

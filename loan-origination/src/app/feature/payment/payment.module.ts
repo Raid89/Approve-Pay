@@ -6,8 +6,6 @@ import { PaymentRoutingModule } from './payment-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AuthIdentificationComponent } from './components/auth-identification/auth-identification.component';
 
 
@@ -28,8 +26,6 @@ import { AuthIdentificationComponent } from './components/auth-identification/au
     HttpClientModule,
     FontAwesomeModule,
     ModalModule.forRoot(),
-    NgxExtendedPdfViewerModule,
-    PdfViewerModule
   ],
 })
 export class PaymentModule { }
