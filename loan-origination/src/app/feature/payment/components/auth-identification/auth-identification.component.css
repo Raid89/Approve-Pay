@@ -8,6 +8,7 @@
 
 .contenedor-auth-identification .contenedor-auth-identification__image {
     width: 50%;
+    height: 100%;
     background-color: #191F38;
 }
 
@@ -26,7 +27,7 @@
 }
 
 .contenedor-auth-identification .contenedor-auth-identification__form p {
-    width: 50%;
+    width: 80%;
     font-size: 2.5rem;
     text-align: center;
     line-height: 50px;
@@ -39,6 +40,40 @@
   color: #191F38;
   font-size: 16px;
   font-weight: 700;
+}
+
+.contenedor-auth-identification .contenedor-auth-identification__without-payments {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.contenedor-auth-identification .contenedor-auth-identification__without-payments .without-payments-text {
+  margin-top: 50%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedor-auth-identification .contenedor-auth-identification__without-payments .without-payments-text  p {
+    width: 63%;
+    font-size: 1.7rem;
+    text-align: center;
+    line-height: 1.8rem;
+    color: #191F38;
+}
+
+.contenedor-auth-identification .contenedor-auth-identification__without-payments .contact {
+  font-size: 0.625rem;
+  width: 60%;
+  line-height: 10px;
+  text-align: center;
+  color: #989891;
+  margin-bottom: 20px;
 }
 
 .no-border {

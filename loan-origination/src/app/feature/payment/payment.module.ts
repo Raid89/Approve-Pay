@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthIdentificationComponent } from './components/auth-identification/auth-identification.component';
+import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
 
 
 
@@ -15,7 +16,8 @@ import { AuthIdentificationComponent } from './components/auth-identification/au
   declarations: [
     
   
-    AuthIdentificationComponent
+    AuthIdentificationComponent,
+    VerificationCodeComponent
   ],
   imports: [
     CommonModule,
