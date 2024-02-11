@@ -29,6 +29,17 @@
   color: #FFFFFF !important;
 }
 
+.input-code{
+  width: 30px !important;
+  height: 50px !important;
+  border: 1px solid #D1D1D1 !important;
+  border-radius: 5px !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  color: #090B14 !important;
+  font-weight: 700 !important;
+}
+
 html,
 body {
   height: 100%;
@@ -70,6 +81,10 @@ body {
 
 
 @media screen and (max-width: 959px) {
+
+  .mat-mdc-text-field-wrapper {
+    width: 160% !important;
+  }
   
 }
 

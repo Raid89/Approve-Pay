@@ -61,6 +61,21 @@
     font-weight: 700;
 }
 
+.input-code{
+    width: 30px;
+    height: 50px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    color: #090B14;
+    font-weight: 700;
+}
+
+.error {
+    color: #EB5757;
+}
+
 .contenedor-code-verification .contenedor-code-verification__form-code .contenedor-code-verification__contenedor-botones {
     display: flex;
     gap: 20px;

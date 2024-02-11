@@ -8,6 +8,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthIdentificationComponent } from './components/auth-identification/auth-identification.component';
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { ListCreditsComponent } from './components/list-credits/list-credits.component';
 
 
 
@@ -17,7 +19,8 @@ import { VerificationCodeComponent } from './components/verification-code/verifi
     
   
     AuthIdentificationComponent,
-    VerificationCodeComponent
+    VerificationCodeComponent,
+    ListCreditsComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { VerificationCodeComponent } from './components/verification-code/verifi
     PaymentRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    NgOtpInputModule,
     ModalModule.forRoot(),
   ],
 })

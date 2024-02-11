@@ -4,15 +4,16 @@
     </div>
     <div class="contenedor-code-verification__form-code">
         <p class="title">Enviamos un código a tu celular y tu correo electrónico</p>
-        <p>Ingresa el código de 6 dígitos que recibiste en tu celular <b>******3569</b>  o al correo <b>*****by&#64;gmail.com</b></p>
+        <p>Ingresa el código de 4 dígitos que recibiste en tu celular <b>******3569</b>  o al correo <b>*****by&#64;gmail.com</b></p>
+        <p class="error" *ngIf="mostrarError">El código no coincide, por favor ingrésalo nuevamente</p>
         <div class="contenedor-code-verification__code">
-            <input type="text"><input type="text"><input type="text"><input type="text">
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
         </div>
         <p>Tu código estará activo dentro de los próximos <b>2:59</b> minutos</p>
         <p>¿No te llego el código? <b><u>Reenviar código</u></b></p>
         <div class="contenedor-code-verification__contenedor-botones">
             <button class="btn-blanco btn-redondo btn-volver">Atrás</button>
-            <button class="btn-azul btn-redondo">Validar entidad</button>
+            <button (click)="validarOtp()" class="btn-azul btn-redondo">Validar entidad</button>
         </div>
     </div>
 </div>
