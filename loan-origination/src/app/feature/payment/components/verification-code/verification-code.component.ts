@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgOtpInputConfig } from 'ng-otp-input';
 import { AuthService } from '../../shared/services/auth.service';
 import { OtpResponse } from '../../shared/models/otpResponse.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verification-code',
@@ -20,7 +21,7 @@ export class VerificationCodeComponent {
     allowNumbersOnly: true,
   }
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
@@ -36,6 +37,7 @@ export class VerificationCodeComponent {
 
       if (response.validationStrategy === 'SUCCESS') {
         this.mostrarError = false;
+        this.router.navigate(['/credits'])
       }
     });
   }

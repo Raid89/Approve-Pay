@@ -1,6 +1,56 @@
 <div class="contenedor-list-credits">
     <div class="titulos">
-        <p>Hola, Sebastián</p>
-        <p>Tienes <b>4 créditos</b> activos</p>
+        <p class="name"><b>Hola</b>, Sebastián</p>
+        <p class="credits">Tienes <b>4 créditos</b> activos</p>
+    </div>
+    <div class="contenedor-list-credits__table">
+        <table class="table tablePres ">
+            <thead>
+                <tr>
+                    <th class="th-primero">Número de crédito</th>
+                    <th>Valor de cuota</th>
+                    <th>Pago total</th>
+                    <th>Fecha limite de pago</th>
+                    <th class="th-ultimo">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of [1,2,3,4]">
+                    <td>****4I30</td>
+                    <td>XXXXXXXXXXX</td>
+                    <td>XXXXXXXXXX</td>
+                    <td>XXXXXXXXXXXXXX</td>
+                    <td>
+                        <button class="btn btn-redondo bg-verde">Pagar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="contenedor-list-credits__cards-responsive">
+        <div class="card card-fluid" *ngFor="let item of [1,2,3,4]">
+            <div class="card-header">
+                <p class="card-title">Número de crédito</p>
+                <p class="card-subtitle">*****4130</p>
+            </div>
+            <div class="card-body">
+                <div class="contenedor-texto">
+                    <p class="title">Valor de cuota</p>
+                    <p>XXXXXXXXXX</p>
+                </div>
+                <div class="contenedor-texto">
+                    <p class="title">Pago total</p>
+                    <p>XXXXXXXXXXXXXX</p>
+                </div>
+                <div class="contenedor-texto">
+                    <p class="title">Fecha límite de pago</p>
+                    <p>XXXXXXXXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="contenedor-botones">
+                <button class="btn btn-redondo bg-verde">Pagar</button>
+            </div>
+
+        </div>
     </div>
 </div>

@@ -12,6 +12,12 @@
     background-color: #3886FF;
 }
 
+.contenedor-code-verification .contenedor-code-verification__image img {
+    width: 126%;
+    height: 100%;
+    vertical-align: top;
+}
+
 .contenedor-code-verification .contenedor-code-verification__form-code {
     width: 70%;
     display: flex;
@@ -29,6 +35,10 @@
     color: #090B14;
     font-weight: 700;
     margin-bottom: 1.5rem;
+}
+
+.contenedor-code-verification .contenedor-code-verification__form-code .error {
+    color: #EB5757;
 }
 
 .contenedor-code-verification .contenedor-code-verification__form-code p {
@@ -72,9 +82,7 @@
     font-weight: 700;
 }
 
-.error {
-    color: #EB5757;
-}
+
 
 .contenedor-code-verification .contenedor-code-verification__form-code .contenedor-code-verification__contenedor-botones {
     display: flex;
