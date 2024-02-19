@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthIdentificationComponent } from './components/auth-identification/auth-identification.component';
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
 import { ListCreditsComponent } from './components/list-credits/list-credits.component';
+import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'credits',
     component: ListCreditsComponent
+  },
+  {
+    path: 'pay',
+    component: PayPaidComponent
   }
   
 ]

@@ -1,0 +1,51 @@
+<div class="container-pay">
+    <p>Elige qué quieres pagar</p>
+    <div class="container-pay__opciones">
+        <button [ngClass]="activeCuota ? 'active' : 'inactive'" (click)="optionSelected('cuota')"
+            class="container-pay__opciones-cuota">
+            <p class="title">Pagar</p>
+            <p class="subtitle">Cuota</p>
+            <p class="pay">{{creditSelected.nextPaid}}</p>
+        </button>
+        <button [ngClass]="activeTotal ? 'active' : 'inactive'" (click)="optionSelected('deuda')"
+            class="container-pay__opciones-deuda">
+            <p class="title">Pagar</p>
+            <p class="subtitle">Deuda total</p>
+            <p class="pay">{{creditSelected.saldoCredito}}</p>
+        </button>
+    </div>
+    <div class="contenedor-botones">
+        <button (click)="payment()" [ngClass]="!activeCuota ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+            Pagar
+        </button>
+        <button (click)="payment()" [ngClass]="!activeTotal ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+            Pagar
+        </button>
+    </div>
+
+    <div class="container-pay__opciones-responsive">
+        <div class="contenedor-opcion">
+            <button [ngClass]="activeCuotaResponsive ? 'active' : 'inactive'" (click)="optionSelectedResponsive('cuota')"
+                class="container-pay__opciones-cuota">
+                <p class="title">Pagar</p>
+                <p class="subtitle">Cuota</p>
+                <p class="pay">{{creditSelected.nextPaid}}</p>
+            </button>
+            <button  [ngClass]="!activeCuotaResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+                Pagar
+            </button>      
+        </div>
+        
+        <div class="contenedor-opcion">
+            <button [ngClass]="activeTotalResponsive ? 'active' : 'inactive'" (click)="optionSelectedResponsive('deuda')"
+            class="container-pay__opciones-deuda">
+            <p class="title">Pagar</p>
+            <p class="subtitle">Deuda total</p>
+            <p class="pay">{{creditSelected.saldoCredito}}</p>
+        </button>
+            <button [ngClass]="!activeTotalResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+                Pagar
+            </button>      
+        </div>
+    </div>
+</div>

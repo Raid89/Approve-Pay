@@ -10,7 +10,7 @@
     <div *ngIf="paymentsPending" class="contenedor-auth-identification__without-payments">
         <div class="without-payments-text">
             <p>La cédula <b>{{document}}</b> no tiene pagos pendientes</p>
-            <button class="btn-azul btn-redondo">Volver</button>
+            <button class="btn-azul btn-redondo" (click)="paymentsPending = !paymentsPending">Volver</button>
         </div>
         <p class="contact">Si tienes dudas sobre tu crédito, contáctanos por correo a cartera&#64;approbe.co o por teléfono a nuestra línea directa +57 3164740252.</p>
         

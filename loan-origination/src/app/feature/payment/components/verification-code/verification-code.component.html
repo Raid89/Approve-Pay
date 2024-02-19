@@ -9,10 +9,10 @@
         <div class="contenedor-code-verification__code">
             <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
         </div>
-        <p>Tu código estará activo dentro de los próximos <b>2:59</b> minutos</p>
-        <p>¿No te llego el código? <b><u>Reenviar código</u></b></p>
+        <p>Tu código estará activo dentro de los próximos <b>{{getFormattedTime()}}</b> minutos</p>
+        <p>¿No te llego el código? <b (click)="resendOtp()"><u>Reenviar código</u></b></p>
         <div class="contenedor-code-verification__contenedor-botones">
-            <button class="btn-blanco btn-redondo btn-volver">Atrás</button>
+            <button class="btn-blanco btn-redondo btn-volver" routerLink="/">Atrás</button>
             <button (click)="validarOtp()" class="btn-azul btn-redondo">Validar entidad</button>
         </div>
     </div>

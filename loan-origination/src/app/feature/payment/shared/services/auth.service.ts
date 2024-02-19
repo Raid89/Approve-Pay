@@ -5,17 +5,28 @@ import { ControlBase } from 'src/app/core/shared/models/control-base';
 import { TextBox } from 'src/app/core/shared/models/textbox';
 import { environment } from 'src/environments/environment';
 import { OtpResponse } from '../models/otpResponse.model';
+import { Credit } from '../models/credit.model';
+
+
+const credit: Credit = {
+  id: '',
+  client: '',
+  creditType: '',
+  saldoCredito: 0,
+  nextPaid: 0,
+  nextFeesDate: '',
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private _document = new BehaviorSubject<string>('');
+  private _credit = new BehaviorSubject<Credit>(credit);
 
   private url = environment.HttpUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public get document(): string {
     return this._document.getValue();
@@ -25,7 +36,15 @@ export class AuthService {
     this._document.next(value);
   }
 
-  getControlIdentification(){
+  public get credit(): Credit {
+    return this._credit.getValue();
+  }
+
+  public set credit(value: Credit) {
+    this._credit.next(value);
+  }
+
+  getControlIdentification() {
     const controls: ControlBase<string>[] = [
       new TextBox({
         key: 'numeroDocumento',
@@ -43,20 +62,46 @@ export class AuthService {
 
   sendOtp(id: string): Observable<any> {
     const body = {
-      actionStrategyPattern: "SEND_OTP_CLIENT",
+      actionStrategyPattern: 'SEND_OTP_CLIENT',
       identificacion: id,
-    }
+    };
     return this.http.post(`${this.url}/otplogin`, body);
   }
 
   validateOtp(otp: string, id: string): Observable<OtpResponse> {
     const body = {
-      actionStrategyPattern: "CONFIRM_OTP",
+      actionStrategyPattern: 'CONFIRM_OTP',
       identificacion: id,
       otp: otp,
-    }
+    };
     return this.http.post<OtpResponse>(`${this.url}/otplogin`, body);
-
   }
 
+  getCredits(document: string): Observable<Credit[]> {
+    const body = {
+      actionStrategyPattern: 'GET_CLIENT_CREDITS',
+      identificacion: document,
+    };
+    const token = localStorage.getItem('token');
+    return this.http.post<Credit[]>(`${this.url}/clientcredits`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  payCredit(idCredit: string): Observable<any> {
+    const body = {
+      operation: 'DISPERSION',
+      creditoId: idCredit,
+    };
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.url}/payments`, { body }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }

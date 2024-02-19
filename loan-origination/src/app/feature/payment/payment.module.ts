@@ -10,6 +10,7 @@ import { AuthIdentificationComponent } from './components/auth-identification/au
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ListCreditsComponent } from './components/list-credits/list-credits.component';
+import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
 
 
 
@@ -20,7 +21,8 @@ import { ListCreditsComponent } from './components/list-credits/list-credits.com
   
     AuthIdentificationComponent,
     VerificationCodeComponent,
-    ListCreditsComponent
+    ListCreditsComponent,
+    PayPaidComponent
   ],
   imports: [
     CommonModule,

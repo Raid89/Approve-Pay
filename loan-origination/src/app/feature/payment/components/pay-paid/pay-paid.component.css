@@ -1,0 +1,141 @@
+.container-pay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+
+.container-pay .container-pay__opciones {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 50%;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+.container-pay .container-pay__opciones p {
+    width: 100%;
+    text-align: center;
+}
+
+.container-pay .container-pay__opciones .container-pay__opciones-cuota,
+.container-pay .container-pay__opciones .container-pay__opciones-deuda {
+    border: 1px solid #000;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 60px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.container-pay .container-pay__opciones .container-pay__opciones-cuota .subtitle,
+.container-pay .container-pay__opciones .container-pay__opciones-deuda .subtitle {
+    font-weight: 700;
+    font-size: 45px;
+}
+
+.container-pay .container-pay__opciones .container-pay__opciones-cuota.active,
+.container-pay .container-pay__opciones .container-pay__opciones-deuda.active {
+    background-color: #ffb600 !important;
+}
+
+.container-pay .contenedor-botones {
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+    margin-top: 20px;
+}
+
+.container-pay .contenedor-botones .btn-azul {
+    width: 30%;
+}
+
+.container-pay .container-pay__opciones-responsive {
+    display: none;
+}
+
+
+
+.inactive {
+    background-color: #FFFFFF;
+}
+
+.hide-button {
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 959px) {
+
+    .container-pay {
+        align-items: flex-start;
+    }
+
+    .container-pay .contenedor-botones {
+        display: none;
+    }
+
+    .container-pay p {
+        align-self: center;
+    }
+    .container-pay .container-pay__opciones {
+        display: none;
+    }
+
+    .container-pay .container-pay__opciones-responsive {
+        width: 100%;
+        display: block;
+    }
+
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-cuota,
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-deuda {
+        width: 100%;
+        margin-top: 20px;
+        border: 1px solid #000;
+        background-color: #FFFFFF;
+        padding: 5px;
+        border-radius: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-cuota .subtitle,
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-deuda .subtitle {
+        font-weight: 700;
+        font-size: 25px;
+    }
+
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-cuota.active,
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .container-pay__opciones-deuda.active {
+        background-color: #ffb600 !important;
+    }
+
+    .container-pay .container-pay__opciones-responsive .contenedor-opcion .btn-azul {
+        padding: 10px;
+        width: 40%;
+        align-self: center;
+    }
+
+}
