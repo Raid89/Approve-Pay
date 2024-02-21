@@ -15,10 +15,10 @@
         </button>
     </div>
     <div class="contenedor-botones">
-        <button (click)="payment()" [ngClass]="!activeCuota ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+        <button (click)="paymentPartial()" [ngClass]="!activeCuota ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
             Pagar
         </button>
-        <button (click)="payment()" [ngClass]="!activeTotal ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+        <button (click)="paymentTotal()" [ngClass]="!activeTotal ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
             Pagar
         </button>
     </div>
@@ -31,7 +31,7 @@
                 <p class="subtitle">Cuota</p>
                 <p class="pay">{{creditSelected.nextPaid}}</p>
             </button>
-            <button  [ngClass]="!activeCuotaResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+            <button (click)="paymentPartial()"   [ngClass]="!activeCuotaResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
                 Pagar
             </button>      
         </div>
@@ -43,7 +43,7 @@
             <p class="subtitle">Deuda total</p>
             <p class="pay">{{creditSelected.saldoCredito}}</p>
         </button>
-            <button [ngClass]="!activeTotalResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+            <button (click)="paymentTotal()"  [ngClass]="!activeTotalResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
                 Pagar
             </button>      
         </div>

@@ -45,8 +45,14 @@ export class PayPaidComponent implements OnInit {
     }
   }
 
-  payment() {
-    this.authService.payCredit(this.creditSelected.id).subscribe( res => {
+  paymentPartial() {
+    this.authService.createPay(this.creditSelected.id, false).subscribe( res => {
+      console.log(res);
+    });
+  }
+
+  paymentTotal() {
+    this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
       console.log(res);
     });
   }

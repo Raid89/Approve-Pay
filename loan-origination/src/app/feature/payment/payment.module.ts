@@ -11,6 +11,7 @@ import { VerificationCodeComponent } from './components/verification-code/verifi
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ListCreditsComponent } from './components/list-credits/list-credits.component';
 import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
+import { AlertPayComponent } from './components/alert-pay/alert-pay.component';
 
 
 
@@ -22,7 +23,8 @@ import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
     AuthIdentificationComponent,
     VerificationCodeComponent,
     ListCreditsComponent,
-    PayPaidComponent
+    PayPaidComponent,
+    AlertPayComponent
   ],
   imports: [
     CommonModule,

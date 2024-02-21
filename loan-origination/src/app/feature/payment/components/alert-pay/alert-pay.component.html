@@ -1,0 +1,14 @@
+<div class="contenedor-auth-identification">
+    <div class="contenedor-auth-identification__image">
+        <img src="../../../../../assets/img/otp-image.png" alt="Identificación">
+    </div>
+    <div *ngIf="isSucces" class="contenedor-auth-identification__form">
+        <p>Tu pago ha sido realizado con éxito</p>
+        <button class="btn-azul btn-redondo">Volver al inicio</button>
+    </div>
+    <div *ngIf="!isSucces" class="contenedor-auth-identification__without-payments">
+        <div class="without-payments-text">
+            <p>Tu pago no fue exitoso <b>Inténtalo nuevamente</b></p>
+            <button class="btn-azul btn-redondo">Ir a mis creditos</button>
+        </div>
+    </div>

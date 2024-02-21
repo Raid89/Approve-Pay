@@ -6,6 +6,7 @@ import { TextBox } from 'src/app/core/shared/models/textbox';
 import { environment } from 'src/environments/environment';
 import { OtpResponse } from '../models/otpResponse.model';
 import { Credit } from '../models/credit.model';
+import { id } from 'date-fns/locale';
 
 
 const credit: Credit = {
@@ -91,7 +92,23 @@ export class AuthService {
     });
   }
 
-  payCredit(idCredit: string): Observable<any> {
+  createPay(idCode: string, complete: boolean): Observable<any> {
+    const body = {
+      operation: 'create',
+      idCode: idCode,
+      complete: complete,
+      ticket: ''
+    };
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.url}/payments`, { body }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    });
+  }
+
+  dispersion(idCredit: string): Observable<any> {
     const body = {
       operation: 'DISPERSION',
       creditoId: idCredit,

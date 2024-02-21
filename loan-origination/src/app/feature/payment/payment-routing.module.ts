@@ -4,6 +4,7 @@ import { AuthIdentificationComponent } from './components/auth-identification/au
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
 import { ListCreditsComponent } from './components/list-credits/list-credits.component';
 import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
+import { AlertPayComponent } from './components/alert-pay/alert-pay.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'pay',
     component: PayPaidComponent
+  },
+  {
+    path: 'alert-pay',
+    component: AlertPayComponent
   }
   
 ]
