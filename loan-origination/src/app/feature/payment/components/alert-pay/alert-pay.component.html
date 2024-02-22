@@ -4,11 +4,11 @@
     </div>
     <div *ngIf="isSucces" class="contenedor-auth-identification__form">
         <p>Tu pago ha sido realizado con éxito</p>
-        <button class="btn-azul btn-redondo">Volver al inicio</button>
+        <button class="btn-azul btn-redondo" (click)="navigateToClient()" >Volver al comercio</button>
     </div>
     <div *ngIf="!isSucces" class="contenedor-auth-identification__without-payments">
         <div class="without-payments-text">
             <p>Tu pago no fue exitoso <b>Inténtalo nuevamente</b></p>
-            <button class="btn-azul btn-redondo">Ir a mis creditos</button>
+            <button class="btn-azul btn-redondo" routerLink="/credits">Ir a mis creditos</button>
         </div>
     </div>

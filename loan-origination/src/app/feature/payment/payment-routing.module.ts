@@ -25,7 +25,7 @@ const routes: Routes = [
     component: PayPaidComponent
   },
   {
-    path: 'alert-pay',
+    path: 'alert-pay/:status',
     component: AlertPayComponent
   }
   

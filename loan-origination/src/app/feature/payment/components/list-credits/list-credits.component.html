@@ -1,7 +1,7 @@
 <div class="contenedor-list-credits">
     <div class="titulos">
         <p class="name"><b>Hola</b>, Sebastián</p>
-        <p class="credits">Tienes <b>4 créditos</b> activos</p>
+        <p class="credits">Tienes <b>{{credits.length}}</b> activos</p>
     </div>
     <div class="contenedor-list-credits__table">
         <table class="table tablePres ">
@@ -15,10 +15,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let credit of credits | async">
+                <tr *ngFor="let credit of credits">
                     <td>{{credit.id}}</td>
-                    <td>{{credit.nextPaid}}</td>
-                    <td>{{credit.saldoCredito}}</td>
+                    <td>{{credit.nextPaid | currency : 'USD' : 'symbol' : '1.0-0' }}</td>
+                    <td>{{credit.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0'}}</td>
                     <td>{{credit.nextFeesDate}}</td>
                     <td>
                         <button class="btn btn-redondo bg-verde" (click)="navigateToPay(credit)">Pagar</button>
@@ -28,7 +28,7 @@
         </table>
     </div>
     <div class="contenedor-list-credits__cards-responsive">
-        <div class="card card-fluid" *ngFor="let credit of credits |async">
+        <div class="card card-fluid" *ngFor="let credit of credits ">
             <div class="card-header">
                 <p class="card-title">Número de crédito</p>
                 <p class="card-subtitle">{{credit.id}}</p>

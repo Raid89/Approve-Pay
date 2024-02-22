@@ -52,7 +52,7 @@
   }
   
   .contenedor-auth-identification .contenedor-auth-identification__without-payments .without-payments-text {
-    margin-top: 50%;
+    margin-top: 40%;
     display: flex;
     gap: 20px;
     flex-direction: column;

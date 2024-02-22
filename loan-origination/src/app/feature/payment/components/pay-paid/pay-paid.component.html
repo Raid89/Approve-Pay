@@ -5,13 +5,13 @@
             class="container-pay__opciones-cuota">
             <p class="title">Pagar</p>
             <p class="subtitle">Cuota</p>
-            <p class="pay">{{creditSelected.nextPaid}}</p>
+            <p class="pay">{{creditSelected.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
         </button>
         <button [ngClass]="activeTotal ? 'active' : 'inactive'" (click)="optionSelected('deuda')"
             class="container-pay__opciones-deuda">
             <p class="title">Pagar</p>
             <p class="subtitle">Deuda total</p>
-            <p class="pay">{{creditSelected.saldoCredito}}</p>
+            <p class="pay">{{creditSelected.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
         </button>
     </div>
     <div class="contenedor-botones">
@@ -29,7 +29,7 @@
                 class="container-pay__opciones-cuota">
                 <p class="title">Pagar</p>
                 <p class="subtitle">Cuota</p>
-                <p class="pay">{{creditSelected.nextPaid}}</p>
+                <p class="pay">{{creditSelected.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
             </button>
             <button (click)="paymentPartial()"   [ngClass]="!activeCuotaResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
                 Pagar
@@ -41,7 +41,7 @@
             class="container-pay__opciones-deuda">
             <p class="title">Pagar</p>
             <p class="subtitle">Deuda total</p>
-            <p class="pay">{{creditSelected.saldoCredito}}</p>
+            <p class="pay">{{creditSelected.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
         </button>
             <button (click)="paymentTotal()"  [ngClass]="!activeTotalResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
                 Pagar

@@ -24,6 +24,7 @@ const credit: Credit = {
 export class AuthService {
   private _document = new BehaviorSubject<string>('');
   private _credit = new BehaviorSubject<Credit>(credit);
+  private _urlClient = new BehaviorSubject<string>('');
 
   private url = environment.HttpUrl;
 
@@ -43,6 +44,14 @@ export class AuthService {
 
   public set credit(value: Credit) {
     this._credit.next(value);
+  }
+
+  public get urlClient(): string {
+    return this._urlClient.getValue();
+  }
+
+  public set urlClient(value: string) {
+    this._urlClient.next(value);
   }
 
   getControlIdentification() {
@@ -97,15 +106,22 @@ export class AuthService {
       operation: 'create',
       idCode: idCode,
       complete: complete,
-      ticket: ''
+      ticketId: ''
     };
     const token = localStorage.getItem('token');
-    return this.http.post(`${this.url}/payments`, { body }, {
+    return this.http.post(`${this.url}/payments`, body, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       }
     });
+  }
+
+  refreshToken(): Observable<any> {
+    const body = {
+      operation: 'getToken'
+    }
+    return this.http.post(`${this.url}/payments`, body);
   }
 
   dispersion(idCredit: string): Observable<any> {

@@ -74,7 +74,7 @@ export class VerificationCodeComponent implements OnInit {
   }
 
   validarOtp() {
-    this.alertAwait('Espere un momento por favor...');
+    this.alertWait('Espere un momento por favor...');
     this.authService.validateOtp(this.otp, this.authService.document).subscribe((response: OtpResponse) => {
       Swal.close();
       if (response.validationStrategy === 'ERROR') {
@@ -89,10 +89,11 @@ export class VerificationCodeComponent implements OnInit {
     });
   }
 
-  alertAwait(text: string) {
+  alertWait(text: any) {
     Swal.fire({
-      text: text,
-      icon: 'info',
+      title: text,
+      allowOutsideClick: false,
+      imageUrl: '../../../../assets/img/AppLoader.gif',
       showConfirmButton: false,
     });
   }

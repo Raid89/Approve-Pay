@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Credit } from '../../shared/models/credit.model';
 import { AuthService } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pay-paid',
@@ -11,6 +12,7 @@ export class PayPaidComponent implements OnInit {
 
   creditSelected!: Credit;
   authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.creditSelected = this.authService.credit; 
@@ -20,6 +22,7 @@ export class PayPaidComponent implements OnInit {
   activeTotal: boolean = false;
   activeCuotaResponsive: boolean = false;
   activeTotalResponsive: boolean = false;
+  status: string = '';
 
   optionSelected(option: string) {
     if(option === 'cuota') {
@@ -46,15 +49,49 @@ export class PayPaidComponent implements OnInit {
   }
 
   paymentPartial() {
-    this.authService.createPay(this.creditSelected.id, false).subscribe( res => {
-      console.log(res);
-    });
+    this.authService.refreshToken().subscribe( res => {
+      if(res === 'ok') {
+        this.authService.createPay(this.creditSelected.id, false).subscribe( res => {
+          if(res.status === 'ok') {
+            this.status = 'ok';
+            this.authService.urlClient = res.url;
+            this.router.navigate(['/alert-pay', this.status]);
+          }
+          if(res.status !== 'ok') {
+            this.status = 'fail';
+            this.router.navigate(['/alert-pay', this.status]);
+          }
+        });
+      }
+
+      if(res !== 'ok') {
+        this.status = 'fail';
+        this.router.navigate(['/alert-pay', this.status]);
+      }
+    })
   }
 
   paymentTotal() {
-    this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
-      console.log(res);
-    });
+    this.authService.refreshToken().subscribe( res => {
+      if(res === 'ok') {
+        this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
+          if(res.status === 'ok') {
+            this.status = 'ok';
+            this.authService.urlClient = res.url;
+            this.router.navigate(['/alert-pay', this.status]);
+          }
+          if(res.status !== 'ok') {
+            this.status = 'fail';
+            this.router.navigate(['/alert-pay', this.status]);
+          }
+        });
+      }
+
+      if(res !== 'ok') {
+        this.status = 'fail';
+        this.router.navigate(['/alert-pay', this.status]);
+      }
+    })
   }
 
 }

@@ -25,7 +25,7 @@ export class AuthIdentificationComponent {
   }
 
   getInfo(event: any) {
-    this.alertAwait('Espere un momento por favor...');
+    this.alertWait('Espere un momento por favor...');
     const {numeroDocumento} = event;
     this.document = numeroDocumento.toString();
     this.authService.document = numeroDocumento;
@@ -41,10 +41,11 @@ export class AuthIdentificationComponent {
     });
   }
 
-  alertAwait(text: string) {
+  alertWait(text: any) {
     Swal.fire({
-      text: text,
-      icon: 'info',
+      title: text,
+      allowOutsideClick: false,
+      imageUrl: '../../../../assets/img/AppLoader.gif',
       showConfirmButton: false,
     });
   }
