@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Credit } from '../../shared/models/credit.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pay-paid',
@@ -49,9 +50,11 @@ export class PayPaidComponent implements OnInit {
   }
 
   paymentPartial() {
+    this.alertWait('Espere un momento por favor...');
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
         this.authService.createPay(this.creditSelected.id, false).subscribe( res => {
+          Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';
             this.authService.urlClient = res.url;
@@ -92,6 +95,15 @@ export class PayPaidComponent implements OnInit {
         this.router.navigate(['/alert-pay', this.status]);
       }
     })
+  }
+
+  alertWait(text: any) {
+    Swal.fire({
+      title: text,
+      allowOutsideClick: false,
+      imageUrl: '../../../../assets/img/AppLoader.gif',
+      showConfirmButton: false,
+    });
   }
 
 }

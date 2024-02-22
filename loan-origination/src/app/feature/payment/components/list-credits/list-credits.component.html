@@ -36,11 +36,11 @@
             <div class="card-body">
                 <div class="contenedor-texto">
                     <p class="title">Valor de cuota</p>
-                    <p>{{credit.nextPaid}}</p>
+                    <p>{{credit.nextPaid  | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
                 </div>
                 <div class="contenedor-texto">
                     <p class="title">Pago total</p>
-                    <p>{{credit.saldoCredito}}</p>
+                    <p>{{credit.saldoCredito  | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
                 </div>
                 <div class="contenedor-texto">
                     <p class="title">Fecha límite de pago</p>
