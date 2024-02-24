@@ -57,7 +57,7 @@ export class PayPaidComponent implements OnInit {
           Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';
-            this.authService.urlClient = res.url;
+            this.authService.urlClient = res.eCollectUrl;
             this.router.navigate(['/alert-pay', this.status]);
           }
           if(res.status !== 'ok') {
@@ -78,9 +78,10 @@ export class PayPaidComponent implements OnInit {
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
         this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
+          console.log(res);
           if(res.status === 'ok') {
             this.status = 'ok';
-            this.authService.urlClient = res.url;
+            this.authService.urlClient = res.eCollectUrl;
             this.router.navigate(['/alert-pay', this.status]);
           }
           if(res.status !== 'ok') {

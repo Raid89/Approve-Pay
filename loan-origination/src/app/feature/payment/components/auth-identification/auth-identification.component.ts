@@ -29,13 +29,14 @@ export class AuthIdentificationComponent {
     const {numeroDocumento} = event;
     this.document = numeroDocumento.toString();
     this.authService.document = numeroDocumento;
-    this.authService.sendOtp(this.document).subscribe((resp: string) => {
+    this.authService.sendOtp(this.document).subscribe((resp: any) => {
       Swal.close();
-      if(resp === 'SUCCESS') {
+      if(resp.validationStrategy === 'SUCCESS') {
+        this.authService.client = resp;
         this.router.navigate(['/code']);
       }
 
-      if(resp === 'UP_T0_DATE') {
+      if(resp.validationStrategy === 'UP_T0_DATE') {
         this.paymentsPending = true;
       }
     });

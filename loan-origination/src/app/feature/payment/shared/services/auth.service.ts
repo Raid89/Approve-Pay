@@ -25,6 +25,7 @@ export class AuthService {
   private _document = new BehaviorSubject<string>('');
   private _credit = new BehaviorSubject<Credit>(credit);
   private _urlClient = new BehaviorSubject<string>('');
+  private _client = new BehaviorSubject<any>({});
 
   private url = environment.HttpUrl;
 
@@ -52,6 +53,14 @@ export class AuthService {
 
   public set urlClient(value: string) {
     this._urlClient.next(value);
+  }
+
+  public get client(): any {
+    return this._client.getValue();
+  }
+
+  public set client(value: any) {
+    this._client.next(value);
   }
 
   getControlIdentification() {

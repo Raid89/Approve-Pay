@@ -14,6 +14,7 @@ export class VerificationCodeComponent implements OnInit {
 
   otp: string = '';
   timer: number = 300; // 5 minutes in seconds
+  client: any = {};
   public mostrarError: boolean = false;
   
   config: NgOtpInputConfig = {
@@ -24,7 +25,7 @@ export class VerificationCodeComponent implements OnInit {
   }
 
   constructor(private authService: AuthService, private router: Router) {
-
+    this.client = this.authService.client;
   }
 
   ngOnInit(): void {

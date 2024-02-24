@@ -30,6 +30,7 @@ export class AlertPayComponent implements OnInit{
   }
 
   navigateToClient() {
+    console.log(this.urlClient);
     window.location.href = this.urlClient;
   }
   

@@ -16,8 +16,10 @@ export class ListCreditsComponent implements OnInit {
   authServices = inject(AuthService);
   router = inject(Router);
   credits: Credit[] = [];
+  client: any = {};
 
   ngOnInit(): void {
+    this.client = this.authServices.client;
     this.getCredits();
   }
 
