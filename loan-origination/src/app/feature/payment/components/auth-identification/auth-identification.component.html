@@ -5,7 +5,7 @@
     <div *ngIf="!paymentsPending" class="contenedor-auth-identification__form">
         <p>Ingresa tu número de identificación</p>
         <app-form [controls]="controls$ | async" (sendInfo)="getInfo($event)"></app-form>
-        <button class="btn btn-volver">Volver</button>
+        <button class="btn btn-volver" (click)="navigateApprobe()">Volver</button>
     </div>
     <div *ngIf="paymentsPending" class="contenedor-auth-identification__without-payments">
         <div class="without-payments-text">

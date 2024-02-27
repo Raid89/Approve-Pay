@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class AlertPayComponent implements OnInit{
 
   activateRoute = inject(ActivatedRoute);
   authService = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.urlClient = this.authService.urlClient;
@@ -30,8 +31,7 @@ export class AlertPayComponent implements OnInit{
   }
 
   navigateToClient() {
-    console.log(this.urlClient);
-    window.location.href = this.urlClient;
+    this.router.navigate(['/']);
   }
   
 

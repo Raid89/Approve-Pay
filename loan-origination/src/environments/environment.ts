@@ -7,6 +7,7 @@ export const environment = {
   // HttpEvidente:[
   //     'https://prod.approbe.co/articulator-service/lominco/data/evidente'
   // ],
+  // approbeUrl: 'https://www.approbe.co/,
   // cognito: {
   //   //prod  
   //   userPoolId: 'us-east-1_gjJEL1ucD',
@@ -20,6 +21,7 @@ export const environment = {
   HttpEvidente: [
     'https://test.approbe.co/articulator-service/lominco/data/evidente'
   ],
+  approbeUrl: 'https://develop.approbe.co/',
   cognito: {
     //develop
     //   userPoolId: 'us-east-1_wjgyWp8uE',

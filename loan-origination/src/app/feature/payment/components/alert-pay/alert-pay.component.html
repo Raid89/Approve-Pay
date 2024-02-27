@@ -2,13 +2,8 @@
     <div class="contenedor-auth-identification__image">
         <img src="../../../../../assets/img/otp-image.png" alt="Identificación">
     </div>
-    <div *ngIf="isSucces" class="contenedor-auth-identification__form">
-        <p>Tu pago ha sido realizado con éxito</p>
-        <button class="btn-azul btn-redondo" (click)="navigateToClient()" >Volver al comercio</button>
+    <div  class="contenedor-auth-identification__form">
+        <p>Tu pago se encuentra en proceso, te notificaremos por correo electrónico tan pronto como el pago sea aplicado.</p>
+        <button class="btn-azul btn-redondo" (click)="navigateToClient()" >Ir a mis créditos</button>
     </div>
-    <div *ngIf="!isSucces" class="contenedor-auth-identification__without-payments">
-        <div class="without-payments-text">
-            <p>Tu pago no fue exitoso <b>Inténtalo nuevamente</b></p>
-            <button class="btn-azul btn-redondo" routerLink="/credits">Ir a mis creditos</button>
-        </div>
-    </div>
+</div>

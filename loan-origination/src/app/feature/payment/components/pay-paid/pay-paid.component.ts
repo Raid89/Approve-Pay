@@ -58,7 +58,8 @@ export class PayPaidComponent implements OnInit {
           if(res.status === 'ok') {
             this.status = 'ok';
             this.authService.urlClient = res.eCollectUrl;
-            this.router.navigate(['/alert-pay', this.status]);
+            window.location.href = this.authService.urlClient;
+            // this.router.navigate(['/alert-pay', this.status]);
           }
           if(res.status !== 'ok') {
             this.status = 'fail';
@@ -75,14 +76,16 @@ export class PayPaidComponent implements OnInit {
   }
 
   paymentTotal() {
+    this.alertWait('Espere un momento por favor...');
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
         this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
-          console.log(res);
+          Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';
             this.authService.urlClient = res.eCollectUrl;
-            this.router.navigate(['/alert-pay', this.status]);
+            window.location.href = this.authService.urlClient;
+            // this.router.navigate(['/alert-pay', this.status]);
           }
           if(res.status !== 'ok') {
             this.status = 'fail';

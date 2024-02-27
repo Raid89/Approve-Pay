@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,8 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('navbar') navbar: ElementRef | undefined;
   @Input() rutas: string[] = [];
+
+  logo1 =('../../assets/img/logo1.svg')
 
   faAngle = faAngleLeft;
   public showBack: boolean = true;
@@ -57,5 +60,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+
+
+  irHome(){
+    window.location.href = environment.approbeUrl;
   }
 }

@@ -16,15 +16,15 @@ import { AlertPayComponent } from './components/alert-pay/alert-pay.component';
 
 
 
+
 @NgModule({
   declarations: [
-    
-  
+
     AuthIdentificationComponent,
     VerificationCodeComponent,
     ListCreditsComponent,
     PayPaidComponent,
-    AlertPayComponent
+    AlertPayComponent,
   ],
   imports: [
     CommonModule,

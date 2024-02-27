@@ -103,6 +103,10 @@ table tbody tr td {
 
 @media (max-width: 991px) {
 
+    .contenedor-list-credits {
+        margin-top: 60px;
+    }
+
     .contenedor-list-credits .contenedor-list-credits__table  {
         display: none;
     }

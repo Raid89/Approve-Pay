@@ -5,6 +5,7 @@ import { ControlBase } from 'src/app/core/shared/models/control-base';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth-identification',
@@ -49,6 +50,10 @@ export class AuthIdentificationComponent {
       imageUrl: '../../../../assets/img/AppLoader.gif',
       showConfirmButton: false,
     });
+  }
+
+  navigateApprobe() {
+    window.location.href = environment.approbeUrl;
   }
 
 
