@@ -90,6 +90,37 @@
     gap: 20px;
 }
 
+
+.contenedor-alerta-nuevo-codigo {
+    position: absolute;
+    z-index: 2;
+    top: 12vh;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: 70%;
+    background-color: #FFFFFF;
+    border: 1px solid #4ECA78;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .contenedor-alerta-nuevo-codigo p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+  
+  .contenedor-alerta-nuevo-codigo fa-icon {
+    font-size: 16px;
+    color: #4ECA78;
+  }
+
 @media screen and (max-width: 959px) {
     .contenedor-code-verification {
         flex-direction: column;
