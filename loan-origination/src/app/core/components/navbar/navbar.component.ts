@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   logo1 =('../../assets/img/logo1.svg')
 
   faAngle = faAngleLeft;
-  public showBack: boolean = true;
+  public showBack: boolean = false;
   public mostrarApprobe2: boolean = false;
 
   constructor(
@@ -37,6 +37,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
+        if (event.url == '/credits') {
+          this.showBack = true;
+          if (this.navbar !== null && this.navbar !== undefined) {
+            this.navbar.nativeElement.style.gridTemplateColumns = '1fr';
+          }
+        }
+        if (event.url == '/') {
+          this.showBack = false;
+          if (this.navbar !== null && this.navbar !== undefined) {
+            this.navbar.nativeElement.style.gridTemplateColumns = '1fr';
+          }
+        }
         if (event.url == '/summary-credit') {
           this.showBack = false;
           if (this.navbar !== null && this.navbar !== undefined) {
@@ -60,6 +72,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  irInicio() {
+    this.router.navigate(['/']);
   }
 
 

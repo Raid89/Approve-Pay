@@ -3,22 +3,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 42rem;
 }
 
 .contenedor-auth-identification .contenedor-auth-identification__image {
     width: 50%;
-    height: 65.2rem;
+    height: 93vh;
     background-color: #191F38;
+    background-image: url('../../../../../assets/img/otp-image.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
-.contenedor-auth-identification .contenedor-auth-identification__image img {
-    width: 65rem;
-    height: 65.2rem;
-    background-size: contain;
-    resize: both;
-    object-fit: cover;
-}
 
 .contenedor-auth-identification .contenedor-auth-identification__form {
     width: 50%;
