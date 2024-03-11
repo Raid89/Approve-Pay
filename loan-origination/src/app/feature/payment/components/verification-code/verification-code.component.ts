@@ -36,6 +36,25 @@ export class VerificationCodeComponent implements OnInit {
     this.startTimer();
   }
 
+  onSubmit() {
+    const otpValue = this.ngOtpInput.otpForm.value;
+    const otp = Object.values(otpValue).join('');
+    this.alertWait('Espere un momento por favor...');
+    this.authService.validateOtp(otp, this.authService.document).subscribe((response: OtpResponse) => {
+      Swal.close();
+      this.ngOtpInput.setValue('');
+      if (response.validationStrategy === 'ERROR') {
+        this.mostrarError = true;
+      }
+
+      if (response.validationStrategy === 'SUCCESS') {
+        this.mostrarError = false;
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/credits'])
+      }
+    });
+  }
+
   onOtpChange(event: string) {
     this.otp = event;
   }

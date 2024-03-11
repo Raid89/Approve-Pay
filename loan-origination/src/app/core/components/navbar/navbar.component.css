@@ -3,21 +3,33 @@
   border: none;
   height: 100%;
 }
-.navbar{
+.navbar {
   width: 100%;
-  background-color: #ECFEFF !important;
+  background-color: #ecfeff !important;
 }
 
-.botonera1{
+.botonera1 {
   width: 20%;
   position: absolute;
   right: 0px;
 }
 
 .buttonPagar {
-  background-color: #FFB600 !important;
-  color: #191F38 !important;
+  background-color: #ffb600 !important;
+  color: #191f38 !important;
   margin-right: 20px;
   border-radius: 20px;
   font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .seccionOneNav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .seccionOneNav button{
+    text-align: left;
+    padding: 20px 10px;
+  }
 }

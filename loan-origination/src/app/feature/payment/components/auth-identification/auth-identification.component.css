@@ -78,6 +78,10 @@
 }
 
 @media screen and (max-width: 768px) {
+
+  .contenedor-auth-identification  .contenedor-auth-identification__form {
+    margin-top: 45%;
+  }
   .contenedor-auth-identification .contenedor-auth-identification__image {
       display: none;
   }

@@ -7,7 +7,10 @@
         <p>Ingresa el código de 4 dígitos que recibiste en tu celular <b>******{{client.phone}}</b>  o al correo <b>********{{client.mail}}</b></p>
         <p class="error" *ngIf="mostrarError">El código no coincide, por favor ingrésalo nuevamente</p>
         <div class="contenedor-code-verification__code">
-            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+            <form (ngSubmit)="onSubmit()">
+                <ng-otp-input #ngOtpInput  (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+                <button type="submit" style="display: none;"></button>
+            </form>
         </div>
         <p>Tu código estará activo dentro de los próximos <b>{{getFormattedTime()}}</b> minutos</p>
         <p>¿No te llego el código? <b (click)="resendOtp()"><u>Reenviar código</u></b></p>

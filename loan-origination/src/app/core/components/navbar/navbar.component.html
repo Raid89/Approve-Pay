@@ -1,15 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light navBar">
   <div class="container-fluid">
-      <img class="ml-4 navbar-brand imgLogo" [src]="logo1" (click)="irHome()" alt="">
-      <button id="boton" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbarNav" class="collpase navbar-collapse">
-        <div class="botonera1 d-none d-lg-block">
-          <button *ngIf="showBack" (click)="irInicio()"  class="btn btn-outline buttonPagar">Atrás</button>
-          <!-- <button>Registrate</button> -->
-      </div>
+    <img class="ml-4 navbar-brand imgLogo" [src]="logo1" (click)="irHome()" alt="">
+  
+     <div class="botonera1 d-lg-block">
+        <button *ngIf="showBack"  (click)="irInicio()" class="btn btn-outline buttonPagar">Atrás</button>
+        <!-- <button>Registrate</button> -->
       </div>
   </div>
 </nav>
