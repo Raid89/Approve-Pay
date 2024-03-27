@@ -53,7 +53,7 @@ export class PayPaidComponent implements OnInit {
     this.alertWait('Espere un momento por favor...');
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
-        this.authService.createPay(this.creditSelected.id, false).subscribe( res => {
+        this.authService.createPay(this.creditSelected.id, false, this.creditSelected.nextPaid).subscribe( res => {
           Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';
@@ -79,7 +79,7 @@ export class PayPaidComponent implements OnInit {
     this.alertWait('Espere un momento por favor...');
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
-        this.authService.createPay(this.creditSelected.id, true).subscribe( res => {
+        this.authService.createPay(this.creditSelected.id, true, this.creditSelected.saldoCredito).subscribe( res => {
           Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';

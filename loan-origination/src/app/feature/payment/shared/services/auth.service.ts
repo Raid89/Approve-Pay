@@ -110,12 +110,13 @@ export class AuthService {
     });
   }
 
-  createPay(idCode: string, complete: boolean): Observable<any> {
+  createPay(idCode: string, complete: boolean, value: number): Observable<any> {
     const body = {
       operation: 'create',
       idCode: idCode,
       complete: complete,
-      ticketId: ''
+      ticketId: '',
+      value: value
     };
     const token = localStorage.getItem('token');
     return this.http.post(`${this.url}/payments`, body, {
