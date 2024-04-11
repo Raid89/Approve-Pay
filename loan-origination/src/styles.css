@@ -76,6 +76,8 @@ body {
   border-radius: 100px;
 }
 
+
+
 /* Tema angular material */
 
 
@@ -85,6 +87,8 @@ body {
   .mat-mdc-text-field-wrapper {
     width: 160% !important;
   }
+  
+
   
 }
 

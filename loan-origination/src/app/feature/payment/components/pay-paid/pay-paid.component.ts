@@ -21,7 +21,10 @@ export class PayPaidComponent implements OnInit {
 
   activeCuota: boolean = false;
   activeTotal: boolean = false;
+  activeOtroValor: boolean = false;
+  otroValor: number = 0;
   activeCuotaResponsive: boolean = false;
+  activeOtroValorResponsive: boolean = false;
   activeTotalResponsive: boolean = false;
   status: string = '';
 
@@ -29,11 +32,18 @@ export class PayPaidComponent implements OnInit {
     if(option === 'cuota') {
       this.activeCuota = true;
       this.activeTotal = false;
+      this.activeOtroValor = false;
     }
 
     if(option === 'deuda') {
       this.activeCuota = false;
       this.activeTotal = true;
+      this.activeOtroValor = false;
+    }
+    if(option === 'otro-valor') {
+      this.activeCuota = false;
+      this.activeTotal = false;
+      this.activeOtroValor = true;
     }
   }
 
@@ -41,11 +51,18 @@ export class PayPaidComponent implements OnInit {
     if(option === 'cuota') {
       this.activeCuotaResponsive = true;
       this.activeTotalResponsive = false;
+      this.activeOtroValorResponsive = false;
     }
 
     if(option === 'deuda') {
       this.activeCuotaResponsive = false;
       this.activeTotalResponsive = true;
+      this.activeOtroValorResponsive = false;
+    }
+    if(option === 'otro-valor') {
+      this.activeCuotaResponsive = false;
+      this.activeTotalResponsive = false;
+      this.activeOtroValorResponsive = true;
     }
   }
 
@@ -76,10 +93,37 @@ export class PayPaidComponent implements OnInit {
   }
 
   paymentTotal() {
+    console.log(this.otroValor);
     this.alertWait('Espere un momento por favor...');
     this.authService.refreshToken().subscribe( res => {
       if(res === 'ok') {
         this.authService.createPay(this.creditSelected.id, true, this.creditSelected.saldoCredito).subscribe( res => {
+          Swal.close();
+          if(res.status === 'ok') {
+            this.status = 'ok';
+            this.authService.urlClient = res.eCollectUrl;
+            window.location.href = this.authService.urlClient;
+            // this.router.navigate(['/alert-pay', this.status]);
+          }
+          if(res.status !== 'ok') {
+            this.status = 'fail';
+            this.router.navigate(['/alert-pay', this.status]);
+          }
+        });
+      }
+
+      if(res !== 'ok') {
+        this.status = 'fail';
+        this.router.navigate(['/alert-pay', this.status]);
+      }
+    })
+  }
+  paymentOtroValor() {
+    console.log(this.otroValor);
+    this.alertWait('Espere un momento por favor...');
+    this.authService.refreshToken().subscribe( res => {
+      if(res === 'ok') {
+        this.authService.createPay(this.creditSelected.id, true, this.otroValor).subscribe( res => {
           Swal.close();
           if(res.status === 'ok') {
             this.status = 'ok';

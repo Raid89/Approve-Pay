@@ -12,6 +12,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ListCreditsComponent } from './components/list-credits/list-credits.component';
 import { PayPaidComponent } from './components/pay-paid/pay-paid.component';
 import { AlertPayComponent } from './components/alert-pay/alert-pay.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 
@@ -36,6 +37,7 @@ import { AlertPayComponent } from './components/alert-pay/alert-pay.component';
     FontAwesomeModule,
     NgOtpInputModule,
     ModalModule.forRoot(),
+    CurrencyMaskModule,
   ],
 })
 export class PaymentModule { }

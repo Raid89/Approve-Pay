@@ -7,6 +7,19 @@
             <p class="subtitle">Cuota</p>
             <p class="pay">{{creditSelected.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
         </button>
+        <button [ngClass]="activeOtroValor ? 'active' : 'inactive'" (click)="optionSelected('otro-valor')"
+            class="container-pay__opciones-otro-valor">
+            <p class="title">Pagar</p>
+            <p class="subtitle">Otro monto</p>
+            <mat-form-field appearance="outline">
+                <input matInput [options]="{
+                    prefix: '$ ',
+                    thousands: '.',
+                    decimal: ',',
+                    precision: '0'
+                  }" [(ngModel)]="otroValor" type="currency" currencyMask />
+            </mat-form-field>
+        </button>
         <button [ngClass]="activeTotal ? 'active' : 'inactive'" (click)="optionSelected('deuda')"
             class="container-pay__opciones-deuda">
             <p class="title">Pagar</p>
@@ -16,6 +29,13 @@
     </div>
     <div class="contenedor-botones">
         <button (click)="paymentPartial()" [ngClass]="!activeCuota ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+            Pagar
+        </button>
+        <button (click)="paymentOtroValor()"
+         [ngClass]="!activeOtroValor ? 'hide-button' : ''" 
+         class="btn btn-azul btn-redondo"
+        [disabled]="otroValor <= 0 || otroValor > creditSelected.saldoCredito"
+        >
             Pagar
         </button>
         <button (click)="paymentTotal()" [ngClass]="!activeTotal ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
@@ -32,6 +52,24 @@
                 <p class="pay">{{creditSelected.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</p>
             </button>
             <button (click)="paymentPartial()"   [ngClass]="!activeCuotaResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
+                Pagar
+            </button>      
+        </div>
+        <div class="contenedor-opcion">
+            <button [ngClass]="activeOtroValorResponsive ? 'active' : 'inactive'" (click)="optionSelectedResponsive('otro-valor')"
+                class="container-pay__opciones-otro-valor">
+                <p class="title">Pagar</p>
+                <p class="subtitle">Otro monto</p>
+                <mat-form-field  appearance="outline">
+                    <input  matInput [options]="{
+                        prefix: '$ ',
+                        thousands: '.',
+                        decimal: ',',
+                        precision: '0'
+                      }" [(ngModel)]="otroValor" type="currency" currencyMask />
+                </mat-form-field>
+            </button>
+            <button (click)="paymentOtroValor()" [disabled]="otroValor <= 0 || otroValor > creditSelected.saldoCredito" [ngClass]="!activeOtroValorResponsive ? 'hide-button' : ''" class="btn btn-azul btn-redondo">
                 Pagar
             </button>      
         </div>

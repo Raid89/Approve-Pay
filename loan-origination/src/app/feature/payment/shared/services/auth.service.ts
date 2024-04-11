@@ -114,7 +114,7 @@ export class AuthService {
     const body = {
       operation: 'create',
       idCode: idCode,
-      complete: complete,
+      complete: false,
       ticketId: '',
       value: value
     };
