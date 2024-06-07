@@ -1,0 +1,29 @@
+<div class="cursor-pointer static md:relative" #elemento>
+    <div class="flex items-center gap-3" (click)="changeLogOutButton()">
+        <img src="assets/icons/user-icon.png" alt="Imagen de usuario" width="40">
+        <span class="font-medium text-sm flex gap-1">
+            {{ name }}
+            @if (logOutButton) { 
+                <img 
+                    [@fadeIn] 
+                    src="assets/icons/down_arrow.svg" 
+                    alt="Flecha" 
+                    [ngClass]="{'rotate-180': logOutButton}">
+            }
+
+            @else { 
+                <img 
+                    [@fadeIn] 
+                    src="assets/icons/down_arrow.svg" 
+                    alt="Flecha" 
+                    [ngClass]="{'rotate-180': logOutButton}"> 
+            }
+        </span>
+    </div>
+
+
+    <div *ngIf="logOutButton" (click)="logOut()" class="absolute border border-black bg-white py-5 px-20 rounded-xl flex items-center justify-center gap-4 w-[92vw] md:w-auto top-[6rem] md:top-[4rem] left-[4%] md:left-[-8%]" [@fadeInOut]>
+        <img src="assets/icons/salida.svg" alt="Salida">
+        <span class="text-base font-medium">Salir</span>
+    </div>
+</div>

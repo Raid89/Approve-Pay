@@ -1,0 +1,21 @@
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.custom-checkbox .cb-filled {
+    display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+label .cb-filled {
+    display: inline-block;
+}
+
+.custom-checkbox input[type="checkbox"]:checked+label .cb-empty {
+    display: none;
+}

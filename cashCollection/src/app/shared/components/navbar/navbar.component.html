@@ -1,0 +1,39 @@
+<div class="bg-white border-b-2 border-black fixed z-10 w-full">
+    <div class="px-3 md:px-16 xl:px-32 py-5 flex justify-between items-center max-w-[1980px] m-auto">
+        <div>
+            <img src="assets/img/logotipo_approbe.svg" alt="Logo Approbe" class="hidden md:block md:w-[140px] xl:w-[188px]">
+            <img src="assets/img/icologo_approbe.svg" alt="Logo Approbe" class="block md:hidden w-10">
+        </div>
+    
+        <div *ngIf="!menuIsCurrent && userToken" class="font-poppins font-medium hidden md:flex md:gap-12 xl:gap-28 text-base">
+            @for (navbarItem of NavbarOptions; track $index) {
+                <a [routerLink]="[navbarItem.path]" 
+                    routerLinkActive="router-link-active" 
+                    [ngClass]="{'text-light-blue': navbarItem.active}"
+                    class="hover:text-light-blue"
+                    [innerText]="navbarItem.text"
+                ></a>
+            }
+        </div>
+    
+        <div *ngIf="userToken">
+            <app-user-info [name]="userData?.name"/> 
+        </div>
+
+        <div *ngIf="!menuIsCurrent" class="text-2xl block md:hidden cursor-pointer" (click)="changeMenuStatus()">
+            @if (!showMenuNavbar) { <i [@fadeIn] class="fi fi-bs-menu-burger"></i> }
+            @else { <i [@fadeIn] class="fi fi-bs-cross"></i> }
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showMenuNavbar && !menuIsCurrent && userToken" [@navbarShowHide] class="fixed bg-white w-full h-[91vh] flex flex-col items-center top-[9vh] pt-16 text-2xl gap-14 font-medium overflow-hidden z-50">
+    @for (navbarItem of NavbarOptions; track $index) {
+        <a [routerLink]="[navbarItem.path]" 
+            routerLinkActive="router-link-active" 
+            [ngClass]="{'text-light-blue': navbarItem.active}"
+            class="hover:text-light-blue"
+            [innerText]="navbarItem.text"
+        ></a>
+    }
+</div>

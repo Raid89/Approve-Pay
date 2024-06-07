@@ -1,0 +1,35 @@
+<div class="bg-[#7DFFB2] ">
+    <div class="flex h-[92vh] max-w-[1980px] m-auto">
+        <div class="w-[103] lg:w-[136vw] p-7 hidden md:flex justify-center items-center h-full relative">
+            <img src="assets/img/a_layer_4.png" alt="Approbe Layer 4">
+            <img src="assets/img/pj_layer_4.png" alt="Approbe Layer 2" class="absolute w-[35vw] lg:w-[25vw] bottom-0 right-[-4%] lg:right-[10%]">
+        </div>
+        <div class="relative w-full bg-white pl-7 lg:pl-32 pr-7 lg:pr-60 pt-7 lg:pt-20">
+            <app-toast></app-toast>
+            <div class="flex lg:block flex-col justify-center items-center">
+                <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-20" routerLink="/">{{'<' + 'Atrás'}}</p>
+                <p class="w-full mb-3">RECAUDOS</p>
+                <p class="text-4xl font-bold text-[#090B14] mb-9">Ingresa el número de identificación del cliente</p>
+                <div class="w-full lg:w-auto py-3 pl-6 pr-2 bg-[#F2F2F2] rounded-lg flex flex-col border-[#191F38]" [ngClass]="{'border-2': inputFocus}">
+                    <label class="text-xs text-[#191F38] font-bold"># de identificación*</label>
+                    <input class="bg-transparent outline-none" 
+                        type="text"
+                        placeholder="Escribe aquí"
+                        maxlength="10"
+                        [formControl]="clientIdentificationControl" 
+                        (keyup)="sanitizeInput()"
+                        keydown.enter
+                        (focus)="inputFocus = true" 
+                        (blur)="inputFocus = false">
+
+                    @if (clientIdentificationControl.invalid && (clientIdentificationControl.dirty || clientIdentificationControl.touched)) {
+                        <small class="text-red-500">{{ getErrorMessage() }}</small>
+                    }
+                </div>
+                <div class="w-full lg:w-[13vw] mb-12 mt-7">
+                    <app-button [buttonDisabled]="buttonDisabled"  [buttonText]="isLoading ? 'Cargando...' : 'Validar'" (click)="getClientCredits()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

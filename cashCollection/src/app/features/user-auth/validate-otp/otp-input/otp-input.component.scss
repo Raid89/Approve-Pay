@@ -1,0 +1,29 @@
+.input-group {
+    display: flex;
+    gap: 28px;
+    input{
+        width: 73px;
+        height: 56px;
+        border: 1px solid #0000004f;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        color: black;
+        text-align: center;
+
+        &::placeholder{
+            font-size: 16px;
+            font-weight: 700;
+            color: black;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .input-group{
+        input{
+            width: 53px;
+            height: 51px;
+        }
+    }
+}

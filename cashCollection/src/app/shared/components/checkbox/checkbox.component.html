@@ -1,0 +1,7 @@
+<div class="custom-checkbox">
+    <input type="checkbox" [name]="checkId" [id]="checkId" [checked]="isChecked" (change)="onCheckboxChange($event)">
+    <label [for]="checkId" class="max-w-fit flex">
+        <img src="assets/icons/check-filled.svg" alt="" class="cb-filled">
+        <img src="assets/icons/check-empty.svg" alt="" class="cb-empty">
+    </label>
+</div>

@@ -1,0 +1,26 @@
+<div class="absolute top-4 left-0 w-full" [@toastShowHide] *ngIf="toast$ | async as toast">
+    @switch (toast.type) {
+        @case ('warning') {
+            <div class="text-black px-7 py-5 rounded-2xl shadow-lg bg-[#FFB600] w-[320px] sm:w-[540px] m-auto flex items-start gap-2" >
+                <i class="fi fi-rs-circle-cross mt-[3px]"></i>
+                <span [innerHTML]="toast.message"></span>
+            </div>
+        }
+        @case ('error') {
+            <div class="text-black px-7 py-5 rounded-2xl shadow-lg bg-red-600 w-[320px] sm:w-[540px] m-auto flex items-start gap-2" >
+                <i class="fi fi-rs-circle-cross mt-[3px]"></i>
+                <span [innerHTML]="toast.message"></span>
+            </div>
+        }
+        @case ('info') {
+            <div class="text-white px-7 py-5 rounded-2xl shadow-lg bg-[#438DFC] w-[320px] sm:w-[540px] m-auto flex items-start gap-2">
+                <i class="fi fi-rs-circle-cross mt-[3px]"></i>
+                <span [innerHTML]="toast.message"></span>
+            </div>
+        }
+    }
+  </div>
+  
+
+  
+

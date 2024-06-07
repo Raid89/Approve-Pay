@@ -1,0 +1,30 @@
+<div class="bg-[#191F38] overflow-hidden">
+    <div class="relative min-h-[92vh] max-w-[1980px] pt-12 lg:pr-4 lg:pt-0 flex flex-col-reverse lg:flex-row m-auto justify-center items-center lg:items-center gap-0 lg:gap-16">
+        <div class="lg:min-w-[556px] mt-[-28vh] md:mt-0">
+            <img src="assets/img/layer_1.png" alt="Layer Approbe 1">
+        </div>
+        <div class="lg:static flex justify-center items-center z-[1]">
+            <div class="bg-white py-9 md:py-14 px-6 md:px-9 rounded-[39px] max-w-[343px] sm:max-w-[468px] flex flex-col gap-6">
+                <p class="text-3xl md:text-4xl font-bold text-[#191F38]">Ingresa tu número de identificación</p>
+                <div class="py-3 pl-6 pr-2 bg-[#F2F2F2] rounded-lg flex flex-col border-[#191F38]" [ngClass]="{'border-2': inputFocus}">
+                    <label class="text-xs text-[#191F38] font-bold"># de identificación*</label>
+                    <input class="bg-transparent outline-none" 
+                        type="text"
+                        placeholder="Escribe aquí"
+                        maxlength="10"
+                        [formControl]="identificationControl" 
+                        (keyup)="sanitizeInput()"
+                        (keydown.enter)="sendOtp()"
+                        (focus)="inputFocus = true" 
+                        (blur)="inputFocus = false">
+
+                    @if (identificationControl.invalid && (identificationControl.dirty || identificationControl.touched)) {
+                        <small class="text-red-500">{{ getErrorMessage() }}</small>
+                    }
+                </div>
+                <app-button class="w-full lg:w-2/3" [buttonDisabled]="identificationControl.status === 'INVALID'" [buttonText]="isLoading ? 'Cargando...' : 'Validar'" (click)="sendOtp()"></app-button>
+                <app-toast></app-toast>
+            </div>
+        </div>
+    </div>
+</div>

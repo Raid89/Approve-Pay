@@ -1,0 +1,14 @@
+<div class="relative text-sm">
+    <div class="py-4 px-4 border {{ disabled ? 'border-[#DDD]' : 'border-[#9A9A9A]' }} {{ disabled ? 'text-[#DDD]' : '#000000' }} rounded-md w-full flex justify-between items-center cursor-pointer bg-white" (click)="toggleDropdown()"> 
+        {{getSelectedLabel()}}
+        <i class="fi fi-rr-angle-small-down"></i>
+    </div>
+
+    <div *ngIf="dropdownOpen" class="bg-white rounded-md w-full absolute flex flex-col divide-y top-[3rem] overflow-hidden max-h-fit z-10" [@selectShowHide]>
+        @for (item of options; track $index) {
+            <div class="py-2 px-4 hover:font-bold cursor-pointer" (click)="selectOption(item)">
+                {{ item.label }}
+            </div>
+        }
+    </div>
+</div>
