@@ -9,7 +9,7 @@ export class MaxValueDirective {
 
   constructor(private el: ElementRef, private currencyPipe: CurrencyPipe) {}
 
-  @HostListener('input') onInputChange(): void {
+  @HostListener('keypress') onKeyPress(): void {
     let inputValue = this.el.nativeElement.value;
     inputValue = inputValue.replace(/[^\d.]/g, ''); // Eliminar todos los caracteres no numéricos excepto el punto (.)
     const numericValue = parseFloat(inputValue);

@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MenuHomeComponent } from './menu-home/menu-home.component';
 
 const routes: Routes = [
-  { path: '', component: MenuHomeComponent }
+  { path: '', redirectTo: 'menu', pathMatch: 'full' },
+  { path: 'menu', component: MenuHomeComponent }
 ];
 
 @NgModule({

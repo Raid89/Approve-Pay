@@ -1,0 +1,15 @@
+/* Estilos para impresión */
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #payment-summary, #payment-summary * {
+      visibility: visible;
+    }
+    #payment-summary {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  

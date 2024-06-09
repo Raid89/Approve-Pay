@@ -1,0 +1,20 @@
+.custom-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+    font-size: 24px;
+    color: #090B14;
+  
+    div {
+      text-align: center;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .custom-container {
+        padding: 33px 19px 13px 13px;
+    }
+}
+  

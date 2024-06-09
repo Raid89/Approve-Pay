@@ -87,7 +87,7 @@ export class ValidateOtpComponent implements OnInit {
           sessionStorage.setItem('userToken', response.token);
           sessionStorage.setItem('modules', response.accessList);
           this.loadingScreenS.loadingScreen = false;
-          location.href = '/home'
+          this.router.navigate(['/home']);
         }
       },
       error: (err: any) => {

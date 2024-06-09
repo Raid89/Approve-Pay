@@ -15,4 +15,27 @@ export interface CreditData {
     selected?: boolean,
     typePaid?: string,
     otherValue: string,
+    valueToSend: number,
 }
+
+export interface IClientCredit {
+    idCredit: string;
+    amount: number;
+  }
+  
+  export interface ICashier {
+    id: string;
+  }
+  
+  export interface ICashPayment {
+    cashier: ICashier;
+    customer: string;
+    totalAmmount: number;
+    wLstCredits: IClientCredit[];
+  }
+  
+  export interface ITransaction {
+    actionStrategyPattern: string;
+    cashPayment: ICashPayment;
+  }
+  

@@ -37,7 +37,7 @@ export class TableCreditsComponent {
   }
 
   private setResolution(): void {
-    this.isSmall = window.innerWidth < 728;
+    this.isSmall = window.innerWidth < 768;
   }
 
   selectTypePaid(creditIndex: number, value: string) {
@@ -47,7 +47,7 @@ export class TableCreditsComponent {
 
   selectCredit(creditIndex: number, value: boolean) {
     this.creditsData[creditIndex].selected = value;
-    this.changeValues.emit()
+    this.changeValues.emit(this.creditsData[creditIndex])
   }
 
   setOtherValue(creditIndex: number, value: any) {

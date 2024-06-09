@@ -12,7 +12,9 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { SelectComponent } from './components/select/select.component';
 import { CurrencyFormatterDirective } from './directives/currency-formatter-directive';
 import { MaxValueDirective } from './directives/max-value.directive';
-
+import { InfoCardComponent } from './components/info-card/info-card.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PopUpComponent } from './components/pop-up/pop-up.component';
 
 
 @NgModule({
@@ -26,11 +28,14 @@ import { MaxValueDirective } from './directives/max-value.directive';
     SelectComponent,
     CurrencyFormatterDirective,
     MaxValueDirective,
+    InfoCardComponent,
+    PopUpComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [
     NavbarComponent,
@@ -42,7 +47,8 @@ import { MaxValueDirective } from './directives/max-value.directive';
     CheckboxComponent,
     SelectComponent,
     CurrencyFormatterDirective,
-    MaxValueDirective
+    MaxValueDirective,
+    InfoCardComponent
   ]
 })
 export class SharedModule { }
