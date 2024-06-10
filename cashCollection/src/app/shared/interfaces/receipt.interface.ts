@@ -1,6 +1,7 @@
 export interface CreditData {
     id: string,
     saldoCredito: number,
+    client?: string,
     nextPaid: number,
     nextFeesDate: string,
     feesPaid: number,
@@ -20,7 +21,7 @@ export interface CreditData {
 
 export interface IClientCredit {
     idCredit: string;
-    amount: number;
+    ammount: number;
   }
   
   export interface ICashier {
@@ -28,7 +29,7 @@ export interface IClientCredit {
   }
   
   export interface ICashPayment {
-    cashier: ICashier;
+    casheer: ICashier;
     customer: string;
     totalAmmount: number;
     wLstCredits: IClientCredit[];

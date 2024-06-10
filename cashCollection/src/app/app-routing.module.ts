@@ -22,6 +22,11 @@ const routes: Routes = [
     path: 'receipts',
     loadChildren: () => import('./features/receipts/receipts.module').then(m => m.ReceiptsModule),
     // canActivate: [authGuard]
+  },
+  
+  {
+    path: 'history',
+    loadChildren: () => import('./features/history/history-routing.module').then(m => m.HistoryRoutingModule)
   }
 ];
 

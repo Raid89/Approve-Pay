@@ -1,7 +1,8 @@
 <button 
+    id="button"
     [disabled]="buttonDisabled"
     class="border border-[#191F38] disabled:bg-[#BDBDBD] disabled:border-[#BDBDBD] disabled:text-white text-base 
             font-bold py-4 px-9 rounded-full w-full"
-    [ngClass]="[bgColor, textColor]"
+    [ngStyle]="{ color: buttonTextColor, backgroundColor: buttonColor}"
     [innerText]="buttonText"
 ></button>

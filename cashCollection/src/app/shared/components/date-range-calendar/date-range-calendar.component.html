@@ -1,0 +1,24 @@
+<div class="calendar">
+  <div class="header">
+    <button class="text-[#848A95]" (click)="prevMonth()">&lt;</button>
+    <span>{{ currentMonth | date: 'MMMM yyyy' }}</span>
+    <button class="text-[#848A95]" (click)="nextMonth()">&gt;</button>
+  </div>
+  <div class="weekdays">
+    <div *ngFor="let day of ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SÁ']">{{ day }}</div>
+  </div>
+  <div class="weeks-container">
+    <div class="weeks" *ngFor="let week of weeks">
+      <div class="day" 
+           *ngFor="let date of week" 
+           [ngClass]="{ 
+             'in-range': isInRange(date), 
+             'selected': date && (date.getTime() === (range.start?.getTime() || 0) || date.getTime() === (range.end?.getTime() || 0)), 
+             'disabled': date && !isDateSelectable(date) 
+           }" 
+           (click)="selectDate(date)">
+        {{ date?.getDate() }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,20 +3,12 @@
       <span><b>Número de crédito</b> <br> ****{{ '123456789'.slice(-4) }}</span>
     </div>
   
-    <div class="flex flex-col gap-4">
-      <div class="flex justify-between">
-        <span>Valor de cuota</span>
-        <span class="font-medium">{{ 10000 | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
-      </div>
-  
-      <div class="flex justify-between">
-        <span>Monto</span>
-        <span class="font-medium">{{ 10000 | currency : 'USD' : 'symbol' : '1.0-0' }}</span>
-      </div>
-  
-      <div class="flex justify-between">
-        <span>Número de autorización</span>
-        <span class="font-medium">{{ 10000 }}</span>
+    <div class="flex flex-col gap-4" id="test">
+      <div *ngFor="let item of dynamicData">
+        <div class="flex justify-between">
+          <span>{{ item.label }}</span>
+          <span class="font-medium">{{ item.value }}</span>
+        </div>
       </div>
     </div>
 </div>

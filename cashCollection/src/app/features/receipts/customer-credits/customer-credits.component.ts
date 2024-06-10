@@ -5,11 +5,14 @@ import { Router } from '@angular/router';
 import { LoadingScreenService } from '../../../shared/components/loading-screen/loading-screen.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpComponent } from '../../../shared/components/pop-up/pop-up.component';
+import { IFinancialData } from '../../../shared/interfaces/auth.interfaces';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-customer-credits',
   templateUrl: './customer-credits.component.html',
-  styleUrl: './customer-credits.component.scss'
+  styleUrl: './customer-credits.component.scss',
+  providers: [CurrencyPipe]
 })
 export class CustomerCreditsComponent implements OnInit {
   
@@ -17,12 +20,15 @@ export class CustomerCreditsComponent implements OnInit {
   public documentClient: string | null = sessionStorage.getItem('documentClient');
   public totalPaid = 0;
   public creditsSelected: CreditData[] = [];
+  public showSummaryPayment: boolean = false;
 
   constructor(
     private receiptService: ReceiptsService,
     private router: Router,
     private loadingScreenS: LoadingScreenService,
     private dialog: MatDialog,
+    private currencyPipe: CurrencyPipe,
+    private loadScreenS: LoadingScreenService,
   ){
 
   }
@@ -38,7 +44,8 @@ export class CustomerCreditsComponent implements OnInit {
 
   validateDocumentStoraged(): any {
     if( !this.documentClient ) return this.router.navigate(['/receipts/search']);
-    this.getClientCredits();
+    setTimeout(() => this.getClientCredits(), 0)
+    
   }
 
   getClientCredits() {
@@ -111,13 +118,42 @@ export class CustomerCreditsComponent implements OnInit {
       document.body.innerHTML = printContents;
       window.print();
       document.body.innerHTML = originalContents;
+      this.router
+      location.reload();
     }
   }
 
+  formatCurrency(value: number): string {
+    return this.currencyPipe.transform(value, 'USD', 'symbol', '1.0-0') || '';
+  }
+
+  mapDataShowSummary(credit: CreditData): {label: string, value: string}[] {
+    const dataToSummary = [
+      { label: 'Valor de cuota', value: this.formatCurrency(credit.nextPaid) },
+      { label: 'Monto', value: this.formatCurrency(credit.valueToSend) },
+      { label: 'Número de autorización', value: '12345' }
+    ]
+    return dataToSummary
+  }
+
   sendPayment(){
+    this.loadScreenS.loadingScreen = true;
     const observableSendPayment = {
-      next: () => {},
+      next: (response: IFinancialData) => {
+        this.loadScreenS.loadingScreen = false;
+        if(response.validationStrategy !== "SUCCESS") {
+          this.dialog.open(PopUpComponent, { data: 
+            { 
+              popUpText: 'El pago no se pudo <b>realizar</b>',
+              buttonText: 'Ir a los créditos'
+            }
+          })
+          return
+        }
+        this.showSummaryPayment = true;
+      },
       error: () => {
+        this.loadScreenS.loadingScreen = false;
         this.dialog.open(PopUpComponent, { data: 
           { 
             popUpText: 'El pago no se pudo <b>realizar</b>',

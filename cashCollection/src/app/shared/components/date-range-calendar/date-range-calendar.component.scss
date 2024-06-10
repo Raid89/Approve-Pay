@@ -1,0 +1,110 @@
+.calendar {
+  width: fit-content;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 25px 43px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f7f9fc;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F2552;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E4E5E7;
+  margin-bottom: 16px;
+}
+
+.weekdays, .weeks {
+  display: flex;
+  gap: 13px;
+}
+
+.weekdays div, .weeks .day {
+  flex: 1;
+  text-align: center;
+}
+
+.weekdays {
+  background-color: #f7f9fc;
+  color: #7E818C;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.weeks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weeks {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.weeks .day {
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.weeks .day::before, .weeks .day::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background-color: #7DFFB2;
+  z-index: -1;
+}
+
+.weeks .day::before {
+  left: -15px;
+}
+
+.weeks .day::after {
+  right: -15px;
+}
+
+.weeks .day:hover {
+  background-color: #0F2552;
+}
+
+.in-range {
+  background-color: #7DFFB2;
+  color: #0F2552;
+  z-index: 1;
+}
+
+.selected {
+  background-color: #0F2552;
+  border-radius: 6px;
+  color: #7DFFB2;
+  z-index: 2;
+}
+
+.weeks .day.selected::before, .weeks .day.selected::after{
+  background-color: transparent;
+}
+
+.day:last-child {
+  border-right: none;
+}
+
+.day.disabled {
+  color: #e6e6e6;
+  pointer-events: none;
+}

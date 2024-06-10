@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreditData, ICashPayment, IClientCredit, ITransaction } from '../../shared/interfaces/receipt.interface';
 import { environment } from '../../../environments/environment.development';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,11 @@ export class ReceiptsService {
       actionStrategyPattern: 'GET_CLIENT_CREDITS',
       identificacion
     }
-    return this.httpClient.post<CreditData[]>(route, body,  { headers: this.getHeaders() });
+    return this.httpClient.post<CreditData[]>(route, body, { headers: this.getHeaders() }).pipe(
+      map((credits: CreditData[]) => 
+        credits.filter(credit => credit.nextPaid > 0 && credit.saldoCredito > 0)
+      )
+    );
   }
 
   mapWLstCredits(arrCredits: CreditData[]): IClientCredit[] {
@@ -45,10 +49,10 @@ export class ReceiptsService {
     arrCredits.forEach(credit => {
       let clientCredit: IClientCredit = {
         idCredit: '',
-        amount: 0
-      };
+        ammount: 0
+      }; 
       clientCredit.idCredit = credit.id;
-      clientCredit.amount = credit.valueToSend;
+      clientCredit.ammount = credit.valueToSend;
       wLstCredits.push(clientCredit)
     })
     return wLstCredits;
@@ -60,7 +64,7 @@ export class ReceiptsService {
     const documentCasheer = sessionStorage.getItem('userDocument') || '';
 
     const cashPayment: ICashPayment = {
-      cashier: {
+      casheer: {
         id: documentCasheer
       },
       customer: documentClient,

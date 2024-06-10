@@ -10,12 +10,4 @@ export class ButtonComponent {
   @Input() buttonTextColor: string = '#7DFFB2';
   @Input() buttonText: string = 'Confirmar';
   @Input() buttonDisabled: boolean = false;
-
-  get bgColor(): string {
-    return `bg-[${this.buttonColor}]` ?? '';
-  }
-
-  get textColor(): string {
-    return `text-[${this.buttonTextColor}]` ?? '';
-  }
 }

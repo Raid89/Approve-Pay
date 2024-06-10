@@ -9,12 +9,12 @@
       <div class="flex flex-col gap-4">
         <div class="flex justify-between">
           <span>Pago mínimo</span>
-          <span class="font-medium">{{ item.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+          <span class="font-medium">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</span>
         </div>
     
         <div class="flex justify-between">
           <span>Pago total</span>
-          <span class="font-medium">{{ item.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0' }}</span>
+          <span class="font-medium">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }}</span>
         </div>
     
         <div class="flex justify-between">
@@ -32,8 +32,8 @@
         <p class="font-semibold">Valor</p>
           @if (item.selected) {
             @switch (item.typePaid) {
-              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0' }} </span> }
-              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : 'symbol' : '1.0-0' }} </span> }
+              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
+              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
               @case ('2') { 
                 <input 
                   (keyup)="setOtherValue($index, currencyInput)" 
@@ -66,8 +66,8 @@
       <div class="grid-cols-7 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1120px] pl-6">
         <div class="flex items-center"><app-checkbox [checkId]="'check-' + item.id" [isChecked]="item.selected" (returnValue)="selectCredit($index, $event)" /></div>
         <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
-        <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : 'symbol' : '1.0-0'}}</div>
-        <div class="flex items-center">{{ item.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0'}}</div>
+        <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</div>
+        <div class="flex items-center">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0'}}</div>
         <div class="flex items-center">{{ item.nextFeesDate }}</div>
         <div class="flex items-center"> 
           <app-select 
@@ -79,8 +79,8 @@
         <div class="flex items-center">
           @if (item.selected) {
             @switch (item.typePaid) {
-              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : 'symbol' : '1.0-0' }} </span> }
-              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : 'symbol' : '1.0-0' }} </span> }
+              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
+              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
               @case ('2') { 
                 <input 
                   (keyup)="setOtherValue($index, currencyInput)" 

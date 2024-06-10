@@ -18,6 +18,6 @@ export class ToastService {
     this.toastSubject.next(toast);
     setTimeout(() => {
       this.toastSubject.next(null);
-    }, toast.duration || 3000);
+    }, toast.duration || 1000000);
   }
 }
