@@ -159,7 +159,6 @@ export class CustomerCreditsComponent implements OnInit {
       { label: 'Valor de cuota', value: this.formatCurrency(credit.nextPaid) },
       { label: 'Monto', value: this.formatCurrency(credit.valueToSend) },
     ]
-    debugger
     return dataToSummary
   }
 
