@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopUpComponent } from '../../../shared/components/pop-up/pop-up.component';
 import { IFinancialData } from '../../../shared/interfaces/auth.interfaces';
 import { CurrencyPipe } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-customer-credits',
@@ -21,9 +22,13 @@ export class CustomerCreditsComponent implements OnInit {
   public totalPaid = 0;
   public creditsSelected: CreditData[] = [];
   public showSummaryPayment: boolean = false;
+  public paymentDateResponse?: string;
+  public paymentAuthCode?: string;
+  public paymentCommerce?: string;
 
   constructor(
     private receiptService: ReceiptsService,
+    private authService: AuthService,
     private router: Router,
     private loadingScreenS: LoadingScreenService,
     private dialog: MatDialog,
@@ -36,6 +41,8 @@ export class CustomerCreditsComponent implements OnInit {
   ngOnInit(): void {
       this.clientCredits = this.receiptService.creditsData;
       if(this.clientCredits.length < 1) this.validateDocumentStoraged();
+      const userData = this.authService.userData
+      this.paymentCommerce = userData?.url;
   }
 
   loadClientCredits() {
@@ -112,26 +119,46 @@ export class CustomerCreditsComponent implements OnInit {
   }
 
   printSummary(): void {
-    let printContents = document.getElementById('payment-summary')?.innerHTML;
+    const textElement = document.getElementById('text-pay');
+    if (textElement) {
+      textElement.style.top = '10px';
+      textElement.style.right = '10px';
+    }
+  
+    const printContents = document.getElementById('payment-summary')?.outerHTML;
     if (printContents) {
-      let originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-      this.router
-      location.reload();
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      if (printWindow) {
+        printWindow.document.write('<html><head><title>Print</title>');
+  
+        // Incluir el CSS de Tailwind directamente desde tu proyecto (ajusta la ruta según sea necesario)
+        printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">');
+  
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(printContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+  
+        // Espera a que los estilos se carguen antes de imprimir
+        printWindow.onload = function() {
+          printWindow.print();
+          printWindow.close();
+        };
+      }
     }
   }
+  
 
   formatCurrency(value: number): string {
     return this.currencyPipe.transform(value, 'USD', 'symbol', '1.0-0') || '';
   }
 
-  mapDataShowSummary(credit: CreditData): {label: string, value: string}[] {
+  mapDataShowSummary(credit: CreditData): {label: string, value?: string}[] {
     const dataToSummary = [
       { label: 'Valor de cuota', value: this.formatCurrency(credit.nextPaid) },
       { label: 'Monto', value: this.formatCurrency(credit.valueToSend) },
-      { label: 'Número de autorización', value: '12345' }
+      { label: 'Número de autorización', value: this.paymentAuthCode }
     ]
     return dataToSummary
   }
@@ -150,7 +177,9 @@ export class CustomerCreditsComponent implements OnInit {
           })
           return
         }
-        this.showSummaryPayment = true;
+          this.paymentDateResponse = response.fechaCreacion;
+          this.paymentAuthCode = response.id;
+          this.showSummaryPayment = true;
       },
       error: () => {
         this.loadScreenS.loadingScreen = false;
@@ -162,5 +191,9 @@ export class CustomerCreditsComponent implements OnInit {
       }
     }
     this.receiptService.sendPayment(this.creditsSelected, this.totalPaid).subscribe(observableSendPayment);
+  }
+
+  reloadPage() {
+    location.reload();
   }
 }

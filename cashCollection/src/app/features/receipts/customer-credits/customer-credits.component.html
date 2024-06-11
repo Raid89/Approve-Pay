@@ -1,6 +1,6 @@
 <div class="bg-white">
     <div class="m-auto w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
-        <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts">{{'<' + 'Atrás'}}</p>
+        <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
         <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
             <p class="text-xs m-0">Cliente</p>
             <p class="text-xl font-bold my-2">{{ '' | titlecase}}</p>
@@ -26,6 +26,7 @@
             <div>
                 <div class="relative border border-[#191F38] p-4 md:p-6 rounded-xl w-[344px] md:w-[468px]" id="payment-summary">
                     <div 
+                        id="text-pay"
                         class="absolute border-2 md:border-4 border-[#3886FF] text-[#3886FF] 
                         font-medium text-base md:text-2xl py-1 px-3 md:px-5 opacity-60 rotate-[-30deg] 
                         top-[-25px] md:top-6 right-[-30px] md:right-1 tracking-[3.703px] md:tracking-[4.615px]">
@@ -35,15 +36,15 @@
                     <div class="flex flex-col gap-3 mb-7">
                         <div class="flex justify-between text-base">
                             <span>Fecha</span>
-                            <span class="font-medium">xxxxxxx</span>
+                            <span class="font-medium">{{ this.paymentDateResponse | date:'dd-MM-yyyy' }}</span>
                         </div>
                         <div class="flex justify-between text-base">
                             <span>Hora</span> 
-                            <span class="font-medium">xxxxxxx</span>
+                            <span class="font-medium">{{ this.paymentDateResponse | date:'HH:mm:ss' }}</span>
                         </div>
                         <div class="flex justify-between text-base">
                             <span>Comercio</span>
-                            <span class="font-medium">xxxxxxx</span>
+                            <span class="font-medium">{{ paymentCommerce }}</span>
                         </div>
                     </div>
                     <div>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="flex gap-9 mt-6">
                     <app-button class="w-full hidden md:block" buttonText="Ir al Inicio" routerLink="/home" />
-                    <app-button class="w-full" buttonText="Ir a creditos" buttonColor="white" buttonTextColor="#191F38"  routerLink="/receipts/search" />
+                    <app-button class="w-full" buttonText="Ir a creditos" buttonColor="white" buttonTextColor="#191F38" (click)="reloadPage()" />
                 </div>
             </div>
         </div>
