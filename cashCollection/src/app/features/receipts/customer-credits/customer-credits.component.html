@@ -46,10 +46,14 @@
                             <span>Comercio</span>
                             <span class="font-medium">{{ paymentCommerce }}</span>
                         </div>
+                        <div class="flex justify-between text-base">
+                            <span>Número de autorización</span>
+                            <span class="font-medium">{{ this.paymentAuthCode }}</span>
+                        </div>
                     </div>
                     <div>
                         @for (item of creditsSelected; track $index) {
-                            <app-info-card [dynamicData]="mapDataShowSummary(item)" />
+                            <app-info-card [creditNumber]="item.id" [dynamicData]="mapDataShowSummary(item)" />
                         }
                     </div>
                 </div>

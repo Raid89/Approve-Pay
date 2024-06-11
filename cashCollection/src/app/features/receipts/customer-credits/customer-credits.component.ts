@@ -158,8 +158,8 @@ export class CustomerCreditsComponent implements OnInit {
     const dataToSummary = [
       { label: 'Valor de cuota', value: this.formatCurrency(credit.nextPaid) },
       { label: 'Monto', value: this.formatCurrency(credit.valueToSend) },
-      { label: 'Número de autorización', value: this.paymentAuthCode }
     ]
+    debugger
     return dataToSummary
   }
 
