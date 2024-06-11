@@ -79,6 +79,7 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       const currentRoute = this.router.url;
+      this.userData = this.authService.userData;
       this.changeCurrentRoute(currentRoute);
       this.changeMenuIsCurrent(currentRoute);
       this.detectAllowedMenu();

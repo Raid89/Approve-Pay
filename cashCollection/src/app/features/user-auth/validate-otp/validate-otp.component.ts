@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Toast, ToastService } from '../../../shared/components/toast/toast.service';
 import { LoadingScreenService } from '../../../shared/components/loading-screen/loading-screen.service';
 import { CountdownComponent } from './countdown/countdown.component';
+import { OtpInputComponent } from './otp-input/otp-input.component';
 
 @Component({
   selector: 'app-validate-otp',
@@ -14,13 +15,17 @@ import { CountdownComponent } from './countdown/countdown.component';
 export class ValidateOtpComponent implements OnInit {
 
   @ViewChild(CountdownComponent) countdownComponent!: CountdownComponent;
+  @ViewChild(OtpInputComponent) otpInputComponent!: OtpInputComponent;
 
+  executeClearInput(): void {
+    this.otpInputComponent.clearInput();
+  }
   public userData?: IFinancialData | null;
   public buttonDisabled = true;
   public countdownValue: string = '';
 
   private inputValue: string = '';
-
+  private codeExpired = false;
   constructor(
     private authService: AuthService,
     private toastService: ToastService, 
@@ -50,14 +55,16 @@ export class ValidateOtpComponent implements OnInit {
   resendOtp() { 
     const userDocument = sessionStorage.getItem('userDocument');
     this.loadingScreenS.loadingScreen = true;
+    this.executeClearInput();
     const observerSendOtp = {
       next: (response: IFinancialData) => {
         this.loadingScreenS.loadingScreen = false;
 
         if(response.validationStrategy === "SUCCESS"){
+          this.codeExpired = false;
           this.authService.userData = response;
           this.restartCountdown()
-          const msg =  'El código se ha reenviado exitosamente.'
+          const msg =  'Hemos enviado un nuevo código'
           this.showToast('info', msg)
         }
 
@@ -73,15 +80,20 @@ export class ValidateOtpComponent implements OnInit {
   }
 
   validateOtp() {
-    this.loadingScreenS.loadingScreen = true;
-    const errorMsg = 'Código incorrecto, por favor valide su código e intente nuevamente'
+    const errorMsg = 'El código ingresado es incorrecto, verifica e intenta de nuevo'
     if(this.inputValue.length < 4) return this.showToast('warning', errorMsg);
-
+    if(this.codeExpired) {
+      const errorMsg = 'El código ha expirado, pídelo de nuevo'
+      this.showToast('warning', errorMsg);
+      return
+    }
+    this.loadingScreenS.loadingScreen = true;
     const observerValidOtp = {
       next: (response: IUserValidData) => {
         if(response.validationStrategy === 'ERROR') {
           this.loadingScreenS.loadingScreen = false;
           this.showToast('warning', errorMsg);
+          this.executeClearInput();
         } 
         if(response.validationStrategy === 'SUCCESS') {
           sessionStorage.setItem('userToken', response.token);
@@ -94,11 +106,15 @@ export class ValidateOtpComponent implements OnInit {
         this.loadingScreenS.loadingScreen = false;
         const msg =  'Ha ocurrido un error por favor intenta más tarde'
         this.showToast('error', msg)
+        this.executeClearInput();
       }
     }
 
     this.authService.validateOtpCode(this.inputValue).subscribe(observerValidOtp);
   }
 
+  changeCodeExpired() {
+    this.codeExpired = true;
+  }
 
 }

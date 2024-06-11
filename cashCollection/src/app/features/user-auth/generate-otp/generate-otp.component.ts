@@ -67,26 +67,32 @@ export class GenerateOtpComponent implements OnInit {
     
     
     if(this.identificationControl.status === 'INVALID') {
+      this.isLoading = false;
+      clearTimeout(loadTimeOut);
       return this.showToast('warning', 'Verifica tus datos e ingrésalos nuevamente')
     }
 
     const observerSendOtp = {
       next: (response: IFinancialData) => {
         clearTimeout(loadTimeOut);
-        this.loadingScreenS.loadingScreen = false;
+        
 
         if(response.validationStrategy === "UP_T0_DATE"){
           const msg =  'Verifica tus datos e ingrésalos nuevamente'
           this.showToast('warning', msg)
-        }
-        
-        if(response.validationStrategy === "SUCCESS"){
+        }else if(response.validationStrategy === "SUCCESS"){
           this.authService.userData = response;
           const identificationValue = this.identificationControl.value;
           if (identificationValue !== null) sessionStorage.setItem('userDocument', identificationValue);
           sessionStorage.removeItem('countdownSecondsLeft');
           this.router.navigate(['/auth/validate']);
+        }else {
+          const msg =  'Ha ocurrido un error por favor intenta más tarde'
+          this.showToast('error', msg)
+          this.isLoading = false;
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.loadingScreenS.loadingScreen = false;
         this.isLoading = false;
       },
 

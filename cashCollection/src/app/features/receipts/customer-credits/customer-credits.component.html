@@ -3,10 +3,11 @@
         <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
         <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
             <p class="text-xs m-0">Cliente</p>
-            <p class="text-xl font-bold my-2">{{ '' | titlecase}}</p>
+            <p class="text-xl font-bold my-2">{{ clientCredits[0].client | titlecase}}</p>
             <p class="text-sm m-0">C.C {{ documentClient }}</p>
         </div>
         @if (!showSummaryPayment) {
+            <p class="mb-4">Tiene <b>{{ clientCredits.length }} créditos</b> activos:</p>
             <app-table-credits [creditsData]="clientCredits" (changeValues)="updateCreditsSelected()"/>
             <div class="bg-[#7DFFB2] py-6 p-4 mb-10 rounded-xl text-white flex items-center justify-between">
                 <p class="text-lg text-[#231F20]">Total a pagar</p>

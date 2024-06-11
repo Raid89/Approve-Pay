@@ -166,7 +166,7 @@ export class CustomerCreditsComponent implements OnInit {
     this.loadScreenS.loadingScreen = true;
     const observableSendPayment = {
       next: (response: IFinancialData) => {
-        this.loadScreenS.loadingScreen = false;
+        
         if(response.validationStrategy !== "SUCCESS") {
           this.dialog.open(PopUpComponent, { data: 
             { 
@@ -176,6 +176,8 @@ export class CustomerCreditsComponent implements OnInit {
           })
           return
         }
+          window.scrollTo({ top: 0 });
+          this.loadScreenS.loadingScreen = false;
           this.paymentDateResponse = response.fechaCreacion;
           this.paymentAuthCode = response.id;
           this.showSummaryPayment = true;

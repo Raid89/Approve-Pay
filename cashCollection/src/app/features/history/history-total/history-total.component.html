@@ -1,7 +1,7 @@
 <div class="py-5 lg:py-0 pl-4 pr-5 flex flex-col lg:flex-row gap-4 rounded-xl border border-[#191F38] max-w-[344px] lg:max-w-none items-start m-auto mb-10 mt-5 divide-y lg:divide-x divide-[#191F38]">
     <div class="flex flex-col items-center lg:items-start justify-center lg:justify-start w-full lg:w-[269px] lg:py-5">
         <span class="font-medium">Monto Total</span>
-        <span>{{ totalAmmountCollection | currency : 'USD' : '$' : '1.0-0' }}</span>
+        <span>${{ totalAmmountCollection | currency : 'USD' : '' : '1.0-0' }}</span>
     </div>
 
     <div class="flex flex-col items-center lg:items-center justify-between lg:py-5 lg:pl-8 pt-8">
@@ -12,7 +12,7 @@
         <div class="text-center w-full">
         @for (item of pagedCollection; track $index) {
             <div class="w-full grid grid-cols-2 gap-14 mb-3">
-                <span>{{ item.ammount | currency : 'USD' : '$' : '1.0-0' }}</span>
+                <span>${{ item.ammount | currency : 'USD' : '' : '1.0-0' }}</span>
                 <span>{{ formatDateToTable(item.startDate) }}</span>
             </div>
         }

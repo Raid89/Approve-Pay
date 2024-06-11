@@ -53,17 +53,17 @@
 
 @if(!isSmall){
   <div class="bg-white border border-[#E4E3E3] rounded-xl text-base  mb-6 grip divide-y overflow-auto" style="overflow-x: auto;">
-    <div class="bg-[#F9F9F9] grid-cols-7 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1120px] pl-6">
+    <div class="bg-[#F9F9F9] grid-cols-8 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1300px] pl-6">
       <div class="flex items-center"><app-checkbox checkId="check-all" (returnValue)="changeSelectAll($event)" /></div>
       <div class="flex items-center">Número de crédito</div>
       <div class="flex items-center">Pago mínimo</div>
       <div class="flex items-center">Pago total</div>
       <div class="flex items-center">Límite de pago</div>
       <div class="flex items-center">Tipo de pago</div>
-      <div class="flex items-center">Valor</div>
+      <div class="flex items-center col-span-2">Valor</div>
     </div>
     @for (item of creditsData; track $index){
-      <div class="grid-cols-7 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1120px] pl-6">
+      <div class="grid-cols-8 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1300px] pl-6">
         <div class="flex items-center"><app-checkbox [checkId]="'check-' + item.id" [isChecked]="item.selected" (returnValue)="selectCredit($index, $event)" /></div>
         <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
         <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</div>
@@ -76,7 +76,7 @@
             (returnValue)="selectTypePaid($index, $event)" 
           />
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center col-span-2">
           @if (item.selected) {
             @switch (item.typePaid) {
               @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }

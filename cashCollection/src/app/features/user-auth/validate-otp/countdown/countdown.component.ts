@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-countdown',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './countdown.component.scss'
 })
 export class CountdownComponent {
+  @Output() countDown = new EventEmitter();
   countdownValue: string = '';
   secondsLeft: number = 0;
   interval: any;
@@ -23,6 +24,7 @@ export class CountdownComponent {
         clearInterval(this.interval);
         this.countdownValue = '0:00';
         sessionStorage.removeItem('countdownSecondsLeft');
+        this.countDown.emit();
       } else {
         const minutes = Math.floor(this.secondsLeft / 60);
         const seconds = this.secondsLeft % 60;
