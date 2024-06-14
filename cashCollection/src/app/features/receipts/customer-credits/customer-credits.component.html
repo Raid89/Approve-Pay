@@ -1,15 +1,16 @@
 <div class="bg-white">
     <div class="m-auto w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
-        <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
+        <p *ngIf="showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
+        <p *ngIf="!showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts/search">{{'<' + 'Atrás'}}</p>
         <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
             <p class="text-xs m-0">Cliente</p>
-            <p class="text-xl font-bold my-2">{{ clientCredits[0].client | titlecase}}</p>
+            <p class="text-xl font-bold my-2">{{ clientCredits[0]?.client | titlecase}}</p>
             <p class="text-sm m-0">C.C {{ documentClient }}</p>
         </div>
         @if (!showSummaryPayment) {
             <p class="mb-4">Tiene <b>{{ clientCredits.length }} créditos</b> activos:</p>
             <app-table-credits [creditsData]="clientCredits" (changeValues)="updateCreditsSelected()"/>
-            <div class="bg-[#7DFFB2] py-6 p-4 mb-10 rounded-xl text-white flex items-center justify-between">
+            <div class="bg-[#7DFFB2] py-6 md:px-14 p-4 mb-10 rounded-xl text-white flex items-center justify-between md:justify-end md:gap-16">
                 <p class="text-lg text-[#231F20]">Total a pagar</p>
                 <p class="text-lg font-bold text-[#191F38]">{{ totalPaid | currency : 'USD' : '$' : '1.0-0' }}</p>
             </div>

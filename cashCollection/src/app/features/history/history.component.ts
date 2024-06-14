@@ -20,8 +20,8 @@ import { PopUpComponent } from '../../shared/components/pop-up/pop-up.component'
 export class HistoryComponent {
 
   public range:any = {
-    start: new Date(),
-    end: new Date()
+    start: '',
+    end: ''
   };
   public showHistory: boolean = false;
   public showCalendar: boolean = true;
@@ -40,6 +40,7 @@ export class HistoryComponent {
   } 
 
   formatDate(dateToParse: string): string {
+    if(dateToParse === '') return 'Seleccionar ';
     const days = ['Dom.', 'Lun.', 'Mar.', 'Mié.', 'Jue.', 'Vie.', 'Sáb.'];
     const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     const date = new Date((dateToParse))

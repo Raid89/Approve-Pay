@@ -19,12 +19,12 @@
     
         <div class="flex justify-between">
           <span>Límite de pago</span>
-          <span class="font-medium">{{ item.nextFeesDate }}</span>
+          <span class="font-medium" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate }}</span>
         </div>
     
         <div>
           <p class="mb-2 font-semibold">Tipo de pago</p>
-          <app-select [disabled]="!item.selected" [options]="selectOptions"
+          <app-select [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
             (returnValue)="selectTypePaid($index, $event)" />
         </div>
       </div>
@@ -68,11 +68,11 @@
         <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
         <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</div>
         <div class="flex items-center">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0'}}</div>
-        <div class="flex items-center">{{ item.nextFeesDate }}</div>
+        <div class="flex items-center" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate }}</div>
         <div class="flex items-center"> 
           <app-select 
             class="max-w-1/2"
-            [disabled]="!item.selected" [options]="selectOptions"
+            [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
             (returnValue)="selectTypePaid($index, $event)" 
           />
         </div>

@@ -88,7 +88,7 @@ export class GenerateOtpComponent implements OnInit {
           this.router.navigate(['/auth/validate']);
         }else {
           const msg =  'Ha ocurrido un error por favor intenta más tarde'
-          this.showToast('error', msg)
+          this.showToast('warning', msg)
           this.isLoading = false;
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -99,7 +99,7 @@ export class GenerateOtpComponent implements OnInit {
       error: (err: any) => {
         this.loadingScreenS.loadingScreen = false;
         const msg =  'Ha ocurrido un error por favor intenta más tarde'
-        this.showToast('error', msg)
+        this.showToast('warning', msg)
         this.isLoading = false;
       }
     }

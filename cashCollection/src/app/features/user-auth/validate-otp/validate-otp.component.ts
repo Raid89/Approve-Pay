@@ -73,7 +73,7 @@ export class ValidateOtpComponent implements OnInit {
       error: (err: any) => {
         this.loadingScreenS.loadingScreen = false;
         const msg =  'Ha ocurrido un error por favor intenta más tarde'
-        this.showToast('error', msg)
+        this.showToast('warning', msg)
       }
     }
     this.authService.sendOptCode(userDocument).subscribe(observerSendOtp);
@@ -94,18 +94,21 @@ export class ValidateOtpComponent implements OnInit {
           this.loadingScreenS.loadingScreen = false;
           this.showToast('warning', errorMsg);
           this.executeClearInput();
-        } 
-        if(response.validationStrategy === 'SUCCESS') {
+        } else if(response.validationStrategy === 'SUCCESS') {
           sessionStorage.setItem('userToken', response.token);
           sessionStorage.setItem('modules', response.accessList);
           this.loadingScreenS.loadingScreen = false;
           this.router.navigate(['/home']);
+        } else {
+          const msg =  'Ha ocurrido un error por favor intenta más tarde'
+          this.showToast('warning', msg)
+          this.loadingScreenS.loadingScreen = false;
         }
       },
       error: (err: any) => {
         this.loadingScreenS.loadingScreen = false;
         const msg =  'Ha ocurrido un error por favor intenta más tarde'
-        this.showToast('error', msg)
+        this.showToast('warning', msg)
         this.executeClearInput();
       }
     }

@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           sessionStorage.clear();
           this.loadingS.loadingScreen = false;
-          this.router.navigate(['']);
+          location.href = '';
         }
         return throwError(error);
       })

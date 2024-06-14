@@ -25,6 +25,7 @@ export class CustomerCreditsComponent implements OnInit {
   public paymentDateResponse?: string;
   public paymentAuthCode?: string;
   public paymentCommerce?: string;
+  public clientName: string | undefined;
 
   constructor(
     private receiptService: ReceiptsService,
@@ -56,10 +57,10 @@ export class CustomerCreditsComponent implements OnInit {
   }
 
   getClientCredits() {
-    
     this.loadingScreenS.loadingScreen = true
     const observerSendOtp = {
       next: (response: CreditData[]) => {
+        this.clientName = response[0]?.client;
         if( response.length < 1 ){
           const dialog = this.dialog.open(PopUpComponent, { data: { 
             popUpText: 'El cliente no tiene créditos activos',
@@ -156,8 +157,7 @@ export class CustomerCreditsComponent implements OnInit {
 
   mapDataShowSummary(credit: CreditData): {label: string, value?: string}[] {
     const dataToSummary = [
-      { label: 'Valor de cuota', value: this.formatCurrency(credit.nextPaid) },
-      { label: 'Monto', value: this.formatCurrency(credit.valueToSend) },
+      { label: 'Monto Pagado', value: this.formatCurrency(credit.valueToSend) },
     ]
     return dataToSummary
   }
@@ -174,6 +174,7 @@ export class CustomerCreditsComponent implements OnInit {
               buttonText: 'Ir a los créditos'
             }
           })
+          this.loadScreenS.loadingScreen = false;
           return
         }
           window.scrollTo({ top: 0 });

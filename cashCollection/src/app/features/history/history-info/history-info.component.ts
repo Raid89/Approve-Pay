@@ -1,14 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { ReceiptsService } from '../../../core/services/receipts.service';
 import { HistoryService } from '../../../core/services/history.service';
-
-interface Transaction {
-  date: string;
-  amount: number;
-  clientId: string;
-  creditNumber: string;
-  credits: { idCredit: string; amount: number }[];
-}
+import { ExcelService } from '../../../core/services/excel.service';
 
 @Component({
   selector: 'app-history-info',
@@ -30,6 +22,7 @@ export class HistoryInfoComponent implements OnInit {
 
   constructor(
     private historyService: HistoryService,
+    private excelService: ExcelService,
   ) {}
 
   ngOnInit(): void {
@@ -107,5 +100,9 @@ export class HistoryInfoComponent implements OnInit {
 
   parseJsonCredits(credits: string): Array<any> {
     return JSON.parse(credits);
+  }
+
+  exportToExcel(): void {
+    this.excelService.exportAsExcelFile(this.totalResults);
   }
 }

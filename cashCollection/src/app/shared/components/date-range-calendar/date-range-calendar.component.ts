@@ -62,7 +62,8 @@ export class DateRangeCalendarComponent {
       if (!this.range.start || (this.range.start && this.range.end)) {
         this.range.start = date;
         this.range.end = null;
-      } else if (this.range.start && !this.range.end && date > this.range.start) {
+        debugger
+      } else if (this.range.start && !this.range.end && date >= this.range.start) {
         this.range.end = date;
         this.setDateRange.emit(this.range);
       } else {

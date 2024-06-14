@@ -38,9 +38,30 @@ export class ReceiptsService {
       identificacion
     }
     return this.httpClient.post<CreditData[]>(route, body, { headers: this.getHeaders() }).pipe(
-      map((credits: CreditData[]) => 
-        credits.filter(credit => credit.nextPaid > 0 && credit.saldoCredito > 0)
-      )
+      map((credits: CreditData[]) => {
+        if (credits.length === 0) {
+          return credits;
+        }
+      
+        const firstEntry = credits[0];
+        const { client } = firstEntry;
+      
+        const parseDate = (dateString: string): Date => {
+          const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
+          return new Date(year, month - 1, day);
+        };
+      
+        const filteredCredits = credits.filter(credit => credit.saldoCredito > 0);
+      
+        if (filteredCredits.length > 0) {
+          filteredCredits.sort((a, b) => parseDate(a.nextFeesDate).getTime() - parseDate(b.nextFeesDate).getTime());
+      
+
+          filteredCredits[0] = { ...filteredCredits[0], client };
+        }
+      
+        return filteredCredits;
+      })
     );
   }
 
