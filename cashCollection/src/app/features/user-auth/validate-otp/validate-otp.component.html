@@ -1,10 +1,11 @@
 <div class="bg-[#191F38] ">
-    <div class="flex h-[92vh] max-w-[1980px] m-auto">
-        <div class="w-[63vw] p-7 hidden md:flex justify-center items-center h-full ">
+    <div class="flex min-h-[92vh] max-w-[1980px] m-auto">
+        <div class="w-[63vw] h-[92vh] p-7 hidden md:flex justify-center items-center">
             <img src="assets/img/layer_2.png" alt="Approbe Layer 2">
         </div>
-        <div class="relative w-full bg-white pl-7 lg:pl-32 pr-7 lg:pr-60 pt-20 lg:pt-32">
+        <div class="relative w-full bg-white pl-7 lg:pl-32 pr-7 lg:pr-60 pt-8 lg:pt-20 min-h-fit">
             <app-toast></app-toast>
+            <p class="w-full text-sm font-semibold cursor-pointer hover:underline mb-8" routerLink="/">{{'<' + 'Atrás'}}</p>
             <div class="flex lg:block flex-col justify-center items-center">
                 <p class="text-2xl font-bold text-[#090B14] mb-4">Ingresa el código de verificación</p>
                 <p class="text-sm md:text-lg font-medium text-[#989891] mb-7">
@@ -13,10 +14,10 @@
                     y al correo 
                     <span class="font-bold text-[#090B14]">*****{{ userData?.mail }}</span>  
                 </p>
-                <app-otp-input (inputValueComplete)="onInputValueComplete($event)"/>
+                <app-otp-input (inputValueComplete)="onInputValueComplete($event)" (inputPressEnter)="validateOtp()"/>
                 <p class="text-sm md:text-base text-[#989891] mt-8">El código estará activo por los próximos </p>
                 <p class="text-sm md:text-base mb-9">
-                    <app-countdown />
+                    <app-countdown (countDown)="changeCodeExpired()"/>
                     minutos
                 </p>
                 <div class="w-full md:w-fit mb-12">

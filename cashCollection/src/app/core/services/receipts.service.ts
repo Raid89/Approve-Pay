@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreditData, ICashPayment, IClientCredit, ITransaction } from '../../shared/interfaces/receipt.interface';
 import { environment } from '../../../environments/environment.development';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,32 @@ export class ReceiptsService {
       actionStrategyPattern: 'GET_CLIENT_CREDITS',
       identificacion
     }
-    return this.httpClient.post<CreditData[]>(route, body,  { headers: this.getHeaders() });
+    return this.httpClient.post<CreditData[]>(route, body, { headers: this.getHeaders() }).pipe(
+      map((credits: CreditData[]) => {
+        if (credits.length === 0) {
+          return credits;
+        }
+      
+        const firstEntry = credits[0];
+        const { client } = firstEntry;
+      
+        const parseDate = (dateString: string): Date => {
+          const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
+          return new Date(year, month - 1, day);
+        };
+      
+        const filteredCredits = credits.filter(credit => credit.saldoCredito > 0);
+      
+        if (filteredCredits.length > 0) {
+          filteredCredits.sort((a, b) => parseDate(a.nextFeesDate).getTime() - parseDate(b.nextFeesDate).getTime());
+      
+
+          filteredCredits[0] = { ...filteredCredits[0], client };
+        }
+      
+        return filteredCredits;
+      })
+    );
   }
 
   mapWLstCredits(arrCredits: CreditData[]): IClientCredit[] {
@@ -45,10 +70,10 @@ export class ReceiptsService {
     arrCredits.forEach(credit => {
       let clientCredit: IClientCredit = {
         idCredit: '',
-        amount: 0
-      };
+        ammount: 0
+      }; 
       clientCredit.idCredit = credit.id;
-      clientCredit.amount = credit.valueToSend;
+      clientCredit.ammount = credit.valueToSend;
       wLstCredits.push(clientCredit)
     })
     return wLstCredits;
@@ -60,7 +85,7 @@ export class ReceiptsService {
     const documentCasheer = sessionStorage.getItem('userDocument') || '';
 
     const cashPayment: ICashPayment = {
-      cashier: {
+      casheer: {
         id: documentCasheer
       },
       customer: documentClient,

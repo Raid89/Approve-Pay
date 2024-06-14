@@ -6,9 +6,11 @@ import { IFinancialData, IUserValidData } from '../../interfaces/auth.interfaces
 import { AuthService } from '../../../core/services/auth.service';
 
 interface INavbarOptions {
-  text: string,
-  path: string,
-  active: boolean,
+  text: string;
+  path: string;
+  active: boolean;
+  show: boolean;
+  textToValidate: string;
 }
 
 @Component({
@@ -41,20 +43,26 @@ export class NavbarComponent implements OnInit {
   public NavbarOptions: INavbarOptions[] = [
     {
       text: 'Recaudos',
+      textToValidate: 'Recaudo',
       path: '/receipts',
-      active: false
+      active: false,
+      show: false
     },
 
     {
       text: 'Historial',
+      textToValidate: 'Historial',
       path: '/history',
-      active: false
+      active: false,
+      show: false
     },
 
     {
       text: 'Dispersión',
+      textToValidate: 'Dispersion',
       path: '/dispersion',
-      active: false
+      active: false,
+      show: false
     }
   ];
   public menuIsCurrent = false;
@@ -71,20 +79,23 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       const currentRoute = this.router.url;
+      this.userData = this.authService.userData;
       this.changeCurrentRoute(currentRoute);
       this.changeMenuIsCurrent(currentRoute);
+      this.detectAllowedMenu();
     });
   }
 
   changeCurrentRoute(currentRoute: string) {
-    this.NavbarOptions.forEach(item => {
+    this.NavbarOptions.forEach((item, index) => {
       item.active = false;
-      if(item.path === currentRoute) item.active = true;
+      if(currentRoute.includes(item.path)) this.NavbarOptions[index].active = true;
     })
   }
 
   changeMenuIsCurrent(currentRoute: string){
-    if(currentRoute === '/home') {
+    if(currentRoute === '/home/menu') {
+      this.userToken = sessionStorage.getItem('userToken');
       this.menuIsCurrent = true;
     } else {
       this.menuIsCurrent = false;
@@ -93,6 +104,17 @@ export class NavbarComponent implements OnInit {
 
   changeMenuStatus() {
     this.showMenuNavbar = !this.showMenuNavbar;
+  }
+
+  detectAllowedMenu(){
+    const allowedMenus = sessionStorage.getItem('modules');
+    this.NavbarOptions.forEach((item, index) => {
+      if(allowedMenus) {
+        const allowedMenu = allowedMenus.includes(item.textToValidate)
+        this.NavbarOptions[index].show = allowedMenu;
+      }
+    })
+
   }
 
 

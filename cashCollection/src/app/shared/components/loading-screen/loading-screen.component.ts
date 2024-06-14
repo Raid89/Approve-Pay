@@ -14,6 +14,8 @@ export class LoadingScreenComponent implements OnInit{
 
   ngOnInit(): void {
       this.loadingScreen = this.loadingScreenService.loadingScreen;
-      this.loadingScreenService.loadingScreen$.subscribe(data => this.loadingScreen = data)
+      this.loadingScreenService.loadingScreen$.subscribe(data => {
+        this.loadingScreen = data
+      })
   }
 }

@@ -1,74 +1,71 @@
-<div class="bg-white w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
-    <p class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts">{{'<' + 'Atrás'}}</p>
-    <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
-        <p class="text-xs m-0">Cliente</p>
-        <p class="text-xl font-bold my-2">Carlos Mario Peláez</p>
-        <p class="text-sm m-0">C.C {{ documentClient }}</p>
-    </div>
-    @if (true) {
-        <app-table-credits [creditsData]="clientCredits" (changeValues)="updateCreditsSelected()"/>
-        <div class="bg-[#7DFFB2] py-6 p-4 mb-10 rounded-xl text-white flex items-center justify-between">
-            <p class="text-lg text-[#231F20]">Total a pagar</p>
-            <p class="text-lg font-bold text-[#191F38]">{{ totalPaid | currency : 'USD' : 'symbol' : '1.0-0' }}</p>
+<div class="bg-white">
+    <div class="m-auto w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
+        <p *ngIf="showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
+        <p *ngIf="!showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts/search">{{'<' + 'Atrás'}}</p>
+        <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
+            <p class="text-xs m-0">Cliente</p>
+            <p class="text-xl font-bold my-2">{{ clientCredits[0]?.client | titlecase}}</p>
+            <p class="text-sm m-0">C.C {{ documentClient }}</p>
         </div>
-        <div class=" md:flex md:justify-end">
-            <app-button class="min-w-52" buttonText="Pagar" (click)="sendPayment()" />
-        </div>
-    }
-    @if (false) {
-        <button (click)="printSummary()">asdasd</button>
-    <div class=" flex flex-col md:flex-row justify-center items-center md:items-start gap-7 md:gap-20">
-        <div class="flex md:flex-col items-center max-w-[344px] md:max-w-none">
-            <img src="assets/icons/success-payment.png" class="w-24 md:w-auto">
-            <span class="text-2xl">El pago ha sido <b>exitoso</b></span>
-        </div>
-        <div>
-            <div class="relative border border-[#191F38] p-4 md:p-6 rounded-xl w-[344px] md:w-[468px]" id="payment-summary">
-                <div 
-                    class="absolute border-2 md:border-4 border-[#3886FF] text-[#3886FF] 
-                    font-medium text-base md:text-2xl py-1 px-3 md:px-5 opacity-60 rotate-[-30deg] 
-                    top-[-25px] md:top-6 right-[-30px] md:right-1 tracking-[3.703px] md:tracking-[4.615px]">
-                    PAGADO
+        @if (!showSummaryPayment) {
+            <p class="mb-4">Tiene <b>{{ clientCredits.length }} créditos</b> activos:</p>
+            <app-table-credits [creditsData]="clientCredits" (changeValues)="updateCreditsSelected()"/>
+            <div class="bg-[#7DFFB2] py-6 md:px-14 p-4 mb-10 rounded-xl text-white flex items-center justify-between md:justify-end md:gap-16">
+                <p class="text-lg text-[#231F20]">Total a pagar</p>
+                <p class="text-lg font-bold text-[#191F38]">{{ totalPaid | currency : 'USD' : '$' : '1.0-0' }}</p>
+            </div>
+            <div class=" md:flex md:justify-end">
+                <app-button class="min-w-52" buttonText="Pagar" (click)="sendPayment()" />
+            </div>
+        }
+        @if (showSummaryPayment) {
+        <div class=" flex flex-col md:flex-row justify-center items-center md:items-start gap-7 md:gap-20">
+            <div class="flex md:flex-col items-center max-w-[344px] md:max-w-none">
+                <img src="assets/icons/success-payment.png" class="w-24 md:w-auto">
+                <span class="text-2xl">El pago ha sido <b>exitoso</b></span>
+                <i class="fi fi-rr-print text-2xl cursor-pointer" (click)="printSummary()"></i>
+            </div>
+            <div>
+                <div class="relative border border-[#191F38] p-4 md:p-6 rounded-xl w-[344px] md:w-[468px]" id="payment-summary">
+                    <div 
+                        id="text-pay"
+                        class="absolute border-2 md:border-4 border-[#3886FF] text-[#3886FF] 
+                        font-medium text-base md:text-2xl py-1 px-3 md:px-5 opacity-60 rotate-[-30deg] 
+                        top-[-25px] md:top-6 right-[-30px] md:right-1 tracking-[3.703px] md:tracking-[4.615px]">
+                        PAGADO
+                    </div>
+                    <p class="text-[#222] text-2xl font-bold mb-3">Resumen del pago</p>
+                    <div class="flex flex-col gap-3 mb-7">
+                        <div class="flex justify-between text-base">
+                            <span>Fecha</span>
+                            <span class="font-medium">{{ this.paymentDateResponse | date:'dd-MM-yyyy' }}</span>
+                        </div>
+                        <div class="flex justify-between text-base">
+                            <span>Hora</span> 
+                            <span class="font-medium">{{ this.paymentDateResponse | date:'HH:mm:ss' }}</span>
+                        </div>
+                        <div class="flex justify-between text-base">
+                            <span>Comercio</span>
+                            <span class="font-medium">{{ paymentCommerce }}</span>
+                        </div>
+                        <div class="flex justify-between text-base">
+                            <span>Número de autorización</span>
+                            <span class="font-medium">{{ this.paymentAuthCode }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        @for (item of creditsSelected; track $index) {
+                            <app-info-card [creditNumber]="item.id" [dynamicData]="mapDataShowSummary(item)" />
+                        }
+                    </div>
                 </div>
-                <p class="text-[#222] text-2xl font-bold mb-3">Resumen del pago</p>
-                <div class="flex flex-col gap-3 mb-7">
-                    <div class="flex justify-between text-base">
-                        <span>Fecha</span>
-                        <span class="font-medium">xxxxxxx</span>
-                    </div>
-                    <div class="flex justify-between text-base">
-                        <span>Hora</span> 
-                        <span class="font-medium">xxxxxxx</span>
-                    </div>
-                    <div class="flex justify-between text-base">
-                        <span>Comercio</span>
-                        <span class="font-medium">xxxxxxx</span>
-                    </div>
-                </div>
-                <div>
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
-                    <app-info-card />
+                <div class="flex gap-9 mt-6">
+                    <app-button class="w-full hidden md:block" buttonText="Ir al Inicio" routerLink="/home" />
+                    <app-button class="w-full" buttonText="Ir a creditos" buttonColor="white" buttonTextColor="#191F38" (click)="reloadPage()" />
                 </div>
             </div>
-            <div class="flex gap-9 mt-6">
-                <app-button class="w-full hidden md:block" buttonText="Ir al Inicio" />
-                <app-button class="w-full" buttonText="Ir a creditos" buttonColor="white" buttonTextColor="#191F38"/>
-            </div>
         </div>
-    </div>
-    }
-    
+        }
+        
+    </div>    
 </div>

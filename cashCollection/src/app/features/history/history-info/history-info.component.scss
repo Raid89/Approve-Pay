@@ -1,0 +1,19 @@
+.subtable.hidden {
+    display: none;
+  }
+  
+  .subtable.block {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      max-height: 0;
+      opacity: 0;
+    }
+    to {
+      max-height: 500px; /* Ajustar según sea necesario */
+      opacity: 1;
+    }
+  }

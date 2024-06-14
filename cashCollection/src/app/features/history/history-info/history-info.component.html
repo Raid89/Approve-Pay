@@ -1,0 +1,99 @@
+<div class="w-full flex md:hidden items-center justify-center mb-10">
+  <app-button 
+    buttonText="Exportar a Excel"
+    buttonTextColor="#090B14"
+    buttonColor="#FFF" 
+    (click)="exportToExcel()" 
+  />
+</div>
+@for (transaction of totalCollection; track $index) {
+<div class="bg-white max-w-[344px] pb-6 border border-[#E4E3E3] rounded-xl text-base mb-6 md:hidden m-auto">
+    <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6 px-4">
+        <span>Fecha de transacción</span>
+        <span>{{ transaction.datehour | date: 'dd-MM-yyyy HH:mm:ss' }}</span>
+    </div>
+
+    <div class="flex flex-col px-4  gap-4" (click)="toggleSubtable($index)">
+        <div class="flex justify-between">
+            <span>Monto recaudado</span>
+            <span class="font-medium">${{ transaction.totalAmmount | currency : 'USD' : '' : '1.0-0' }}</span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>Cédula cliente</span>
+            <span class="font-medium">{{ transaction.customer }}</span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>N° Autorización</span>
+            <span class="font-medium">{{ transaction.coreId }}</span>
+        </div>
+        
+        <div class="subtable " [ngClass]="{ 'hidden': !expanded[$index], 'block': expanded[$index] }">
+          @for (item of parseJsonCredits(transaction.credits); track $index) {
+            <div class="flex justify-between mb-4">
+              <span>ID Crédito</span>
+              <span class="font-medium">{{ item.idCredit }}</span>
+            </div>
+            <div class="flex justify-between mb-4">
+              <span>Monto</span>
+              <span class="font-medium">${{ item.ammount | currency : 'USD' : '' : '1.0-0' }}</span>
+            </div>
+          }
+        </div>
+    </div>
+</div>
+}
+
+<div class="flex justify-center mt-4 text-base font-bold text-[#191F38] md:hidden">
+  <button (click)="prevPage()" [disabled]="currentPage === 0" class="w-7 h-7 mx-1 bg-white rounded">&lt;</button>
+  <button *ngFor="let page of visiblePages" (click)="goToPage(page)" [ngClass]="{'bg-[#191F38] text-[#7DFFB2]': page === currentPage, 'bg-white': page !== currentPage}" class="border w-7 h-7 border-[#E4E3E3] mx-1 rounded">
+    {{ page + 1 }}
+  </button>
+  <button *ngIf="pages.length > 5" class="w-7 h-7 mx-1 rounded bg-white border border-[#E4E3E3]" disabled>...</button>
+  <button *ngFor="let page of endPages" (click)="goToPage(page)" [ngClass]="{'bg-[#191F38] text-[#7DFFB2]': page === currentPage, 'bg-white': page !== currentPage}" class="border w-7 h-7 border-[#E4E3E3] mx-1 rounded">
+    {{ page + 1 }}
+  </button>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages - 1" class="w-7 h-7 mx-1 bg-white rounded">&gt;</button>
+</div>
+
+<div class="bg-white border border-[#E4E3E3] rounded-xl text-base mb-6 overflow-auto hidden md:block">
+    <div class="bg-[#F9F9F9] grid grid-cols-5 justify-items-center text-[#231F20] text-sm font-semibold py-6 min-w-[1120px] pl-6">
+      <div class="flex items-center">Fecha de transacción</div>
+      <div class="flex items-center">Monto recaudado</div>
+      <div class="flex items-center">Cédula cliente</div>
+      <div class="flex items-center">N° Autorización</div>
+      <div class="flex items-center"><button (click)="exportToExcel()" title="Exportar a excel">Exportar <i class="fi fi-rr-file-excel text-xl"></i></button></div>
+    </div>
+    <div *ngFor="let transaction of totalCollection; let i = index">
+      <div class="grid grid-cols-5 justify-items-center text-[#231F20] text-sm font-medium py-8 min-w-[1120px] pl-6 cursor-pointer border-t border-t-gray-400" (click)="toggleSubtable(i)">
+        <div class="flex items-center">{{ transaction.datehour | date: 'dd-MM-yyyy HH:mm:ss' }}</div>
+        <div class="flex items-center">${{ transaction.totalAmmount | currency : 'USD' : '' : '1.0-0' }}</div>
+        <div class="flex items-center">{{ transaction.customer }}</div>
+        <div class="flex items-center">{{ transaction.coreId }}</div>
+        <div class="flex items-center"><span class="rotate-90 text-xl">&gt;</span></div>
+      </div>
+      <div class="subtable" [ngClass]="{ 'hidden': !expanded[i], 'block': expanded[i] }">
+        <div class="grid grid-cols-2 justify-items-center text-[#231F20] text-sm font-medium py-4 min-w-[1120px]">
+          <div class="flex items-center">ID Crédito</div>
+          <div class="flex items-center">Monto</div>
+        </div>
+        <div *ngFor="let credit of parseJsonCredits(transaction.credits)" class="grid grid-cols-2 justify-items-center text-[#231F20] text-sm py-2 min-w-[1120px]">
+          <div class="flex items-center">{{ credit.idCredit }}</div>
+          <div class="flex items-center">${{ credit.ammount | currency : 'USD' : '' : '1.0-0' }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-4 text-base font-bold text-[#191F38]">
+      <button (click)="prevPage()" [disabled]="currentPage === 0" class="w-7 h-7 mx-1 bg-white rounded">&lt;</button>
+      <button *ngFor="let page of visiblePages" (click)="goToPage(page)" [ngClass]="{'bg-[#191F38] text-[#7DFFB2]': page === currentPage, 'bg-white': page !== currentPage}" class="border w-7 h-7 border-[#E4E3E3] mx-1 rounded">
+        {{ page + 1 }}
+      </button>
+      <button *ngIf="pages.length > 5" class="w-7 h-7 mx-1 rounded bg-white border border-[#E4E3E3]" disabled>...</button>
+      <button *ngFor="let page of endPages" (click)="goToPage(page)" [ngClass]="{'bg-[#191F38] text-[#7DFFB2]': page === currentPage, 'bg-white': page !== currentPage}" class="border w-7 h-7 border-[#E4E3E3] mx-1 rounded">
+        {{ page + 1 }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages - 1" class="w-7 h-7 mx-1 bg-white rounded">&gt;</button>
+    </div>
+  </div>
+  

@@ -18,7 +18,7 @@
                         maxlength="10"
                         [formControl]="clientIdentificationControl" 
                         (keyup)="sanitizeInput()"
-                        keydown.enter
+                        (keydown.enter)="getClientCredits()"
                         (focus)="inputFocus = true" 
                         (blur)="inputFocus = false">
 

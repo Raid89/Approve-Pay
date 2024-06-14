@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaymentSummaryComponent } from './payment-summary.component';
+import { HistoryTotalComponent } from './history-total.component';
 
-describe('PaymentSummaryComponent', () => {
-  let component: PaymentSummaryComponent;
-  let fixture: ComponentFixture<PaymentSummaryComponent>;
+describe('HistoryTotalComponent', () => {
+  let component: HistoryTotalComponent;
+  let fixture: ComponentFixture<HistoryTotalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PaymentSummaryComponent]
+      declarations: [HistoryTotalComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PaymentSummaryComponent);
+    fixture = TestBed.createComponent(HistoryTotalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

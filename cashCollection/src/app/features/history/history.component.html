@@ -1,0 +1,39 @@
+<div class="bg-white min-h-[100vh]">
+    <div class="px-4 lg:px-36 max-w-[1980px] m-auto pt-6 lg:pt-10">
+        <p class="w-full text-start text-2xl text-[#191F38] font-bold mb-6 lg:mb-12 lg:mt-0">Historial</p>
+        <div class=" flex flex-col lg:flex-row justify-center items-center lg:items-start">
+            <div class="w-full lg:w-[16rem] mb-5 lg:mb-0 lg:mr-16 lg:h-[66px] flex items-center">
+                <p class="w-full text-start text-lg text-[#191F38] font-medium ">Consultar por fechas</p>
+            </div>
+            <div class="w-full flex flex-col items-center lg:items-start">
+                <div class="w-full flex items-center">
+                    <div class="flex gap-4 mb-4 lg:mb-0 w-full">
+                        <div class="w-full py-3 pl-6 pr-2 bg-white rounded-lg flex flex-col border border-[#E4E3E3] cursor-pointer" (click)="changeShowCalendar()">
+                            <label class="text-xs text-[#191F38] font-bold">Desde</label>
+                            <span class="bg-transparent outline-none">{{ formatDate(range?.start)}}</span>
+                        </div>
+                        <div class="w-full py-3 pl-6 pr-2 bg-white rounded-lg flex flex-col border border-[#E4E3E3] cursor-pointer" (click)="changeShowCalendar()">
+                            <label class="text-xs text-[#191F38] font-bold">Hasta</label>
+                            <span class="bg-transparent outline-none">{{ formatDate(range?.end)}}</span>
+                        </div>
+                    </div>
+                    <div class="w-full max-w-80 ml-4 hidden lg:block">
+                        <app-button buttonText="Buscar" (click)="searchTotals()" />
+                    </div>
+                </div>
+                <div class="lg:mt-4" *ngIf="showCalendar">
+                    <app-date-range-calendar (setDateRange)="setDateRange($event)"/>
+                </div>
+            </div>
+            
+            <div class="w-full max-w-80 mt-6 mb-10 block lg:hidden">
+                <app-button buttonText="Buscar" (click)="searchTotals()" />
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showHistory" class="px-4 lg:px-36 max-w-[1980px] m-auto pt-6 lg:pt-10">
+        <app-history-total [totalCollection]="totalCollection" [totalAmmountCollection]="totalAmmountCollection" />
+        
+    </div>
+</div>

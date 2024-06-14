@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { UserInfoComponent } from './components/navbar/user-info/user-info.component';
@@ -12,10 +12,13 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { SelectComponent } from './components/select/select.component';
 import { CurrencyFormatterDirective } from './directives/currency-formatter-directive';
 import { MaxValueDirective } from './directives/max-value.directive';
+import localeEs from '@angular/common/locales/es';
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
+import { DateRangeCalendarComponent } from './components/date-range-calendar/date-range-calendar.component';
 
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -30,12 +33,13 @@ import { PopUpComponent } from './components/pop-up/pop-up.component';
     MaxValueDirective,
     InfoCardComponent,
     PopUpComponent,
+    DateRangeCalendarComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     NavbarComponent,
@@ -48,7 +52,9 @@ import { PopUpComponent } from './components/pop-up/pop-up.component';
     SelectComponent,
     CurrencyFormatterDirective,
     MaxValueDirective,
-    InfoCardComponent
-  ]
+    InfoCardComponent,
+    DateRangeCalendarComponent,
+  ],
+  providers: [],
 })
 export class SharedModule { }

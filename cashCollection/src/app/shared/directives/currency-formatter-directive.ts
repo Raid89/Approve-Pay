@@ -8,7 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CurrencyFormatterDirective {
   @Input() currencyCode: string = 'USD';
-  @Input() display: 'code' | 'symbol' | 'symbol-narrow' | 'name' = 'symbol';
+  @Input() display: 'code' | '$' | 'symbol-narrow' | 'name' = '$';
   @Input() digitsInfo: string = '1.0-0';
 
   private previousValue: string = '';

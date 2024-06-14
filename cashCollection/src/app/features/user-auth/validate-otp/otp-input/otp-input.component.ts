@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-otp-input',
@@ -10,6 +10,7 @@ export class OtpInputComponent {
 
   // Evento emitido cuando se completa la entrada en el último campo
   @Output() inputValueComplete = new EventEmitter<string>();
+  @Output() inputPressEnter = new EventEmitter<string>();
 
   // Método que se ejecuta cuando se escribe en un campo
   onInput(index: number): void {
@@ -21,5 +22,13 @@ export class OtpInputComponent {
     }
       const inputValue = this.inputValues.join('');
       this.inputValueComplete.emit(inputValue);
+  }
+
+  clearInput() {
+    this.inputValues = ['', '', '', ''];
+  }
+
+  sendInput() {
+    this.inputPressEnter.emit();
   }
 }

@@ -63,6 +63,8 @@ export class SearchClientComponent {
     
     
     if(this.clientIdentificationControl.status === 'INVALID') {
+      clearTimeout(loadTimeOut);
+      this.isLoading = false;
       return this.showToast('warning', 'Verifica tus datos e ingrésalos nuevamente')
     }
 
@@ -86,7 +88,7 @@ export class SearchClientComponent {
           this.router.navigate(['']);
         }else{
           const msg =  'Ha ocurrido un error por favor intenta más tarde'
-          this.showToast('error', msg)
+          this.showToast('warning', msg)
           this.isLoading = false;
         }
         
