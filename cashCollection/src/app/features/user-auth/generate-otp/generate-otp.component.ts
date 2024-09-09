@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { IFinancialData } from '../../../shared/interfaces/auth.interfaces';
 import { Router } from '@angular/router';
 import { LoadingScreenService } from '../../../shared/components/loading-screen/loading-screen.service';
+import LogRocket from 'logrocket';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { LoadingScreenService } from '../../../shared/components/loading-screen/
   styleUrl: './generate-otp.component.scss'
 })
 export class GenerateOtpComponent implements OnInit {
+  
   public userToken = sessionStorage.getItem('userToken');
   public inputFocus = false;
   public isLoading = false;
@@ -30,7 +32,13 @@ export class GenerateOtpComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private loadingScreenS: LoadingScreenService,
-  ){}
+  ){
+    LogRocket.identify('CASH PAYMENTS', {
+      name: 'CASH PAYMENTS Producción',
+    });
+  }
+
+
 
   ngOnInit(): void {
     if(sessionStorage.getItem('userToken')) this.router.navigate(['/home']); 
