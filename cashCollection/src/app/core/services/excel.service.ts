@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as ExcelJS from 'exceljs';
+import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReceiptsService } from './receipts.service';
 import { HistoryService } from './history.service';
@@ -59,21 +59,25 @@ export class ExcelService {
   }
   
   createExcel(data: any[]) {
+    // Transforma los datos si es necesario
     data = this.transformData(data);
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Data');
-    
-    if (data.length > 0) {
-      const headers = Object.keys(data[0]);
-      worksheet.columns = headers.map(header => ({ header, key: header }));
-      data.forEach(item => worksheet.addRow(item));
-    }
-
-    workbook.xlsx.writeBuffer().then((buffer) => {
-      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-      saveAs(blob, `history_export_${new Date().getTime()}.xlsx`);
-      this.loadingS.loadingScreen = false;
-    });
+  
+    // Crea un libro de trabajo (Workbook)
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+  
+    // Crea un nuevo Workbook y agrega la hoja
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+  
+    // Escribe el archivo y lo exporta
+    const wbout: ArrayBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+  
+    // Guarda el archivo usando file-saver
+    saveAs(blob, `history_export_${new Date().getTime()}.xlsx`);
+  
+    // Finaliza el proceso de carga
+    this.loadingS.loadingScreen = false;
   }
 }
 
