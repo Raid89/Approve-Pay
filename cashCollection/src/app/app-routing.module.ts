@@ -29,6 +29,12 @@ const routes: Routes = [
     path: 'history',
     loadChildren: () => import('./features/history/history-routing.module').then(m => m.HistoryRoutingModule)
   },
+
+  {
+    path: 'simulator',
+    loadChildren: () => import('./features/simulator/simulator.module').then(m => m.SimulatorModule)
+  },
+  
   { path: '**', component: PageNotFoundComponent },
 ];
 
