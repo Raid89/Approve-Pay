@@ -1,8 +1,7 @@
 export const environment = {
     HttpUrl: [
-        'https://vuwnwhdth3.execute-api.us-east-1.amazonaws.com/ApprobeDev'
+        'https://hgarxx9xvb.execute-api.us-east-1.amazonaws.com/ApiApprobe'
     ],
-    
     HttpEvidente:[
         'https://prod.approbe.co/articulator-service/lominco/data/evidente'
     ],
@@ -11,7 +10,5 @@ export const environment = {
     cognito: {
         userPoolId: 'us-east-1_gjJEL1ucD',
         userPoolWebClientId: '47vde8goch7prjpqchjnfdbj98',
-    },
-
-    imagePath: 'https://image-bnpl-prod.s3.amazonaws.com'
+    }
 };

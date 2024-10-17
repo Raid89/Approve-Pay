@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { authGuard } from './shared/guards/login.guard';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   
@@ -27,7 +28,14 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('./features/history/history-routing.module').then(m => m.HistoryRoutingModule)
-  }
+  },
+
+  {
+    path: 'simulator',
+    loadChildren: () => import('./features/simulator/simulator.module').then(m => m.SimulatorModule)
+  },
+  
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

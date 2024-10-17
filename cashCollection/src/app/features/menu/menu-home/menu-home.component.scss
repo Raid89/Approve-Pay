@@ -40,6 +40,10 @@
     div:nth-child(3) {
         background: linear-gradient(180deg, #00FCB9 0.63%, #FFF 54.69%);
     }
+
+    div:nth-child(4) {
+        background: linear-gradient(180deg, #FFF 0.63%, #16E3FF 54.69%);
+    }
 }
 
 @media screen and (max-width: 1028px) {

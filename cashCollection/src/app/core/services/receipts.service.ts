@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreditData, ICashPayment, IClientCredit, ITransaction } from '../../shared/interfaces/receipt.interface';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment.prod';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 @Injectable({

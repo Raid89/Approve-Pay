@@ -17,6 +17,7 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopUpComponent } from './components/pop-up/pop-up.component';
 import { DateRangeCalendarComponent } from './components/date-range-calendar/date-range-calendar.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 registerLocaleData(localeEs);
 
@@ -34,6 +35,7 @@ registerLocaleData(localeEs);
     InfoCardComponent,
     PopUpComponent,
     DateRangeCalendarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ registerLocaleData(localeEs);
     MaxValueDirective,
     InfoCardComponent,
     DateRangeCalendarComponent,
+    PageNotFoundComponent
   ],
   providers: [],
 })
