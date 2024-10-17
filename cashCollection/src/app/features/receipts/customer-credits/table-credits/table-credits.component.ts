@@ -1,15 +1,16 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CreditData } from '../../../../shared/interfaces/receipt.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PopUpComponent } from '../../../../shared/components/pop-up/pop-up.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-table-credits',
   templateUrl: './table-credits.component.html',
   styleUrl: './table-credits.component.scss'
 })
-export class TableCreditsComponent {
+export class TableCreditsComponent implements OnInit {
   @Input() creditsData!: CreditData[];
   @Output() changeValues = new EventEmitter();
 
@@ -19,9 +20,23 @@ export class TableCreditsComponent {
     this.setResolution();
   }
 
+  ngOnInit(): void {
+    this.creditsData.forEach((item: CreditData) => item.showPayments = false)
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setResolution();
+  }
+
+  toggleDetails(index: number, type: 'payments' | 'details'): void {
+    if(type === 'payments') {
+      this.creditsData[index].showPayments = !this.creditsData[index].showPayments;
+      this.creditsData[index].showDetails = false;
+    } else if(type === 'details') {
+      this.creditsData[index].showDetails = !this.creditsData[index].showDetails;
+      this.creditsData[index].showPayments = false;
+    } 
   }
 
   private setResolution(): void {
@@ -89,5 +104,9 @@ export class TableCreditsComponent {
     if(nextPaid > 100) selectOptions.splice(1, 0, elementToAdd);
 
     return selectOptions
+  }
+
+  getImageUrl(comercio: string) {
+    return `${environment.imagePath}/${comercio}.png`
   }
 }

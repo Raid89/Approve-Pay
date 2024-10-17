@@ -1,100 +1,234 @@
 @if (isSmall) {
-  @for (item of creditsData; track $index) {
-  <div class="bg-white max-w-[344px] pb-6 px-4 border border-[#E4E3E3] rounded-xl text-base mb-6 md:hidden m-auto">
-      <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6">
-        <span><b>Número de crédito</b> <br> ****{{ item.id.slice(-4) }}</span>
-        <app-checkbox [checkId]="'check-' + item.id" (returnValue)="selectCredit($index, $event)" />
-      </div>
-    
-      <div class="flex flex-col gap-4">
-        <div class="flex justify-between">
-          <span>Pago mínimo</span>
-          <span class="font-medium">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</span>
-        </div>
-    
-        <div class="flex justify-between">
-          <span>Pago total</span>
-          <span class="font-medium">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }}</span>
-        </div>
-    
-        <div class="flex justify-between">
-          <span>Límite de pago</span>
-          <span class="font-medium" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate }}</span>
-        </div>
-    
-        <div>
-          <p class="mb-2 font-semibold">Tipo de pago</p>
-          <app-select [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
-            (returnValue)="selectTypePaid($index, $event)" />
-        </div>
-      </div>
-      <div class="flex justify-between items-center mt-6">
-        <p class="font-semibold">Valor</p>
-          @if (item.selected) {
-            @switch (item.typePaid) {
-              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
-              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
-              @case ('2') { 
-                <input 
-                  (keyup)="setOtherValue($index, currencyInput)" 
-                  type="text" class="py-3 px-4 border border-[#9A9A9A] max-w-[46%] font-semibold rounded-md" 
-                  appCurrencyFormatter #currencyInput="appCurrencyFormatter"
-                  [appMaxValue]="item.saldoCredito"
-                >
-              }
-              @default { <span class="text-[#707172] font-bold text-lg">$</span> }
-              }
-            }
-          @else { <span class="text-[#707172] font-bold text-lg">$</span> }
-      </div>
+@for (item of creditsData; track $index) {
+<div class="bg-white max-w-[344px] pb-6 px-4 border border-[#E4E3E3] rounded-xl text-base mb-6 md:hidden m-auto">
+  <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6">
+    <span><b>Número de crédito</b> <br> ****{{ item.id.slice(-4) }}</span>
+    <app-checkbox [checkId]="'check-' + item.id" (returnValue)="selectCredit($index, $event)" />
   </div>
-  }
+
+  <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6">
+    <span><b>Comercio</b> <br> 
+      <img [src]="getImageUrl(item.comercio)" width="70%">
+    </span>
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <div class="flex justify-between">
+      <span>Pago mínimo</span>
+      <span class="font-medium">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</span>
+    </div>
+
+    <div class="flex justify-between">
+      <span>Pago total</span>
+      <span class="font-medium">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }}</span>
+    </div>
+
+    <div class="flex justify-between">
+      <span>Límite de pago</span>
+      <span class="font-medium" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate
+        }}</span>
+    </div>
+
+    <div class="flex justify-between">
+      <span>Estado</span>
+      <!-- <span *ngIf="item.simpleDaysPastDue === 0"
+      class="flex justify-center items-center border-2 border-[#1F8B24] text-[#1F8B24] text-sm bg-[#C5F2C7] rounded-md w-[71px] h-[28px]">Al
+      día
+      </span> -->
+      @if (item.simpleDaysPastDue > -1) {
+        <div class="">
+          <span
+            class="flex justify-center items-center border-2 border-[#DA100B] text-[#DA100B] text-sm bg-[#FFE6E5] rounded-md w-[71px] h-[28px]">En
+            mora
+          </span>
+           <span class="text-[#DA100B] font-normal text-sm">{{ item.simpleDaysPastDue }} días</span>
+        </div>
+      }
+      </div>
+
+      <div class="flex flex-col">
+        <div class="flex justify-center items-center">
+          <span [ngStyle]="{borderColor: item.showDetails ? '#3886FF' : '#FFF' }" class="cursor-pointer w-[149px] h-[32px] flex items-center justify-center border-2 rounded-full text-[#3886FF] text-base font-normal m-auto" (click)="toggleDetails($index, 'details')">
+            Más Detalles
+          </span>
+
+          <span [ngStyle]="{borderColor: item.showPayments ? '#3886FF' : '#FFF' }" class="cursor-pointer w-[149px] h-[32px] flex items-center justify-center text-center border-2 rounded-full text-[#3886FF] text-base font-normal m-auto" (click)="toggleDetails($index, 'payments')">
+            Historial
+          </span>
+        </div>
+
+        <div *ngIf="item.showPayments">
+          <div class="grid gap-6">
+            <p class="text-xl font-bold mt-5 mb-3">Historial de pagos</p>
+            @if (item.payments.length > 0) {
+            @for ( payment of item.payments; track $index ) {
+              <div class="flex flex-col gap-4 bg-[#F9F9F9] rounded-lg p-3">
+                <div class="flex justify-between">
+                  <span>Fecha de pago</span>
+                  <span class="font-medium">{{ payment.effective_date | date: 'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Valor</span>
+                  <span class="font-medium">{{ payment.total | currency : 'USD' : '$' : '1.0-0' }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>ID</span>
+                  <span class="font-medium">{{ payment.payment_id }}</span>
+                </div>
+              </div>
+            }
+            } @else {
+            <div class="text-center text-[#707172]">No hay pagos registrados</div>
+            }
+    
+          </div>
+        </div>
+
+        <div *ngIf="item.showDetails">
+          <div>
+            <div class="flex flex-col gap-4 bg-[#F9F9F9] rounded-lg p-3">
+              <div class="flex justify-between">
+                <span>Valor de la compra</span>
+                <span class="font-medium">{{item.amount_financed | currency : 'USD' : '$' : '1.0-0' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Fecha de compra</span>
+                <span class="font-medium">{{ item.origination_date | date: 'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Monto total</span>
+                <span class="font-medium">{{ 'xxxxxxx' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Plazo total</span>
+                <span class="font-medium">{{ item.fees + ' cuotas' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Plazo pendiente</span>
+                <span class="font-medium">{{ item.fees - item.feesPaid + ' cuotas' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div>
+      <p class="mb-2 font-semibold">Tipo de pago</p>
+      <app-select [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
+        (returnValue)="selectTypePaid($index, $event)" />
+    </div>
+  </div>
+  <div class="flex justify-between items-center mt-6">
+    <p class="font-semibold">Valor</p>
+    @if (item.selected) {
+    @switch (item.typePaid) {
+    @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
+    @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
+    @case ('2') {
+    <input (keyup)="setOtherValue($index, currencyInput)" type="text"
+      class="py-3 px-4 border border-[#9A9A9A] max-w-[46%] font-semibold rounded-md" appCurrencyFormatter
+      #currencyInput="appCurrencyFormatter" [appMaxValue]="item.saldoCredito">
+    }
+    @default { <span class="text-[#707172] font-bold text-lg">$</span> }
+    }
+    }
+    @else { <span class="text-[#707172] font-bold text-lg">$</span> }
+  </div>
+</div>
+}
 }
 
 @if(!isSmall){
-  <div class="bg-white border border-[#E4E3E3] rounded-xl text-base  mb-6 grip divide-y overflow-auto" style="overflow-x: auto;">
-    <div class="bg-[#F9F9F9] grid-cols-8 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1300px] pl-6">
-      <div class="flex items-center"><app-checkbox checkId="check-all" (returnValue)="changeSelectAll($event)" /></div>
-      <div class="flex items-center">Número de crédito</div>
-      <div class="flex items-center">Pago mínimo</div>
-      <div class="flex items-center">Pago total</div>
-      <div class="flex items-center">Límite de pago</div>
-      <div class="flex items-center">Tipo de pago</div>
-      <div class="flex items-center col-span-2">Valor</div>
-    </div>
-    @for (item of creditsData; track $index){
-      <div class="grid-cols-8 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1300px] pl-6">
-        <div class="flex items-center"><app-checkbox [checkId]="'check-' + item.id" [isChecked]="item.selected" (returnValue)="selectCredit($index, $event)" /></div>
-        <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
-        <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</div>
-        <div class="flex items-center">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0'}}</div>
-        <div class="flex items-center" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate }}</div>
-        <div class="flex items-center"> 
-          <app-select 
-            class="max-w-1/2"
-            [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
-            (returnValue)="selectTypePaid($index, $event)" 
-          />
-        </div>
-        <div class="flex items-center col-span-2">
-          @if (item.selected) {
-            @switch (item.typePaid) {
-              @case ('0') { <span class="font-semibold"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
-              @case ('1') { <span class="font-semibold"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
-              @case ('2') { 
-                <input 
-                  (keyup)="setOtherValue($index, currencyInput)" 
-                  type="text" class="py-3 px-4 border border-[#9A9A9A] max-w-[46%] font-semibold rounded-md" 
-                  appCurrencyFormatter #currencyInput="appCurrencyFormatter"
-                  [appMaxValue]="item.saldoCredito"
-                >
-              }
-              @default { <span class="text-[#707172] font-bold text-lg">$</span> }
-              }
-            }
-          @else { <span class="text-[#707172] font-bold text-lg">$</span> }
-        </div>
-      </div>
-    }
+<div class="bg-white border border-[#E4E3E3] rounded-xl text-base  mb-6 grip divide-y overflow-auto"
+  style="overflow-x: auto;">
+  <div class="bg-[#F9F9F9] grid-cols-11 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1300px] pl-6">
+    <div class="flex items-center max-w-fit"><app-checkbox checkId="check-all" (returnValue)="changeSelectAll($event)" /></div>
+    <div class="flex items-center">N° Crédito</div>
+    <div class="flex items-center">Comercio</div>
+    <div class="flex items-center">Pago mínimo</div>
+    <div class="flex items-center">Pago total</div>
+    <div class="flex items-center">Límite de pago</div>
+    <div class="flex items-center">Estado</div>
+    <div class="flex items-center"></div>
+    <div class="flex items-center">Tipo de pago</div>
+    <div class="flex items-center col-span-2">Valor</div>
   </div>
+  @for (item of creditsData; track $index){
+  <div>
+    <div class="grid-cols-11 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1300px] pl-6">
+      <div class="flex items-center max-w-fit"><app-checkbox [checkId]="'check-' + item.id" [isChecked]="item.selected"
+          (returnValue)="selectCredit($index, $event)" /></div>
+      <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
+      <div class="flex items-center"><img [src]="getImageUrl(item.comercio)" width="70%"></div>
+      <div class="flex items-center">{{ item.nextPaid | currency : 'USD' : '$' : '1.0-0'}}</div>
+      <div class="flex items-center">{{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0'}}</div>
+      <div class="flex items-center" [ngClass]="{'text-[#f37449]': item.simpleDaysPastDue > 0}">{{ item.nextFeesDate }}
+      </div>
+      <div class="flex flex-col justify-center">
+        <span *ngIf="item.simpleDaysPastDue === 0"
+          class="flex justify-center items-center border-2 border-[#1F8B24] text-[#1F8B24] text-sm bg-[#C5F2C7] rounded-md w-[71px] h-[28px]">Al
+          día
+        </span>
+        @if (item.simpleDaysPastDue > 0) {
+        <span
+          class="flex justify-center items-center border-2 border-[#DA100B] text-[#DA100B] text-sm bg-[#FFE6E5] rounded-md w-[71px] h-[28px]">En
+          mora
+        </span>
+        <span class="text-[#DA100B] font-normal text-sm">{{ item.simpleDaysPastDue }} días</span>
+        }
+
+      </div>
+      <div class="flex items-center">
+        <span class="cursor-pointer text-[#3886FF] text-xs font-normal" (click)="toggleDetails($index, 'payments')">
+          Ver detalles
+          <i class="fi fi-rr-angle-small-down"></i>
+        </span>
+      </div>
+      <div class="flex items-center">
+        <app-select class="max-w-1/2" [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
+          (returnValue)="selectTypePaid($index, $event)" />
+      </div>
+      <div class="flex items-center col-span-2">
+        @if (item.selected) {
+        @switch (item.typePaid) {
+        @case ('0') { <span class="font-semibold pl-3"> {{ item.saldoCredito | currency : 'USD' : '$' : '1.0-0' }} </span> }
+        @case ('1') { <span class="font-semibold pl-3"> {{ item.nextPaid | currency : 'USD' : '$' : '1.0-0' }} </span> }
+        @case ('2') {
+        <input (keyup)="setOtherValue($index, currencyInput)" type="text"
+          class="py-3 px-4 border border-[#9A9A9A] max-w-[46%] font-semibold rounded-md" appCurrencyFormatter
+          #currencyInput="appCurrencyFormatter" [appMaxValue]="item.saldoCredito">
+        }
+        @default { <span class="text-[#707172] font-bold text-lg pl-3">$</span> }
+        }
+        }
+        @else { <span class="text-[#707172] font-bold text-lg pl-3">$</span> }
+      </div>
+    </div>
+    <div class="px-6" *ngIf="item.showPayments">
+      <div class="border-dashed"></div>
+      <div class="w-[802px] m-auto py-8">
+        <p class="text-xl font-bold mb-5">Historial de pagos</p>
+        <div class="bg-[#F9F9F9] grid-cols-3 grid text-[#231F20] text-sm py-6 h-[37px] rounded-xl pl-6  content-center">
+          <div class="flex items-center">Fecha de pago</div>
+          <div class="flex items-center">Valor</div>
+          <div class="flex items-center">ID</div>
+        </div>
+        @if (item.payments.length > 0) {
+        @for ( payment of item.payments; track $index ) {
+        <div
+          class="grid-cols-3 grid text-[#231F20] text-sm font-semibold py-6 h-[37px] rounded-xl pl-6  content-center">
+          <div class="flex items-center">{{ payment.effective_date | date: 'dd/MM/yyyy' }}</div>
+          <div class="flex items-center">{{ payment.total | currency : 'USD' : '$' : '1.0-0' }}</div>
+          <div class="flex items">{{ payment.payment_id }}</div>
+        </div>
+        }
+        } @else {
+        <div class="text-center text-[#707172]">No hay pagos registrados</div>
+        }
+
+      </div>
+    </div>
+  </div>
+  }
+</div>
 }

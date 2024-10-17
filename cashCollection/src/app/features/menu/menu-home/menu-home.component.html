@@ -1,10 +1,14 @@
-<div class="menu-home-container w-[100vw] h-[92vh] p-5 flex flex-col lg:flex-row justify-center items-center gap-14">
+<div class="menu-home-container w-[100vw] min-h-[92vh] p-5 flex flex-col lg:flex-row justify-center items-center gap-14 flex-wrap">
     <div *ngIf="validateAccessList('Recaudo')" routerLink="/receipts">
         <p class="lg:h-[150px] w-[22vw]">Recaudos</p>
     </div>
     <div *ngIf="validateAccessList('Historial')" routerLink="/history">
         <p class="lg:h-[150px] w-[22vw]">Historial</p>
     </div>
+    <div *ngIf="validateAccessList('HistorialCoordinador')" routerLink="/history">
+        <p class="lg:h-[150px] w-[22vw]">Historial Coordinador</p>
+    </div>
+
     <div *ngIf="validateAccessList('Dispersion')">
         <p class="lg:h-[150px] w-[22vw]">Dispersión</p>
     </div>

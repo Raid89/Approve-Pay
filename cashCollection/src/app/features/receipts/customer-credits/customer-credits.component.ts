@@ -26,6 +26,8 @@ export class CustomerCreditsComponent implements OnInit {
   public paymentAuthCode?: string;
   public paymentCommerce?: string;
   public clientName: string | undefined;
+  public availableAmmount = 0;
+  public usedAmount = 0;
 
   constructor(
     private receiptService: ReceiptsService,
@@ -44,6 +46,13 @@ export class CustomerCreditsComponent implements OnInit {
       if(this.clientCredits.length < 1) this.validateDocumentStoraged();
       const userData = this.authService.userData
       this.paymentCommerce = userData?.url;
+      this.getUserBalance();
+  }
+
+  getUserBalance() {
+    this.receiptService.getClientBalance(this.documentClient).subscribe((response) => {
+    
+    })
   }
 
   loadClientCredits() {

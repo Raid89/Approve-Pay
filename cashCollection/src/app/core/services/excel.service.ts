@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { ReceiptsService } from './receipts.service';
+
 import { HistoryService } from './history.service';
 import { LoadingScreenService } from '../../shared/components/loading-screen/loading-screen.service';
 import { ToastService } from '../../shared/components/toast/toast.service';

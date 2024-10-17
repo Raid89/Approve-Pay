@@ -2,13 +2,24 @@
     <div class="m-auto w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
         <p *ngIf="showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
         <p *ngIf="!showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts/search">{{'<' + 'Atrás'}}</p>
-        <div class="bg-[#3886FF] p-4 mb-10 rounded-xl text-white">
-            <p class="text-xs m-0">Cliente</p>
-            <p class="text-xl font-bold my-2">{{ clientCredits[0].client | titlecase}}</p>
-            <p class="text-sm m-0">C.C {{ documentClient }}</p>
+        <div class="flex flex-col md:flex-row justify-between md:items-center mb-11 max-w-[344px] md:max-w-none m-auto">
+            <div class="mb-6 md:mb-0">
+                <p class="text-xl md:text-3xl text-[##191F38]"> Hola<b>, {{ clientCredits[0]?.client | titlecase }}</b> </p>
+                <p class="text-base md:text-lg text-[##191F38]">Tienes <b>{{ clientCredits.length }} créditos</b> activos </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 md:w-2/3">
+                <div class="flex flex-col justify-between py-4 px-4 md:px-6 border-2 border-[#E4E3E3] bg-[#F5F5F7] rounded-lg h-[80px] md:h-[89px] w-full">
+                    <p>Monto Utilizado</p>
+                    <p><b>{{ availableAmmount | currency : 'USD' : '$' : '1.0-0' }}</b></p>
+                </div>
+
+                <div class="flex flex-col justify-between py-4 px-4 md:px-6 border-2 border-[#E4E3E3] bg-[#7DFFB2] rounded-lg h-[80px] md:h-[89px] w-full">
+                    <p>Monto Disponible</p>
+                    <p><b>{{ usedAmount | currency : 'USD' : '$' : '1.0-0' }}</b></p>
+                </div>
+            </div>
         </div>
         @if (!showSummaryPayment) {
-            <p class="mb-4">Tiene <b>{{ clientCredits.length }} créditos</b> activos:</p>
             <app-table-credits [creditsData]="clientCredits" (changeValues)="updateCreditsSelected()"/>
             <div class="bg-[#7DFFB2] py-6 md:px-14 p-4 mb-10 rounded-xl text-white flex items-center justify-between md:justify-end md:gap-16">
                 <p class="text-lg text-[#231F20]">Total a pagar</p>

@@ -15,7 +15,7 @@ export class ReceiptsService {
     this.creditsData$.next(creditsData);
   }
 
-  public get creditsData(): CreditData[]{
+  public get creditsData(): CreditData[] {
     return this.creditsData$.getValue()
   }
 
@@ -42,24 +42,24 @@ export class ReceiptsService {
         if (credits.length === 0) {
           return credits;
         }
-      
+
         const firstEntry = credits[0];
         const { client } = firstEntry;
-      
+
         const parseDate = (dateString: string): Date => {
           const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
           return new Date(year, month - 1, day);
         };
-      
+
         const filteredCredits = credits.filter(credit => credit.saldoCredito > 0);
-      
+
         if (filteredCredits.length > 0) {
           filteredCredits.sort((a, b) => parseDate(a.nextFeesDate).getTime() - parseDate(b.nextFeesDate).getTime());
-      
+
 
           filteredCredits[0] = { ...filteredCredits[0], client };
         }
-      
+
         return filteredCredits;
       })
     );
@@ -71,7 +71,7 @@ export class ReceiptsService {
       let clientCredit: IClientCredit = {
         idCredit: '',
         ammount: 0
-      }; 
+      };
       clientCredit.idCredit = credit.id;
       clientCredit.ammount = credit.valueToSend;
       wLstCredits.push(clientCredit)
@@ -104,6 +104,16 @@ export class ReceiptsService {
   sendPayment(arrCredits: CreditData[], totalAmmount: number): Observable<any> {
     const route = environment.HttpUrl + '/clientcredits'
     const body = this.initSendPayment(arrCredits, totalAmmount);
+    return this.httpClient.post(route, body, { headers: this.getHeaders() })
+  }
+
+  getClientBalance(identificacion: string | null): Observable<any> {
+    const route = environment.HttpUrl + '/IdVal'
+    const body = {
+      actionStrategyPattern: 'SEARCH_CUPOS',
+      celularFormulario: "Approbe*",
+      identificacion
+    }
     return this.httpClient.post(route, body, { headers: this.getHeaders() })
   }
 }

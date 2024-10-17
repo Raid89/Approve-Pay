@@ -6,4 +6,6 @@ export const environment = {
     HttpEvidente:[
         'https://prod.approbe.co/articulator-service/lominco/data/evidente'
     ],
+
+    imagePath: 'https://image-bnpl.s3.amazonaws.com'
 };

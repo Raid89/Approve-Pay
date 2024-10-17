@@ -1,0 +1,13 @@
+.border-dashed {
+    border: 0; /* Elimina el borde predeterminado */
+    height: 2px; /* Grosor del borde */
+    background: repeating-linear-gradient(
+      to right,
+      #E8E7E7 0,
+      #E8E7E7 20px, /* Longitud del guion */
+      transparent 20px,
+      transparent 40px /* Longitud del espacio */
+    );
+    width: 100%; /* Ancho del elemento para que ocupe toda la línea */
+  
+}
