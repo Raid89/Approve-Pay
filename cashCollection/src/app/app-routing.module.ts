@@ -31,6 +31,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'coordinator-history',
+    loadChildren: () => import('./features/coordinator-history/coordinator-history.module').then(m => m.CoordinatorHistoryModule)
+  },
+
+  {
     path: 'simulator',
     loadChildren: () => import('./features/simulator/simulator.module').then(m => m.SimulatorModule)
   },

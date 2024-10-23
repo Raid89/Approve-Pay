@@ -51,7 +51,8 @@ export class CustomerCreditsComponent implements OnInit {
 
   getUserBalance() {
     this.receiptService.getClientBalance(this.documentClient).subscribe((response) => {
-    
+      this.availableAmmount = response.amountFinance;
+      this.usedAmount = response.ammountCupo;
     })
   }
 
@@ -206,5 +207,13 @@ export class CustomerCreditsComponent implements OnInit {
 
   reloadPage() {
     location.reload();
+  }
+
+  getTotalPayment(): number {
+    let total = 0;
+    this.creditsSelected.forEach((credit) => {
+      total += credit.valueToSend;
+    });
+    return total;
   }
 }

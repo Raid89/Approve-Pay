@@ -4,6 +4,7 @@ export interface IDateFilter {
     userId: string;
     start: number;
     end: number;
+    casheer?: string;
 }
   
 export interface IResponseTotales {

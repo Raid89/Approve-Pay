@@ -2,9 +2,9 @@
     <div class="m-auto w-full py-6 lg:px-32 px-4 overflow-hidden max-w-[1980px]">
         <p *ngIf="showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" (click)="reloadPage()">{{'<' + 'Atrás'}}</p>
         <p *ngIf="!showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts/search">{{'<' + 'Atrás'}}</p>
-        <div class="flex flex-col md:flex-row justify-between md:items-center mb-11 max-w-[344px] md:max-w-none m-auto">
+        <div *ngIf="!showSummaryPayment" class="flex flex-col md:flex-row justify-between md:items-center mb-11 max-w-[344px] md:max-w-none m-auto">
             <div class="mb-6 md:mb-0">
-                <p class="text-xl md:text-3xl text-[##191F38]"> Hola<b>, {{ clientCredits[0]?.client | titlecase }}</b> </p>
+                <p class="text-xl md:text-3xl text-[##191F38]"> Hola<b>, {{ clientCredits[0].client | titlecase }}</b> </p>
                 <p class="text-base md:text-lg text-[##191F38]">Tienes <b>{{ clientCredits.length }} créditos</b> activos </p>
             </div>
             <div class="flex flex-col md:flex-row gap-6 md:gap-10 md:w-2/3">
@@ -30,23 +30,41 @@
             </div>
         }
         @if (showSummaryPayment) {
-        <div class=" flex flex-col md:flex-row justify-center items-center md:items-start gap-7 md:gap-20">
-            <div class="flex md:flex-col items-center max-w-[344px] md:max-w-none">
-                <img src="assets/icons/success-payment.png" class="w-24 md:w-auto">
-                <span class="text-2xl">El pago ha sido <b>exitoso</b></span>
-                <i class="fi fi-rr-print text-2xl cursor-pointer" (click)="printSummary()"></i>
-            </div>
+        <div class="flex justify-center items-center">
             <div>
-                <div class="relative border border-[#191F38] p-4 md:p-6 rounded-xl w-[344px] md:w-[468px]" id="payment-summary">
+                <div class="relative border border-[#E4E3E3] p-4 md:p-6 rounded-xl w-[344px] md:w-[568px]" id="payment-summary">
                     <div 
                         id="text-pay"
-                        class="absolute border-2 md:border-4 border-[#3886FF] text-[#3886FF] 
+                        class="hidden absolute border-2 md:border-4 border-[#3886FF] text-[#3886FF] 
                         font-medium text-base md:text-2xl py-1 px-3 md:px-5 opacity-60 rotate-[-30deg] 
                         top-[-25px] md:top-6 right-[-30px] md:right-1 tracking-[3.703px] md:tracking-[4.615px]">
                         PAGADO
                     </div>
-                    <p class="text-[#222] text-2xl font-bold mb-3">Resumen del pago</p>
-                    <div class="flex flex-col gap-3 mb-7">
+                    <div class="flex justify-between items-center pb-6">
+                        <div>
+                            <p class="text-[#222] text-2xl font-bold mb-7 flex items-center gap-3">
+                                Pago realizado
+                                <i class="fi fi-rr-print text-2xl cursor-pointer" (click)="printSummary()"></i>
+                            </p>
+                            <p>
+                                <span class="font-normal text-sm">Valor pagado;</span>
+                                <br>
+                                <span class="font-bold text-3xl">{{ getTotalPayment() | currency : 'USD' : '$' : '1.0-0' }}</span>
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col justify-center items-center">
+                            <img src="assets/icons/success-payment.png" class="w-24 md:w-auto">
+                        </div>
+                    </div>
+
+                    <div>
+                        @for (item of creditsSelected; track $index) {
+                            <app-info-card [creditNumber]="item.id" [dynamicData]="mapDataShowSummary(item)" />
+                        }
+                    </div>
+                    
+                    <div class="flex flex-col gap-3 mb-7 border-t border-[#C1C1C1] border-dashed py-6">
                         <div class="flex justify-between text-base">
                             <span>Fecha</span>
                             <span class="font-medium">{{ this.paymentDateResponse | date:'dd-MM-yyyy' }}</span>
@@ -64,16 +82,12 @@
                             <span class="font-medium">{{ this.paymentAuthCode }}</span>
                         </div>
                     </div>
-                    <div>
-                        @for (item of creditsSelected; track $index) {
-                            <app-info-card [creditNumber]="item.id" [dynamicData]="mapDataShowSummary(item)" />
-                        }
+
+                    <div class="flex gap-9 mt-6">
+                        <app-button class="w-full md:w-1/2" buttonText="Ir a creditos" buttonColor="#7DFFB2" buttonTextColor="#191F38" (click)="reloadPage()" />
                     </div>
                 </div>
-                <div class="flex gap-9 mt-6">
-                    <app-button class="w-full hidden md:block" buttonText="Ir al Inicio" routerLink="/home" />
-                    <app-button class="w-full" buttonText="Ir a creditos" buttonColor="white" buttonTextColor="#191F38" (click)="reloadPage()" />
-                </div>
+
             </div>
         </div>
         }

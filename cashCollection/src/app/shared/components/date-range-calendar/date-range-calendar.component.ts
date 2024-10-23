@@ -17,7 +17,7 @@ export class DateRangeCalendarComponent {
     this.currentMonth = new Date();
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.maxDate.getDate() - 60);
+    this.minDate.setDate(this.maxDate.getDate() - 6000); //60
     this.generateCalendar();
   }
 
@@ -62,7 +62,7 @@ export class DateRangeCalendarComponent {
       if (!this.range.start || (this.range.start && this.range.end)) {
         this.range.start = date;
         this.range.end = null;
-        debugger
+
       } else if (this.range.start && !this.range.end && date >= this.range.start) {
         this.range.end = date;
         this.setDateRange.emit(this.range);

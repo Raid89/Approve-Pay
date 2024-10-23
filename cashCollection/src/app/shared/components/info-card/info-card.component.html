@@ -1,13 +1,14 @@
-<div class="bg-white pb-6 px-4 border border-[#E4E3E3] rounded-xl text-base mb-6">
-    <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6">
-      <span><b>Número de crédito</b> <br> ****{{ creditNumber.slice(-4) }}</span>
+<div class="bg-white border-t border-[#C1C1C1] border-dashed rounded-xl text-base py-6">
+    <div class="flex items-center justify-between mb-3">
+      <span>Número de crédito</span>
+      <span>****{{ creditNumber.slice(-4) }}</span>
     </div>
   
     <div class="flex flex-col gap-4" id="test">
       <div *ngFor="let item of dynamicData">
         <div class="flex justify-between">
           <span>{{ item.label }}</span>
-          <span class="font-medium">{{ item.value }}</span>
+          <span>{{ item.value }}</span>
         </div>
       </div>
     </div>
