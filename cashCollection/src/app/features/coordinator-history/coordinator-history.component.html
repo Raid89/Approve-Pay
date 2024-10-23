@@ -1,6 +1,6 @@
 <div class="bg-white min-h-[100vh]">
     <div class="px-4 lg:px-36 max-w-[1980px] m-auto pt-6 lg:pt-10">
-        <p class="w-full text-start text-2xl text-[#191F38] font-bold mb-6 lg:mb-12 lg:mt-0">Historial</p>
+        <p class="w-full text-start text-2xl text-[#191F38] font-bold mb-6 lg:mb-12 lg:mt-0">Gestión de recaudos</p>
         <div class=" flex flex-col lg:flex-row justify-center items-center lg:items-start">
             <div class="w-full lg:w-[16rem] mb-5 lg:mb-0 lg:mr-16 lg:h-[66px] flex items-center">
                 <p class="w-full text-start text-lg text-[#191F38] font-medium ">Consultar por fechas</p>
@@ -32,7 +32,12 @@
         </div>
     </div>
 
+    <div *ngIf="showHistory" class="lg:max-w-[367px] px-4 lg:px-0 lg:pl-36 text-sm font-semibold mt-7">
+        <p class="mb-2">Recaudador</p>
+        <app-select  [options]="[{ value: '', label: 'Ver Todos'}, { value: '53155249', label: 'Test Cashier' }]" (returnValue)="setCashher($event)" />
+    </div>
+
     <div *ngIf="showHistory" class="px-4 lg:px-36 max-w-[1980px] m-auto pt-6 lg:pt-10">
-        <app-coordinator-total [totalCollection]="totalCollection" [totalAmmountCollection]="totalAmmountCollection" />
+        <app-coordinator-total [totalAmmountCollection]="totalAmmountCollection" [totalEntries]="totalEntries"/>
     </div>
 </div>

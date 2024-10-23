@@ -4,7 +4,7 @@
         <p *ngIf="!showSummaryPayment" class="w-full text-sm font-medium cursor-pointer hover:underline mb-9 md:mb-6 md:mt-10" routerLink="/receipts/search">{{'<' + 'Atrás'}}</p>
         <div *ngIf="!showSummaryPayment" class="flex flex-col md:flex-row justify-between md:items-center mb-11 max-w-[344px] md:max-w-none m-auto">
             <div class="mb-6 md:mb-0">
-                <p class="text-xl md:text-3xl text-[##191F38]"> Hola<b>, {{ clientCredits[0].client | titlecase }}</b> </p>
+                <p class="text-xl md:text-3xl text-[##191F38]"> Hola<b>, {{ clientCredits[0]?.client | titlecase }}</b> </p>
                 <p class="text-base md:text-lg text-[##191F38]">Tienes <b>{{ clientCredits.length }} créditos</b> activos </p>
             </div>
             <div class="flex flex-col md:flex-row gap-6 md:gap-10 md:w-2/3">

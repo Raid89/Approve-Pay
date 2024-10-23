@@ -10,5 +10,7 @@ export const environment = {
     cognito: {
         userPoolId: 'us-east-1_gjJEL1ucD',
         userPoolWebClientId: '47vde8goch7prjpqchjnfdbj98',
-    }
+    },
+
+    imagePath: 'https://image-bnpl-prod.s3.amazonaws.com'
 };

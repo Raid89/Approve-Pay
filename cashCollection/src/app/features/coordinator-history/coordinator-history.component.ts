@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import { PopUpComponent } from '../../shared/components/pop-up/pop-up.component'
 import { IResponseTotales, IDateFilter } from '../../shared/interfaces/history.interface';
 import { CoordinatorHistoryService } from '../../core/services/coordinator-history.service';
 import { CoordinatorTotalComponent } from './coordinator-total/coordinator-total.component';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-coordinator-history',
@@ -17,7 +18,7 @@ import { CoordinatorTotalComponent } from './coordinator-total/coordinator-total
   imports: [SharedModule, CommonModule, CoordinatorTotalComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }]
 })
-export class CoordinatorHistoryComponent {
+export class CoordinatorHistoryComponent implements OnInit {
 
   public range:any = {
     start: '',
@@ -25,14 +26,19 @@ export class CoordinatorHistoryComponent {
   };
   public showHistory: boolean = false;
   public showCalendar: boolean = true;
-  public totalCollection!: IResponseTotales[];
+  public totalEntries!: number;
   public totalAmmountCollection = 0;
+  public casheer?: string;
 
   constructor( 
     private coordinatorHistory: CoordinatorHistoryService,
     private LoadingS: LoadingScreenService,
     private dialog: MatDialog
   ) {}
+
+  ngOnInit(): void {
+    this.coordinatorHistory.getCashiers({userId: sessionStorage.getItem('userDocument') || ''}).subscribe();
+  }
 
   setDateRange(dateRange: any) {
     this.range = dateRange;
@@ -50,12 +56,6 @@ export class CoordinatorHistoryComponent {
     return `${dayName} ${day} ${month}`;
   }
 
-  extractStringInsideParentheses(input: string): string | Date {
-    const regex = /\(([^)]+)\)/;
-    const match = regex.exec(input);
-    return match ? match[1] : new Date();
-  }
-
   formatDateToRequets(dateToParse: string){
     return moment(dateToParse).format('YYYYMMDD');
   }
@@ -64,14 +64,16 @@ export class CoordinatorHistoryComponent {
     this.showCalendar = !this.showCalendar
   }
 
-  calculatedTotalAmmount() {
-    this.totalCollection.forEach(item => {
-      this.totalAmmountCollection += item.ammount;
-    })
+  openErrorPopUp(text: string) { 
+    this.dialog.open(PopUpComponent, { data: 
+      { 
+        popUpText: text,
+        buttonText: 'De Acuerdo'
+      }})
+    this.showHistory = false;
   }
 
-  searchTotals(casheer?: string) {
-    this.LoadingS.loadingScreen = true;
+  dataFilter(casheer?: string): IDateFilter {
     const startDate = this.formatDateToRequets(this.range.start);
     const endDate = this.formatDateToRequets(this.range.end);
     const userId = sessionStorage.getItem('userDocument') || '';
@@ -83,33 +85,33 @@ export class CoordinatorHistoryComponent {
       end: 100,
       casheer
     };
+    return dataFilter
+  }
 
-    const observerTotal = {
-      next: (response: IResponseTotales[]) => { 
-        this.LoadingS.loadingScreen = false; 
-        if(response.length < 1) {
-          this.dialog.open(PopUpComponent, { data: 
-          { 
-            popUpText: 'No hay resultados para la busqueda',
-            buttonText: 'De Acuerdo'
-          }})
-          this.showHistory = false;
-          return
-        }
-        this.showCalendar = false;
-        this.totalCollection = response;
-        this.calculatedTotalAmmount()
-        this.showHistory = true;
-        },
-      error: (err: any) => { 
-        this.dialog.open(PopUpComponent, { data: 
-          { 
-            popUpText: 'En este momento estamos experimentando incovenientes',
-            buttonText: 'De Acuerdo'
-          }})
-      }
-    };
+  setCashher(casheer: string) { 
+    this.casheer = casheer === '' ? undefined : casheer;
+    this.searchTotals();
+  }
 
-    this.coordinatorHistory.getTotalsCasheer(dataFilter).subscribe(observerTotal);
+  async searchTotals() {
+    try {
+      this.LoadingS.loadingScreen = true;
+      this.showHistory = false;
+
+      const responseTotals = (await lastValueFrom(this.coordinatorHistory.getTotalsCasheer(this.dataFilter(this.casheer))));
+      this.totalAmmountCollection = responseTotals.ammount
+      this.totalEntries = responseTotals.end;
+      if(this.totalEntries < 1) {
+        this.openErrorPopUp('No hay resultados para la busqueda');
+        this.LoadingS.loadingScreen = false;
+      } 
+  
+      this.showCalendar = false;
+      this.showHistory = true;
+      this.LoadingS.loadingScreen = false;
+    } catch (error) {
+      this.openErrorPopUp('En este momento estamos experimentando incovenientes');
+      this.LoadingS.loadingScreen = false;
+    }
   }
 }

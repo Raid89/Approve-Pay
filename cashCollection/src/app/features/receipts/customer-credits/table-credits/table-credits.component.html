@@ -141,7 +141,7 @@
 @if(!isSmall){
 <div class="bg-white border border-[#E4E3E3] rounded-xl text-base  mb-6 grip divide-y overflow-auto"
   style="overflow-x: auto;">
-  <div class="bg-[#F9F9F9] grid-cols-11 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1300px] pl-6">
+  <div class="bg-[#F9F9F9] grid-cols-12 grid text-[#231F20] text-sm font-semibold py-6 min-w-[1300px] pl-6">
     <div class="flex items-center max-w-fit"><app-checkbox checkId="check-all" (returnValue)="changeSelectAll($event)" /></div>
     <div class="flex items-center">N° Crédito</div>
     <div class="flex items-center">Comercio</div>
@@ -150,12 +150,12 @@
     <div class="flex items-center">Límite de pago</div>
     <div class="flex items-center">Estado</div>
     <div class="flex items-center"></div>
-    <div class="flex items-center">Tipo de pago</div>
+    <div class="flex items-center col-span-2">Tipo de pago</div>
     <div class="flex items-center col-span-2">Valor</div>
   </div>
   @for (item of creditsData; track $index){
   <div>
-    <div class="grid-cols-11 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1300px] pl-6">
+    <div class="grid-cols-12 grid text-[#231F20] text-sm font-semibold py-8 min-w-[1300px] pl-6">
       <div class="flex items-center max-w-fit"><app-checkbox [checkId]="'check-' + item.id" [isChecked]="item.selected"
           (returnValue)="selectCredit($index, $event)" /></div>
       <div class="flex items-center">****{{ item.id.slice(-4) }}</div>
@@ -184,7 +184,7 @@
           <i class="fi fi-rr-angle-small-down"></i>
         </span>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center col-span-2">
         <app-select class="max-w-1/2" [disabled]="!item.selected" [options]="updOptionsByNextPaid(item.nextPaid)"
           (returnValue)="selectTypePaid($index, $event)" />
       </div>
@@ -214,7 +214,7 @@
           <div class="flex items-center">ID</div>
         </div>
         @if (item.payments.length > 0) {
-        @for ( payment of item.payments; track $index ) {
+        @for ( payment of sortPaymentsByDate(item.payments); track $index ) {
         <div
           class="grid-cols-3 grid text-[#231F20] text-sm font-semibold py-6 h-[37px] rounded-xl pl-6  content-center">
           <div class="flex items-center">{{ payment.effective_date | date: 'dd/MM/yyyy' }}</div>

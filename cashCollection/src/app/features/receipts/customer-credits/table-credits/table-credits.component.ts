@@ -109,4 +109,8 @@ export class TableCreditsComponent implements OnInit {
   getImageUrl(comercio: string) {
     return `${environment.imagePath}/${comercio}.png`
   }
+  
+  sortPaymentsByDate(payments: any[]): any[] {
+    return payments.sort((a, b) => new Date(b.effective_date).getTime() - new Date(a.effective_date).getTime());
+  }
 }

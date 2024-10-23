@@ -11,5 +11,6 @@ export interface IResponseTotales {
     startDate: string,
     start: number,
     end: number,
-    ammount: number
+    ammount: number,
+    totalAmmount: number,
 }

@@ -32,7 +32,7 @@ export class CoordinatorHistoryService {
     });
   }
 
-  getTotalsCasheer(dateFilter: IDateFilter): Observable<IResponseTotales[]> {
+  getTotalsCasheer(dateFilter: IDateFilter): Observable<IResponseTotales> {
     const route = environment.HttpUrl + '/clientcredits'
 
     const body = {
@@ -42,7 +42,7 @@ export class CoordinatorHistoryService {
 
     this.setDataFilter(dateFilter.startDate, dateFilter.endDate, dateFilter.userId, dateFilter?.casheer)
 
-    return this.httpClient.post<IResponseTotales[]>(route, body, { headers: this.getHeaders() })
+    return this.httpClient.post<IResponseTotales>(route, body, { headers: this.getHeaders() })
   }
 
   setDataFilter(startDate: string, endDate: string, userId: string, casheer?: string){
@@ -58,8 +58,8 @@ export class CoordinatorHistoryService {
 
   getRegistersCasheer(start: number, end: number): Observable<IResponseTotales[]> {
     const route = environment.HttpUrl + '/clientcredits';
-    this.dataFilter.start = start;
-    this.dataFilter.end = end;
+    this.dataFilter.start = start || 0;
+    this.dataFilter.end = end || 0;
 
     const body = {
       actionStrategyPattern: "GET_CLIENT_COLLECTIONS",
@@ -67,5 +67,16 @@ export class CoordinatorHistoryService {
     }
 
     return this.httpClient.post<IResponseTotales[]>(route, body, { headers: this.getHeaders() })
+  }
+
+  getCashiers(dataFilter: { userId: string  }): Observable<any> {
+    const route = environment.HttpUrl + '/clientcredits';
+
+    const body = {
+      actionStrategyPattern: "GET_CLIENT_USERS",
+      dataFilter
+    }
+
+    return this.httpClient.post<any>(route, body, { headers: this.getHeaders() })
   }
 }

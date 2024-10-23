@@ -9,11 +9,12 @@
   @for (transaction of totalCollection; track $index) {
   <div class="bg-white max-w-[344px] pb-6 border border-[#E4E3E3] rounded-xl text-base mb-6 md:hidden m-auto">
       <div class="flex items-center justify-between bg-[#F9F9F9] pt-4 pb-6 mb-6 px-4">
-          <span>Fecha de transacción</span>
+          <span><b>Fecha de transacción</b></span>
           <span>{{ transaction.datehour | date: 'dd-MM-yyyy HH:mm:ss' }}</span>
       </div>
   
       <div class="flex flex-col px-4  gap-4" (click)="toggleSubtable($index)">
+  
           <div class="flex justify-between">
               <span>Monto recaudado</span>
               <span class="font-medium">${{ transaction.totalAmmount | currency : 'USD' : '' : '1.0-0' }}</span>
@@ -58,16 +59,18 @@
   </div>
   
   <div class="bg-white border border-[#E4E3E3] rounded-xl text-base mb-6 overflow-auto hidden md:block">
-      <div class="bg-[#F9F9F9] grid grid-cols-5 justify-items-center text-[#231F20] text-sm font-semibold py-6 min-w-[1120px] pl-6">
+      <div class="bg-[#F9F9F9] grid grid-cols-6 justify-items-center text-[#231F20] text-sm font-semibold py-6 min-w-[1120px] pl-6">
         <div class="flex items-center">Fecha de transacción</div>
+        <div class="flex items-center">Recaudador</div>
         <div class="flex items-center">Monto recaudado</div>
         <div class="flex items-center">Cédula cliente</div>
         <div class="flex items-center">N° Autorización</div>
         <div class="flex items-center"><button (click)="exportToExcel()" title="Exportar a excel">Exportar <i class="fi fi-rr-file-excel text-xl"></i></button></div>
       </div>
       <div *ngFor="let transaction of totalCollection; let i = index">
-        <div class="grid grid-cols-5 justify-items-center text-[#231F20] text-sm font-medium py-8 min-w-[1120px] pl-6 cursor-pointer border-t border-t-gray-400" (click)="toggleSubtable(i)">
+        <div class="grid grid-cols-6 justify-items-center text-[#231F20] text-sm font-medium py-8 min-w-[1120px] pl-6 cursor-pointer border-t border-t-gray-400" (click)="toggleSubtable(i)">
           <div class="flex items-center">{{ transaction.datehour | date: 'dd-MM-yyyy HH:mm:ss' }}</div>
+          <div class="flex items-center">{{ transaction.casheer }}</div>
           <div class="flex items-center">${{ transaction.totalAmmount | currency : 'USD' : '' : '1.0-0' }}</div>
           <div class="flex items-center">{{ transaction.customer }}</div>
           <div class="flex items-center">{{ transaction.coreId }}</div>

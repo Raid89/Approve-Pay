@@ -58,6 +58,14 @@ export class NavbarComponent implements OnInit {
     },
 
     {
+      text: 'Historial Coordinador',
+      textToValidate: 'HistorialCoordinador',
+      path: '/coordinator-history',
+      active: false,
+      show: false
+    },
+
+    {
       text: 'Dispersión',
       textToValidate: 'Dispersion',
       path: '/dispersion',
